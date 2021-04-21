@@ -2,8 +2,6 @@ import React from 'react';
 import AppIcon from '../images/dog_lover.png';
 import SearchBar from '../components/searchBar';
 import { withStyles } from '@material-ui/core/styles';
-// import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
 const styles = {
@@ -17,8 +15,8 @@ const styles = {
 };
 
 export class home extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {};
     }
 
