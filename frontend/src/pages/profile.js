@@ -18,6 +18,9 @@ const styles = {
     },
     prof_button: {
         width: '10'
+    },
+    update_button: {
+        margin: '10 10 10 10'
     }
 };
 
@@ -26,7 +29,7 @@ export class profile extends Component {
         const { classes } = this.props; 
         return (
             <Grid container spacing = {1}>
-                <Grid container item xs = {12}>
+                <Grid container item xs = {12} alignItems = 'center' spacing = {1}>
                     <Grid item sm>
                         <p>Pic one</p>
                     </Grid>
@@ -76,11 +79,19 @@ export class profile extends Component {
                             </Button>
                         </Grid>
                         </Grid>
-                        <Grid container item xs = {8}>
-                            <h1>This is a website designed and developed by Eric Hsu, a currently enrolled graduate student at UC Irvine.  Go check my fucking codes.</h1>
+                        <Grid container item xs = {8} alignItems="center" className = {classes.overview}>
+                            <Grid item sm>
+                                <h1>Overview</h1>
+                            </Grid>
+                            <Grid item sm>
+                                <Button variant="outlined" color="primary" className = {classes.update_button}>
+                                    update
+                                </Button>
+                            </Grid>
+                            <Grid item sm/>
                         </Grid>
                         <Grid container item xs = {8}>
-                            <p>Just some information regarding web development...</p>
+                            <p>Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...</p>
                         </Grid>
                     </Grid>
                     <Grid container item xs = {4}>
@@ -101,7 +112,87 @@ export class profile extends Component {
                 </Grid>
                 
                 <Grid container item xs = {12}>
-                    <h1>New features to be developed...</h1>
+                    <h1>News and Updates</h1>
+                </Grid>
+
+                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
+                    <Grid item sm>
+                        <p>Pic 1</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 2</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 3</p>
+                    </Grid>
+                    <Grid item sm>
+                        <Button variant="outlined" color="primary">
+                            more
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid container item xs = {12}>
+                    <h1>Sires</h1>
+                </Grid>
+
+                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
+                    <Grid item sm>
+                        <p>Pic 1</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 2</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 3</p>
+                    </Grid>
+                    <Grid item sm>
+                        <Button variant="outlined" color="primary">
+                            more
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid container item xs = {12}>
+                    <h1>Dams</h1>
+                </Grid>
+
+                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
+                    <Grid item sm>
+                        <p>Pic 1</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 2</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 3</p>
+                    </Grid>
+                    <Grid item sm>
+                        <Button variant="outlined" color="primary">
+                            more
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid container item xs = {12}>
+                    <h1>Available Puppies</h1>
+                </Grid>
+
+                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
+                    <Grid item sm>
+                        <p>Pic 1</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 2</p>
+                    </Grid>
+                    <Grid item sm>
+                        <p>Pic 3</p>
+                    </Grid>
+                    <Grid item sm>
+                        <Button variant="outlined" color="primary">
+                            more
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
         )
