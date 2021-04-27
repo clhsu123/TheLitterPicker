@@ -1,2 +1,2 @@
 # ignore ./frontend/node_modules/ folder
-./frontend/node_modules/
+frontend/node_modules
