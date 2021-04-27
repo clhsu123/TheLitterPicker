@@ -31,6 +31,16 @@ export class search extends React.Component {
                     <List>
                         <BreederInfoCard/>
                         <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+                        <BreederInfoCard/>
+
                     </List>
                 </Grid>
             </Grid>

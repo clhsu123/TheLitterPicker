@@ -11,7 +11,7 @@ import Navbar from './components/new_Navbar';
 import login from './pages/login';
 import signup from './pages/signup';
 import profile from './pages/profile';
-import search from './pages/search';
+import search from './pages/Search';
 import home from './pages/home';
 
 
