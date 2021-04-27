@@ -15,28 +15,28 @@ import Grid from '@material-ui/core/Grid';
 const styles = {
     form: {
         textAlign: 'center'
-      },
-      image: {
+    },
+    image: {
         margin: '20px auto 20px auto'
-      },
-      pagetitle: {
+    },
+    pagetitle: {
         margin: '10px auto 10px auto'
-      },
-      textField: {
+    },
+    textField: {
         margin: '10px auto 10px auto'
-      },
-      button: {
+    },
+    button: {
         marginTop: 20,
         position: 'relative'
-      },
-      customError: {
+    },
+    customError: {
         color: 'red',
         fontSize: '0.8rem',
         marginTop: 10
-      },
-      progress: {
+    },
+    progress: {
         position: 'absolute'
-      }
+    }
 };
 
 
