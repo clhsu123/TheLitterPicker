@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
@@ -11,7 +11,9 @@ import Navbar from './components/new_Navbar';
 import login from './pages/login';
 import signup from './pages/signup';
 import profile from './pages/profile';
+import search from './pages/search';
 import home from './pages/home';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -62,18 +64,19 @@ export class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <div className="App">
-        <Router>
-        <Navbar />
-          <div className="container">
-          <Switch>
-            <Route exact path="/" component={home}/>
-            <Route exact path="/login" component={login}/>
-            <Route exact path="/signup" component={signup}/>
-            <Route exact path="/profile" component={profile}/>
-          </Switch>
-          </div>
-        </Router>
-      </div>
+          <Router>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/login" component={login} />
+                <Route exact path="/signup" component={signup} />
+                <Route exact path="/search" component={search} />
+                <Route exact path="/profile" component={profile} />
+                <Route exact path="/" component={home} />
+              </Switch>
+            </div>
+          </Router>
+        </div>
       </MuiThemeProvider>
     );
   }
