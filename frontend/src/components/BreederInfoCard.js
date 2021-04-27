@@ -22,6 +22,10 @@ const styles = {
     card_content: {
         display: 'flex',
         // justify: 'center',
+    },
+
+    tags: {
+        textDecoration: 'underline',
     }
 };
 
@@ -49,17 +53,23 @@ export class BreederInfoCard extends React.Component {
                     <CardMedia
                         className={classes.avatar}
                         title="Breeder Image"
-                        image="https://homepages.cae.wisc.edu/~ece533/images/cat.png"
+                        image={this.props.info.background_photo}
                     // <Avatar variant='square' alt="Remy Sharp" src="https://topics.amcham.com.tw/wp-content/uploads/2016/07/biodiversity6-1.jpg" />
                     />
                     <div className={classes.card_content}>
                         <CardContent>
                             <Typography component="h5" variant="h5">
-                                SnoValley Collies
+                                {this.props.info.dog_breed_type}
                             </Typography>
-                            
-                            <Typography variant="body1" color="textSecondary">
-                                Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...
+
+                            <Typography variant="body1" color="textSecondary" className={classes.tags}>
+                                {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
+                                {this.props.info.address}
+                            </Typography>
+
+                            <Typography variant="h6" color="h6">
+                                {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
+                                {this.props.info.overview}
                             </Typography>
 
                             <Typography>

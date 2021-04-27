@@ -59,30 +59,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
-    // form: {
-    //     textAlign: 'center'
-    // },
-    // image: {
-    //     margin: '20px auto 20px auto'
-    // },
-    // pagetitle: {
-    //     margin: '10px auto 10px auto'
-    // },
-    // textField: {
-    //     margin: '10px auto 10px auto'
-    // },
-    // button: {
-    //     marginTop: 20,
-    //     position: 'relative'
-    // },
-    // customError: {
-    //     color: 'red',
-    //     fontSize: '0.8rem',
-    //     marginTop: 10
-    // },
-    // progress: {
-    //     position: 'absolute'
-    // }
+    searchbar: {
+        textAlign: 'center',
+        color: 'red',
+    },
 };
 
 export class SearchBar extends React.Component {
@@ -109,9 +89,10 @@ export class SearchBar extends React.Component {
 
     render() {
         // const { history } = useHistory();
+        const { classes } = this.props;
         return (
             <Grid item container xs={12} direction='row' justify='center' alignItems='center'>
-                <Grid item>
+                <Grid item className>
                     <FormControl variant="outlined">
                         <OutlinedInput
                             id="outlined-adornment-searchbar"
