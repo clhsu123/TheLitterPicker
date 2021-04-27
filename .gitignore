@@ -1,2 +1,2 @@
-# ignore ./frontend/node_modules/ folder
+# ignore ./frontend/node_modules/ folder for the future git commits
 frontend/node_modules
