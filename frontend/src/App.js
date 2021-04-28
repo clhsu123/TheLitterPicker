@@ -13,7 +13,7 @@ import signup from './pages/signup';
 import profile from './pages/profile';
 import search from './pages/Search';
 import home from './pages/home';
-
+import pet from  './pages/pet'
 
 const theme = createMuiTheme({
   palette: {
@@ -72,6 +72,7 @@ export class App extends Component {
                 <Route exact path="/signup" component={signup} />
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
+                <Route exact path="/pet" component={pet} />
                 <Route exact path="/" component={home} />
               </Switch>
             </div>
