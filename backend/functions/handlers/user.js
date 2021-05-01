@@ -57,6 +57,121 @@ exports.signup = (req,res) => {
            }
        });
 };
+exports.signup_as_breeder = (req,res) => {
+    const newUser = {
+        email: req.body.email,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword,
+        handle: req.body.handle,
+    };
+
+    const { errors, valid } = validateSignupData(newUser);
+
+    if(!valid) return res.status(400).json(errors);
+
+    const noImg = 'no-img.png';
+
+
+    let token, userId;
+    db.doc(`/PuppyBreeders/${newUser.handle}`).get()
+       .then(doc => {
+           if(doc.exists){
+               //Return client error (status(400) refers to client error, while status(500) refer to server error)
+               return res.status(400).json({ handle: 'this handle is already taken'});
+           } else {
+               // This return the data which contains a uid(unique id) for a newly signed up user
+               return firebase
+               .auth()
+               .createUserWithEmailAndPassword(newUser.email, newUser.password);
+           }
+       })
+       .then(data => {
+           userId = data.user.uid;
+           return data.user.getIdToken();
+       }) 
+       .then(idToken => {
+           token = idToken;
+           // Fields that would be added to the document of that user
+           const userCredentials = {
+               handle: newUser.handle,
+               email: newUser.email,
+               //This is a default image url
+               imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+               createdAt: new Date().toISOString(),
+               userId: userId
+           };
+           return db.doc(`/PuppyBreeders/${newUser.handle}`).set(userCredentials);
+       })
+       .then(() => {
+           return res.status(201).json({ token });
+       })
+       .catch(err => {
+           console.error(err);
+           if(err.code === 'auth/email-already-in-use'){
+               return res.status(400).json({ email: 'Email is already in use'})
+           } else {
+               return res.status(500).json({ error: err.code});
+           }
+       });
+};
+
+exports.signup_as_pet_owner = (req,res) => {
+    const newUser = {
+        email: req.body.email,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword,
+        handle: req.body.handle,
+    };
+
+    const { errors, valid } = validateSignupData(newUser);
+
+    if(!valid) return res.status(400).json(errors);
+
+    const noImg = 'no-img.png';
+
+
+    let token, userId;
+    db.doc(`/PetOwner/${newUser.handle}`).get()
+       .then(doc => {
+           if(doc.exists){
+               //Return client error (status(400) refers to client error, while status(500) refer to server error)
+               return res.status(400).json({ handle: 'this handle is already taken'});
+           } else {
+               // This return the data which contains a uid(unique id) for a newly signed up user
+               return firebase
+               .auth()
+               .createUserWithEmailAndPassword(newUser.email, newUser.password);
+           }
+       })
+       .then(data => {
+           userId = data.user.uid;
+           return data.user.getIdToken();
+       }) 
+       .then(idToken => {
+           token = idToken;
+           // Fields that would be added to the document of that user
+           const userCredentials = {
+               handle: newUser.handle,
+               email: newUser.email,
+               //This is a default image url
+               imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+               createdAt: new Date().toISOString(),
+               userId: userId
+           };
+           return db.doc(`/PetOwner/${newUser.handle}`).set(userCredentials);
+       })
+       .then(() => {
+           return res.status(201).json({ token });
+       })
+       .catch(err => {
+           console.error(err);
+           if(err.code === 'auth/email-already-in-use'){
+               return res.status(400).json({ email: 'Email is already in use'})
+           } else {
+               return res.status(500).json({ error: err.code});
+           }
+       });
+};
 
 //Log users in
 exports.login = (req,res) => {
@@ -92,6 +207,30 @@ exports.addUserDetails = (req, res) => {
     let userDetails = reduceUserDetails(req.body);
 
     db.doc(`/users/${req.user.handle}`).update(userDetails)
+        .then(() => {
+            return res.json({ message: 'Details added successfully'});
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({error: err.code})
+        });
+};
+
+exports.addBreederDetails = (req, res) => {
+    let userDetails = req.body;
+    db.doc(`/PuppyBreeders/${req.user.handle}`).update(userDetails)
+        .then(() => {
+            return res.json({ message: 'Details added successfully'});
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({error: err.code})
+        });
+};
+
+exports.addPetDetails = (req, res) => {
+    let userDetails = req.body;
+    db.doc(`/PetOwner/${req.user.handle}`).update(userDetails)
         .then(() => {
             return res.json({ message: 'Details added successfully'});
         })
