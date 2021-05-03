@@ -1,33 +1,47 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useParams } from 'react-router-dom';
 import './App.css';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 //Components
-import Navbar from './components/new_Navbar';
+// import Navbar from './components/new_Navbar';
+import Navbar from './components/Navbar';
 //Pages
 //import home_firebase from './pages/home_firebase';
 import login from './pages/login';
 import signup from './pages/signup';
 import profile from './pages/profile';
 import search from './pages/Search';
-import home from './pages/home';
-
+// import home from './pages/home';
+import NewHome from './pages/newHome';
 
 const theme = createMuiTheme({
   palette: {
+    // primary: {
+    //   light: '#757ce8',
+    //   main: '#3f50b5',
+    //   dark: '#002884',
+    //   contrastText: '#fff',
+    // },
+    // secondary: {
+    //   light: '#ff7961',
+    //   main: '#f44336',
+    //   dark: '#ba000d',
+    //   contrastText: '#000',
+    // },
+
     primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
-      contrastText: '#fff',
+      light: '#ffcd38',
+      main: '#ffc107',
+      dark: '#b28704',
+      contrastText: '#000',
     },
     secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
+      light: '#33bfff',
+      main: '#00b0ff',
+      dark: '#007bb2',
+      contrastText: '#FFF',
     },
   },
   typography: {
@@ -60,6 +74,12 @@ const theme = createMuiTheme({
 });
 
 export class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+  }
   render() {
     return (
       <MuiThemeProvider theme={theme}>
@@ -72,7 +92,8 @@ export class App extends Component {
                 <Route exact path="/signup" component={signup} />
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
-                <Route exact path="/" component={home} />
+                {/* <Route exact path="/" component={home} /> */}
+                <Route exact path="/" component={NewHome} />
               </Switch>
             </div>
           </Router>
