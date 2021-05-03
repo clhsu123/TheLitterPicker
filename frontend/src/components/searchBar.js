@@ -1,54 +1,3 @@
-// import React from 'react';
-// import TextField from '@material-ui/core/TextField';
-// import IconButton from "@material-ui/core/IconButton";
-// //import InputAdornment from "@material-ui/core/InputAdornment";
-// import SearchIcon from "@material-ui/icons/Search";
-// import Grid from '@material-ui/core/Grid';
-
-
-// export class SearchBar extends React.Component {
-
-//     constructor() {
-//         super();
-//         this.state = {};
-//     }
-
-//     // onChange() {
-//     //     // console.log(this.searchText);    
-//     // }
-
-//     // onEnter() {
-//     //     history.push("/home");
-//     // }
-
-//     // onSearchClick() {
-//     //     // let path = this.searchText;
-//     //     let path = '/search';
-//     //     console.log(path);
-//     //     history.push(path);
-//     // }
-
-//     render() {
-//         // const { history } = useHistory();
-//         return (
-//             <Grid item container xs={12} direction='row' justify='center' alignItems='center'>
-//                 <Grid item>
-//                     <TextField label='Search'></TextField>
-//                 </Grid>
-//                 <Grid item>
-//                     <IconButton>
-//                         <SearchIcon />
-//                     </IconButton>
-//                 </Grid>
-//             </Grid>
-
-//         );
-//     }
-
-// }
-
-// export default SearchBar;
-
 import React from 'react';
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
@@ -57,11 +6,11 @@ import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
 
 const styles = {
     searchbar: {
         textAlign: 'center',
-        color: 'red',
     },
 };
 
@@ -70,25 +19,25 @@ export class SearchBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userEnteredInput: "",
+            keyword: "",
         };
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = (e) => {
         this.setState({
-            userEnteredInput: e.target.value
+            keyword: e.target.value
         });
     }
 
     handleClickSearchButton = (e) => {
-        // console.log(this.userEnteredInput);
-        // this.state.history.push("/search");
-        // this.props.useHistory.push
+        // console.log("clicked");
+        // console.log(this.state.keyword);
+        this.props.history.push('/search', {keyword: this.state.keyword});
     }
 
 
     render() {
-        // const { history } = useHistory();
         const { classes } = this.props;
         return (
             <Grid item container xs={12} direction='row' justify='center' alignItems='center'>
@@ -97,8 +46,8 @@ export class SearchBar extends React.Component {
                         <OutlinedInput
                             id="outlined-adornment-searchbar"
                             type='text'
-                            placeholder='chihuahua, bulldog'
-                            value={this.state.userEnteredInput}
+                            placeholder=''
+                            value={this.state.keyword}
                             onChange={this.handleChange}
                             startAdornment={<InputAdornment position="start">Search</InputAdornment>}
                             endAdornment={
@@ -109,7 +58,6 @@ export class SearchBar extends React.Component {
                                         edge="end"
                                     >
                                         <SearchIcon />
-                                        {/* {values.showPassword ? <SearchIcon /> : <SearchIcon />} */}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -123,4 +71,4 @@ export class SearchBar extends React.Component {
 
 }
 
-export default withStyles(styles)(SearchBar);
+export default withRouter(withStyles(styles)(SearchBar));

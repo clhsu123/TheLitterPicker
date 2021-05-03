@@ -3,6 +3,7 @@ import AppIcon from '../images/dog_lover.png';
 import SearchBar from '../components/searchBar';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
 
 const styles = {
     root: {
@@ -38,5 +39,8 @@ export class home extends React.Component {
     }
 }
 
-export default withStyles(styles)(home);
+home.propTypes = {
+    classes: PropTypes.object.isRequired
+};
 
+export default withStyles(styles)(home);

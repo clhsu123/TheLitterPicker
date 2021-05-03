@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
@@ -22,6 +23,7 @@ const styles = {
     card_content: {
         display: 'flex',
         // justify: 'center',
+        width: 980,
     },
 
     tags: {
@@ -47,29 +49,48 @@ export class BreederInfoCard extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const breeder_info = this.props.info;
         return (
             <ListItem alignItems="flex-start">
                 <Card className={classes.root}>
                     <CardMedia
                         className={classes.avatar}
                         title="Breeder Image"
-                        image={this.props.info.background_photo}
+                        image={breeder_info.profile_photo}
                     // <Avatar variant='square' alt="Remy Sharp" src="https://topics.amcham.com.tw/wp-content/uploads/2016/07/biodiversity6-1.jpg" />
                     />
                     <div className={classes.card_content}>
                         <CardContent>
                             <Typography component="h5" variant="h5">
-                                {this.props.info.dog_breed_type}
+                                {breeder_info.title}
                             </Typography>
 
-                            <Typography variant="body1" color="textSecondary" className={classes.tags}>
-                                {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
-                                {this.props.info.address}
-                            </Typography>
+                            <Grid container direction='row'>
+                                <Grid item xs={3}>
+                                    <Typography variant="body1" color="textSecondary" className={classes.tags}>
+                                        {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
+                                        {breeder_info.address}
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                    <Typography variant="body1" color="textSecondary" className={classes.tags}>
+                                        {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
+                                        {breeder_info.phone}
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                    <Typography variant="body1" color="textSecondary" className={classes.tags}>
+                                        {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
+                                        {breeder_info.contact_email}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
 
                             <Typography variant="h6" color="h6">
                                 {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
-                                {this.props.info.overview}
+                                {breeder_info.overview}
                             </Typography>
 
                             <Typography>
