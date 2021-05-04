@@ -5,7 +5,7 @@ const app = require('express')();
 //Import self-defined functions from other folders
 const { FBBreederAuth , FBPetAuth } = require('./util/fbAuth');
 const { getAllScreams , postOneScream} = require('./handlers/scream');
-const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, signup_as_breeder, signup_as_pet_owner, addBreederDetails, addPetDetails} = require('./handlers/user');
+const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, signup_as_breeder, signup_as_pet_owner, addBreederDetails, addPetDetails, getBreederByBreedType, add_breeder_details_by_handle, add_pet_owner_details_by_handle, get_breeder_details, get_pet_owner_details } = require('./handlers/user');
 
 
 //Scream route
@@ -21,7 +21,12 @@ app.post('/login', login); //Login funtion, once logged in, return a token (used
 app.post('/signup_as_breeder', signup_as_breeder);
 app.post('/signup_as_pet_owner', signup_as_pet_owner);
 app.post('/add_breeder_details', FBBreederAuth, addBreederDetails);
+app.post('/add_breeder_details_by_handle', add_breeder_details_by_handle);
+app.post('/get_breeder_details', FBBreederAuth, get_breeder_details)
 app.post('/add_pet_owner_details', FBPetAuth, addPetDetails);
+app.post('/get_pet_owner_details', FBPetAuth, get_pet_owner_details)
+app.post('/add_pet_owner_details_by_handle', add_pet_owner_details_by_handle);
+app.post('/get_breeder_by_breed_type', getBreederByBreedType);
 //Other route could be added below, you could refer to functions above to design new functions
 
 //This line exports API functions of firebse in HTTP form

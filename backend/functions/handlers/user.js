@@ -228,9 +228,33 @@ exports.addBreederDetails = (req, res) => {
         });
 };
 
+exports.add_breeder_details_by_handle = (req, res) => {
+    let userDetails = req.body;
+    db.doc(`/PuppyBreeders/${userDetails.handle}`).update(userDetails)
+        .then(() => {
+            return res.json({ message: 'Details added successfully'});
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({error: err.code})
+        });
+};
+
 exports.addPetDetails = (req, res) => {
     let userDetails = req.body;
     db.doc(`/PetOwner/${req.user.handle}`).update(userDetails)
+        .then(() => {
+            return res.json({ message: 'Details added successfully'});
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({error: err.code})
+        });
+};
+
+exports.add_pet_owner_details_by_handle = (req, res) => {
+    let userDetails = req.body;
+    db.doc(`/PetOwner/${userDetails.handle}`).update(userDetails)
         .then(() => {
             return res.json({ message: 'Details added successfully'});
         })
@@ -311,3 +335,96 @@ exports.uploadImage = (req, res) => {
     });
     busboy.end(req.rawBody);
 };
+
+exports.getBreederByBreedType= (req,res) => {
+    db
+        .collection('PuppyBreeders')
+        .where('dog_breed_type', '==', req.body.dog_breed_type)
+        .get()
+        .then((data) => {
+            let breeders = [];
+            data.forEach((doc) => {
+                breeders.push( {
+                    address: doc.data().address,
+                    applications: doc.data().handle,
+                    background_photo: doc.data().background_photo,
+                    contact_email: doc.data().contact_email,
+                    registration_email: doc.data().registration_email,
+                    dog_breed_type: doc.data().dog_breed_type,
+                    handle: doc.data().handle,
+                    overview: doc.data().overview,
+                    password: doc.data().password,
+                    tags: doc.data().tags,
+                    profile_photo: doc.data().profile_photo,
+                    //createdAt: doc.data().createdAt,
+                    phone: doc.data().phone,
+                    title: doc.data().title,
+                    username: doc.data().username
+                });
+            });
+        return res.json(breeders);
+    })
+    .catch(err => console.error(err));
+}
+
+exports.get_breeder_details= (req,res) => {
+    db
+        .collection('PuppyBreeders')
+        .where('handle', '==', req.user.handle)
+        .get()
+        .then((data) => {
+            let breeders = [];
+            data.forEach((doc) => {
+                breeders.push( {
+                    address: doc.data().address,
+                    applications: doc.data().handle,
+                    background_photo: doc.data().background_photo,
+                    contact_email: doc.data().contact_email,
+                    registration_email: doc.data().registration_email,
+                    dog_breed_type: doc.data().dog_breed_type,
+                    handle: doc.data().handle,
+                    overview: doc.data().overview,
+                    password: doc.data().password,
+                    tags: doc.data().tags,
+                    profile_photo: doc.data().profile_photo,
+                    //createdAt: doc.data().createdAt,
+                    phone: doc.data().phone,
+                    title: doc.data().title,
+                    username: doc.data().username
+                });
+            });
+        return res.json(breeders);
+    })
+    .catch(err => console.error(err));
+}
+
+exports.get_pet_owner_details= (req,res) => {
+    db
+        .collection('PetOwner')
+        .where('handle', '==', req.user.handle)
+        .get()
+        .then((data) => {
+            let breeders = [];
+            data.forEach((doc) => {
+                breeders.push( {
+                    address: doc.data().address,
+                    applications: doc.data().handle,
+                    background_photo: doc.data().background_photo,
+                    contact_email: doc.data().contact_email,
+                    registration_email: doc.data().registration_email,
+                    dog_breed_type: doc.data().dog_breed_type,
+                    handle: doc.data().handle,
+                    overview: doc.data().overview,
+                    password: doc.data().password,
+                    tags: doc.data().tags,
+                    profile_photo: doc.data().profile_photo,
+                    //createdAt: doc.data().createdAt,
+                    phone: doc.data().phone,
+                    title: doc.data().title,
+                    username: doc.data().username
+                });
+            });
+        return res.json(breeders);
+    })
+    .catch(err => console.error(err));
+}
