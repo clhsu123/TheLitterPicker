@@ -15,6 +15,7 @@ import profile from './pages/profile';
 import search from './pages/Search';
 // import home from './pages/home';
 import NewHome from './pages/newHome';
+import application from './pages/application'
 
 const theme = createMuiTheme({
   palette: {
@@ -88,6 +89,7 @@ export class App extends Component {
             <Navbar />
             <div className="container">
               <Switch>
+                <Route exact path="/application" component={application} />
                 <Route exact path="/login" component={login} />
                 <Route exact path="/signup" component={signup} />
                 <Route exact path="/search" component={search} />
