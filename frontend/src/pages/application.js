@@ -9,9 +9,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-//import AddressForm from './AddressForm';
-//import InquiryInformation from './InquiryInformation';
-//import Review from './Review';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -20,7 +17,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { MenuItem } from '@material-ui/core';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = theme => ({
     appBar: {
       position: 'relative',
     },
@@ -55,12 +52,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(3),
       marginLeft: theme.spacing(1),
     },
-  }));
-
+  });
 
 const steps = ['Address and Contact', 'Inquiry Information', 'Review your application'];
-
-
 
 export class application extends Component {
     constructor(){
@@ -85,7 +79,7 @@ export class application extends Component {
             preferenceOriented: '',
             additionInformation: '',
             createdAt: '',
-            activeStep: ''
+            activeStep: 0
         }
     }
 
@@ -98,8 +92,8 @@ export class application extends Component {
     handleReview = (event) => {
         event.preventDefault();
         const newApplication = {
-            phone: this.state.email,
-            email: this.state.phone,
+            phone: this.state.phone,
+            email: this.state.email,
             firstname: this.state.firstname,
             lastname: this.state.lastname,
             address1: this.state.address1,
@@ -124,8 +118,8 @@ export class application extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const newApplication = {
-            phone: this.state.email,
-            email: this.state.phone,
+            phone: this.state.phone,
+            email: this.state.email,
             firstname: this.state.firstname,
             lastname: this.state.lastname,
             address1: this.state.address1,
@@ -149,6 +143,7 @@ export class application extends Component {
             .then(res=>{
                 console.log(res.data);
             });
+
     };
 
     getStepContent(step) {
@@ -165,8 +160,7 @@ export class application extends Component {
   }
   
   Checkout() {
-      const classes = useStyles();
-    
+      const { classes } = this.props;
       return (
         <React.Fragment>
           <CssBaseline />
@@ -201,15 +195,14 @@ export class application extends Component {
                     {this.getStepContent(this.state.activeStep)}
                     <div className={classes.buttons}>
                       {this.state.activeStep !== 0 && (
-                        <Button onClick={this.setState({ activeStep: this.state.activeStep - 1})} className={classes.button}>
+                        <Button onClick={() => this.setState({ activeStep: this.state.activeStep - 1})} className={classes.button}>
                           Back
                         </Button>
                       )}
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick=
-                        {this.state.activeStep === steps.length - 1 ? this.handleSubmit : this.setState({ activeStep: this.state.activeStep + 1})}
+                        onClick= {() => this.state.activeStep === steps.length? this.handleSubmit : this.setState({ activeStep: this.state.activeStep + 1})}
                         className={classes.button}
                       >
                         {this.state.activeStep === steps.length - 1 ? 'Apply' : 'Next'}
@@ -433,11 +426,8 @@ export class application extends Component {
   }
 
     render(){
-        const { classes } = this.props;
         return this.Checkout();
     }
 }
 
-
-
-export default withStyles(useStyles)(application);
+export default withStyles(useStyles, { withTheme: true })(application);

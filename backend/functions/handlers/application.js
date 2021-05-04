@@ -30,8 +30,9 @@ app.get('/application', (req, res) => {
 
 app.post('/application', (req, res) => {
     const newApplication = {
-        breederHandle: req.body.breederHandle,
-        adopterHandle: req.body.adopterHandle,
+        // breederHandle: req.body.breederHandle,
+        // adopterHandle: req.body.adopterHandle,
+        phone: req.body.phone,
         createdAt: new Date().toISOString()
     };
 
