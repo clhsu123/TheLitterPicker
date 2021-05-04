@@ -21,12 +21,24 @@ export class search extends React.Component {
         super(props);
         this.state = {
             keyword: this.props.history.location.state?.keyword,
-            breeders: [],
+            breeders: []
         };
     }
 
     componentDidMount() {
+        const search_info = { 
+            dog_breed_type: this.state.keyword 
+        }
+        axios
+            .post('/get_breeder_by_breed_type', search_info)
+            .then(res =>{
+                this.setState({
+                    breeders : res.data
+                });
+            })
+            .catch(err => console.log(err));
         // testing
+        /*
         var b1 = {
             dog_breed_type: 'collie', title: 'Crosswood Border Collies', registration_email: 'mariam@gmail.com',
             username: 'mariamartinez', password: 'abcd1234', profile_photo: 'https://firebasestorage.googleapis.com/v0/b/pickerpicker-3e855.appspot.com/o/no-img.png?alt=media&token=782cdd95-8d4d-434b-8e2a-f57d7dace598', background_photo: 'https://cdn4.vectorstock.com/i/1000x1000/52/48/background-with-dog-paw-print-and-bone-vector-25885248.jpg', phone: '949-111-2222', contact_email: 'mariam@gmail.com', address: 'Irvine, CA', overview: 'Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...', applications: [],
@@ -49,10 +61,10 @@ export class search extends React.Component {
             username: 'debeknightly', password: 'debe_knightly_5577', profile_photo: 'https://firebasestorage.googleapis.com/v0/b/pickerpicker-3e855.appspot.com/o/no-img.png?alt=media&token=782cdd95-8d4d-434b-8e2a-f57d7dace598', background_photo: 'https://cdn4.vectorstock.com/i/1000x1000/52/48/background-with-dog-paw-print-and-bone-vector-25885248.jpg', phone: '785-258-2539', contact_email: 'debeknightly@gmail.com', address: 'Herington, KS', overview: 'Professional Dog & Cat Groomer for 40 years; grooming shop located at my home. Kansas State Licensed Retail Breeder of Airedale Terriers, Bearded Collies, Standard Poodles, Golden Retrievers. Coming in LATE 2021, new additional breeds: Miniature & Toy Poodles, Irish Setter, Afghan Hound.', applications: [], tags: []
         }
 
-
+        
         const breedersinfo = [b1, b2, b3, b4];
         this.setState({ breeders: breedersinfo });
-
+        */
         /* get requested breeders info from database */
         // axios
         //     .get('/PuppyBreeders')
