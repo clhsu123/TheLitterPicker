@@ -3,10 +3,14 @@ import { BrowserRouter as Router, Route, Switch, useParams } from 'react-router-
 import './App.css';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-
+import jwtDecode from 'jwt-decode';
+//Redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
 //Components
 // import Navbar from './components/new_Navbar';
 import Navbar from './components/Navbar';
+import AuthRoute from './util/AuthRoute';
 //Pages
 //import home_firebase from './pages/home_firebase';
 import login from './pages/login';
@@ -73,6 +77,21 @@ const theme = createMuiTheme({
   }
 });
 
+// To authenticate if the token is not expired, no initial value
+let authenticated;
+const token = localStorage.FBIdToken;
+if(token){
+  const decodedToken = jwtDecode(token);
+  if(decodedToken.exp * 1000 < Date.now()){
+    // Redirect to login page
+    window.location.href = '/login';
+    authenticated = false;
+  }
+  else{
+    authenticated = true;
+  }
+}
+
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -83,21 +102,20 @@ export class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="App">
+        <Provider store={store}>
           <Router>
             <Navbar />
             <div className="container">
               <Switch>
-                <Route exact path="/login" component={login} />
-                <Route exact path="/signup" component={signup} />
+                <AuthRoute exact path="/login" component={login} authenticated={authenticated} />
+                <AuthRoute exact path="/signup" component={signup} authenticated={authenticated}/>
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
-                {/* <Route exact path="/" component={home} /> */}
                 <Route exact path="/" component={NewHome} />
               </Switch>
             </div>
           </Router>
-        </div>
+        </Provider>
       </MuiThemeProvider>
     );
   }

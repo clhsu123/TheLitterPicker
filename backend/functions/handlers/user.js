@@ -93,12 +93,21 @@ exports.signup_as_breeder = (req,res) => {
            token = idToken;
            // Fields that would be added to the document of that user
            const userCredentials = {
-               handle: newUser.handle,
-               email: newUser.email,
-               //This is a default image url
-               imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-               createdAt: new Date().toISOString(),
-               userId: userId
+                address: "",
+                applications: [],
+                background_photo: "",
+                contact_email: "",
+                dog_breed_type: "",
+                handle: newUser.handle,
+                registration_email: newUser.email,
+                overview: "Fill in some info here~",
+                phone: "",
+                //This is a default image url
+                profile_photo: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+                tags: [],
+                title: "",
+                //createdAt: new Date().toISOString(),
+                userId: userId
            };
            return db.doc(`/PuppyBreeders/${newUser.handle}`).set(userCredentials);
        })
@@ -131,7 +140,7 @@ exports.signup_as_pet_owner = (req,res) => {
 
 
     let token, userId;
-    db.doc(`/PetOwner/${newUser.handle}`).get()
+    db.doc(`/PetOwners/${newUser.handle}`).get()
        .then(doc => {
            if(doc.exists){
                //Return client error (status(400) refers to client error, while status(500) refer to server error)
@@ -151,14 +160,16 @@ exports.signup_as_pet_owner = (req,res) => {
            token = idToken;
            // Fields that would be added to the document of that user
            const userCredentials = {
+               applications: [],
                handle: newUser.handle,
-               email: newUser.email,
+               registration_email: newUser.email,
+               selfIntro: "Fill in something here~",
                //This is a default image url
-               imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-               createdAt: new Date().toISOString(),
+               profile_photo: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+               //createdAt: new Date().toISOString(),
                userId: userId
            };
-           return db.doc(`/PetOwner/${newUser.handle}`).set(userCredentials);
+           return db.doc(`/PetOwners/${newUser.handle}`).set(userCredentials);
        })
        .then(() => {
            return res.status(201).json({ token });
@@ -242,7 +253,7 @@ exports.add_breeder_details_by_handle = (req, res) => {
 
 exports.addPetDetails = (req, res) => {
     let userDetails = req.body;
-    db.doc(`/PetOwner/${req.user.handle}`).update(userDetails)
+    db.doc(`/PetOwners/${req.user.handle}`).update(userDetails)
         .then(() => {
             return res.json({ message: 'Details added successfully'});
         })
@@ -254,7 +265,7 @@ exports.addPetDetails = (req, res) => {
 
 exports.add_pet_owner_details_by_handle = (req, res) => {
     let userDetails = req.body;
-    db.doc(`/PetOwner/${userDetails.handle}`).update(userDetails)
+    db.doc(`/PetOwners/${userDetails.handle}`).update(userDetails)
         .then(() => {
             return res.json({ message: 'Details added successfully'});
         })
@@ -353,13 +364,11 @@ exports.getBreederByBreedType= (req,res) => {
                     dog_breed_type: doc.data().dog_breed_type,
                     handle: doc.data().handle,
                     overview: doc.data().overview,
-                    password: doc.data().password,
                     tags: doc.data().tags,
                     profile_photo: doc.data().profile_photo,
                     //createdAt: doc.data().createdAt,
                     phone: doc.data().phone,
                     title: doc.data().title,
-                    username: doc.data().username
                 });
             });
         return res.json(breeders);
@@ -377,20 +386,47 @@ exports.get_breeder_details= (req,res) => {
             data.forEach((doc) => {
                 breeders.push( {
                     address: doc.data().address,
-                    applications: doc.data().handle,
+                    applications: doc.data().applications,
                     background_photo: doc.data().background_photo,
                     contact_email: doc.data().contact_email,
                     registration_email: doc.data().registration_email,
                     dog_breed_type: doc.data().dog_breed_type,
                     handle: doc.data().handle,
                     overview: doc.data().overview,
-                    password: doc.data().password,
                     tags: doc.data().tags,
                     profile_photo: doc.data().profile_photo,
                     //createdAt: doc.data().createdAt,
                     phone: doc.data().phone,
                     title: doc.data().title,
-                    username: doc.data().username
+                });
+            });
+        return res.json(breeders);
+    })
+    .catch(err => console.error(err));
+}
+
+exports.get_breeder_details_by_handle=(req, res) => {
+    db
+        .collection('PuppyBreeders')
+        .where('handle', '==', req.body.handle)
+        .get()
+        .then((data) => {
+            let breeders = [];
+            data.forEach((doc) => {
+                breeders.push( {
+                    address: doc.data().address,
+                    applications: doc.data().applications,
+                    background_photo: doc.data().background_photo,
+                    contact_email: doc.data().contact_email,
+                    registration_email: doc.data().registration_email,
+                    dog_breed_type: doc.data().dog_breed_type,
+                    handle: doc.data().handle,
+                    overview: doc.data().overview,
+                    tags: doc.data().tags,
+                    profile_photo: doc.data().profile_photo,
+                    //createdAt: doc.data().createdAt,
+                    phone: doc.data().phone,
+                    title: doc.data().title,
                 });
             });
         return res.json(breeders);
@@ -400,31 +436,46 @@ exports.get_breeder_details= (req,res) => {
 
 exports.get_pet_owner_details= (req,res) => {
     db
-        .collection('PetOwner')
+        .collection('PetOwners')
         .where('handle', '==', req.user.handle)
         .get()
         .then((data) => {
-            let breeders = [];
+            let pet_owners = [];
             data.forEach((doc) => {
-                breeders.push( {
-                    address: doc.data().address,
+                pet_owners.push( {
                     applications: doc.data().handle,
-                    background_photo: doc.data().background_photo,
-                    contact_email: doc.data().contact_email,
                     registration_email: doc.data().registration_email,
-                    dog_breed_type: doc.data().dog_breed_type,
                     handle: doc.data().handle,
-                    overview: doc.data().overview,
-                    password: doc.data().password,
-                    tags: doc.data().tags,
+                    selfIntro: doc.data().selfIntro,
                     profile_photo: doc.data().profile_photo,
-                    //createdAt: doc.data().createdAt,
-                    phone: doc.data().phone,
-                    title: doc.data().title,
-                    username: doc.data().username
+
+                    //createdAt: doc.data().createdAt
                 });
             });
-        return res.json(breeders);
+        return res.json(pet_owners);
+    })
+    .catch(err => console.error(err));
+}
+
+exports.get_pet_owner_details_by_handle= (req,res) => {
+    db
+        .collection('PetOwners')
+        .where('handle', '==', req.body.handle)
+        .get()
+        .then((data) => {
+            let pet_owners = [];
+            data.forEach((doc) => {
+                pet_owners.push( {
+                    applications: doc.data().handle,
+                    registration_email: doc.data().registration_email,
+                    handle: doc.data().handle,
+                    selfIntro: doc.data().selfIntro,
+                    profile_photo: doc.data().profile_photo,
+
+                    //createdAt: doc.data().createdAt
+                });
+            });
+        return res.json(pet_owners);
     })
     .catch(err => console.error(err));
 }
