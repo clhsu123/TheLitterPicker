@@ -27,7 +27,7 @@ export const signupBreeder = (newUserData, history) => (dispatch) => {
             .then(res=>{
                 setAuthorizationHeader(res.data.token);
                 dispatch(getUserData());
-                dispatch({ type: CLEAR_ERRORS});
+                dispatch({ type: CLEAR_ERRORS });
                 //Redirect to the home page
                 history.push('/');
             })
