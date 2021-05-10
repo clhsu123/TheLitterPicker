@@ -22,6 +22,8 @@ const { signup,
     get_breeder_details_by_handle,
     get_pet_owner_details_by_handle
     } = require('./handlers/user');
+const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, signup_as_breeder, signup_as_pet_owner, addBreederDetails, addPetDetails} = require('./handlers/user');
+const { getApplication, updateApplication } = require('./handlers/application');
 
 
 //Scream route
@@ -46,6 +48,10 @@ app.post('/get_pet_owner_details_by_handle', get_pet_owner_details_by_handle);
 app.post('/add_pet_owner_details_by_handle', add_pet_owner_details_by_handle);
 app.post('/get_breeder_by_breed_type', getBreederByBreedType);
 //Other route could be added below, you could refer to functions above to design new functions
+
+//Application
+app.get('/get_application', getApplication);
+app.post('/update_application', updateApplication);
 
 //This line exports API functions of firebse in HTTP form
 exports.api = functions.https.onRequest(app);

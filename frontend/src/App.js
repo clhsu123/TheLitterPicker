@@ -23,6 +23,7 @@ import pet from './pages/pet';
 import PetOwner from './pages/PetOwner';
 import NewHome from './pages/newHome';
 import axios from 'axios';
+import application from './pages/application'
 
 const theme = createMuiTheme({
   palette: {
@@ -114,6 +115,9 @@ export class App extends Component {
               <Switch>
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signupAsBreeder" component={signupAsBreeder} />
+                <Route exact path="/application" component={application} />
+                <Route exact path="/login" component={login} />
+                {/* <Route exact path="/signup" component={signup} /> */}
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
                 <Route exact path="/pet" component={pet} />
