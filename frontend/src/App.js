@@ -17,7 +17,7 @@ import AuthRoute from './util/AuthRoute';
 //import home_firebase from './pages/home_firebase';
 import login from './pages/login';
 import signupAsBreeder from './pages/signupAsBreeder';
-import profile from './pages/profile';
+import profile from './pages/AuthProfile';
 import search from './pages/Search';
 // import home from './pages/home';
 import NewHome from './pages/newHome';

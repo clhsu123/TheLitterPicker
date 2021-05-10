@@ -2,7 +2,6 @@ import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_AUTHENTICATED, SET_
 
 const initialState = {
     authenticated: false,
-    /*
     address: "",
     applications: [],
     background_photo: "",
@@ -16,8 +15,6 @@ const initialState = {
     createdAt: "",
     phone: "",
     title: "",
-    */
-    credentials: {}
 };
 
 export default function(state = initialState, action){
