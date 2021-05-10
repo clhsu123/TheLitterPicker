@@ -19,7 +19,8 @@ import login from './pages/login';
 import signupAsBreeder from './pages/signupAsBreeder';
 import profile from './pages/AuthProfile';
 import search from './pages/Search';
-// import home from './pages/home';
+import pet from './pages/pet';
+import PetOwner from './pages/PetOwner';
 import NewHome from './pages/newHome';
 import axios from 'axios';
 
@@ -115,6 +116,8 @@ export class App extends Component {
                 <AuthRoute exact path="/signupAsBreeder" component={signupAsBreeder} />
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
+                <Route exact path="/pet" component={pet} />
+                <Route exact path="/petowner" component={PetOwner} />
                 <Route exact path="/" component={NewHome} />
               </Switch>
             </div>

@@ -57,7 +57,6 @@ export class BreederInfoCard extends React.Component {
                         className={classes.avatar}
                         title="Breeder Image"
                         image={breeder_info.profile_photo}
-                    // <Avatar variant='square' alt="Remy Sharp" src="https://topics.amcham.com.tw/wp-content/uploads/2016/07/biodiversity6-1.jpg" />
                     />
                     <div className={classes.card_content}>
                         <CardContent>
@@ -68,28 +67,24 @@ export class BreederInfoCard extends React.Component {
                             <Grid container direction='row'>
                                 <Grid item xs={3}>
                                     <Typography variant="body1" color="textSecondary" className={classes.tags}>
-                                        {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
                                         {breeder_info.address}
                                     </Typography>
                                 </Grid>
 
                                 <Grid item xs={3}>
                                     <Typography variant="body1" color="textSecondary" className={classes.tags}>
-                                        {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
                                         {breeder_info.phone}
                                     </Typography>
                                 </Grid>
 
                                 <Grid item xs={3}>
                                     <Typography variant="body1" color="textSecondary" className={classes.tags}>
-                                        {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
                                         {breeder_info.contact_email}
                                     </Typography>
                                 </Grid>
                             </Grid>
 
                             <Typography variant="h6" color="h6">
-                                {/* // Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...  */}
                                 {breeder_info.overview}
                             </Typography>
 
@@ -113,7 +108,6 @@ export class BreederInfoCard extends React.Component {
 
                 </Card>
             </ListItem>
-            //   <Divider variant="inset" component="li" />
         );
 
     }

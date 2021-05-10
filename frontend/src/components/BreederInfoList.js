@@ -6,11 +6,7 @@ import BreederInfoCard from '../components/BreederInfoCard';
 const styles = {
     root: {
         margin: '0px 0px 0px 0px',
-        // textAlign: 'center',
     },
-    // grid_container: {
-    //     justify: 'center',
-    // }
 };
 
 export class BreederInfoList extends React.Component {
@@ -24,7 +20,7 @@ export class BreederInfoList extends React.Component {
         const { classes } = this.props;
         const breeders = this.props.breeders;
         const breedersInfoItems = breeders.map((breeder) =>
-            <BreederInfoCard key={breeder.username.toString()} info={breeder}></BreederInfoCard>
+            <BreederInfoCard key={breeder.handle.toString()} info={breeder}></BreederInfoCard>
         );
         return (
             <List >
