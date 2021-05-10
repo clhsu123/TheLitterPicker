@@ -5,13 +5,16 @@ import PropTypes from 'prop-types';
 import AppIcon from '../images/dog_lover.png';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //MUI Stuff
 import Grid from '@material-ui/core/Grid';
 
+
+//Redux stuff
+import { connect } from 'react-redux';
+import { signupBreeder, logoutUser } from '../redux/actions/userActions';
 const styles = {
     form: {
         textAlign: 'center'
@@ -40,7 +43,7 @@ const styles = {
 };
 
 
-export class signup extends Component {
+export class signupAsBreeder extends Component {
     constructor(){
         super();
         this.state = {
@@ -48,10 +51,14 @@ export class signup extends Component {
             password: '',
             confirmPassword: '',
             handle: '',
-            loading: false,
             errors: {}
         };
     };
+    componentWillReceiveProps(nextProps){
+        if(nextProps.UI.errors){
+            this.setState({ errors: nextProps.UI.errors});
+        }
+    }
     handleSubmit = (event) => {
         event.preventDefault();
         this.setState({
@@ -63,23 +70,7 @@ export class signup extends Component {
             confirmPassword: this.state.confirmPassword,
             handle: this.state.handle
         };
-        axios
-            .post('/signup', newUserData)
-            .then(res=>{
-                console.log(res.data);
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-                this.setState({
-                    loading: false
-                });
-                //Redirect to the home page
-                this.props.history.push('/');
-            })
-            .catch(err => {
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                });
-            });
+        this.props.signupBreeder(newUserData, this.props.history);
     };
     handleChange = (event) => {
         this.setState({
@@ -87,8 +78,8 @@ export class signup extends Component {
         })
     }
     render() {
-        const { classes } = this.props; 
-        const { errors, loading } = this.state;
+        const { classes, UI: { loading } } = this.props; 
+        const { errors } = this.state;
         return (
             <Grid container className={classes.form}>
                 <Grid item sm/>
@@ -173,8 +164,15 @@ export class signup extends Component {
     }
 }
 
-signup.propTypes = {
-    classes: PropTypes.object.isRequired
+signupAsBreeder.propTypes = {
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
+    logoutUser: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(signup);
+const mapStateToProps = (state) => ({
+    user: state.user,
+    UI: state.UI
+})
+export default connect(mapStateToProps, { signupBreeder })(withStyles(styles)(signupAsBreeder));
