@@ -117,6 +117,7 @@ export class application extends Component {
 
     handleSubmit = (event) => {
         //event.preventDefault();
+        console.log("handleSubmit called");
         const newApplication = {
             phone: this.state.phone,
             email: this.state.email,
@@ -203,7 +204,7 @@ export class application extends Component {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick= {() => this.state.activeStep === steps.length? this.handleSubmit : this.setState({ activeStep: this.state.activeStep + 1})}
+                        onClick= {() => this.setState({ activeStep: this.state.activeStep + 1})}
                         className={classes.button}
                       >
                         {this.state.activeStep === steps.length - 1 ? 'Apply' : 'Next'}
