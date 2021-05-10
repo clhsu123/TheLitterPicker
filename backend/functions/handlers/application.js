@@ -1,16 +1,8 @@
-const functions = require("firebase-functions");
-const admin = require('firebase-admin');
+const { db } = require('../util/admin');
 
-admin.initializeApp();
-
-const express = require('express');
-const app = express();
-
-
-app.get('/application', (req, res) => {
-    admin
-    .firestore()
-    .collection('Application')
+exports.getApplication = (req, res) => {
+    db
+    .collection('Applications')
     .orderBy('createdAt', 'desc')
     .get()
     .then(data => {
@@ -26,9 +18,9 @@ app.get('/application', (req, res) => {
         return res.json(applications);
     })
     .catch(err => console.error(err));
-})
+}
 
-app.post('/application', (req, res) => {
+exports.updateApplication = (req, res) => {
     const newApplication = {
         // breederHandle: req.body.breederHandle,
         // adopterHandle: req.body.adopterHandle,
@@ -36,8 +28,8 @@ app.post('/application', (req, res) => {
         createdAt: new Date().toISOString()
     };
 
-    admin.firestore()
-        .collection('Application')
+    db
+        .collection('Applications')
         .add(newApplication)
         .then(doc => {
             res.json({message: `documnet ${doc.id} created successfully`});
@@ -46,6 +38,4 @@ app.post('/application', (req, res) => {
             res.status(500).jason({ error: 'something went wrong'});
             console.error(err);
         })
-})
-
-exports.api = functions.https.onRequest(app);
+}

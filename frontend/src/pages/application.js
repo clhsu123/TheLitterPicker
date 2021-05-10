@@ -139,7 +139,7 @@ export class application extends Component {
             createdAt: new Date().toISOString()
         };
         axios
-            .post('/application', newApplication)
+            .post('/update_application', newApplication)
             .then(res=>{
                 console.log(res.data);
             });

@@ -6,6 +6,7 @@ const app = require('express')();
 const { FBBreederAuth , FBPetAuth } = require('./util/fbAuth');
 const { getAllScreams , postOneScream} = require('./handlers/scream');
 const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, signup_as_breeder, signup_as_pet_owner, addBreederDetails, addPetDetails} = require('./handlers/user');
+const { getApplication, updateApplication } = require('./handlers/application');
 
 
 //Scream route
@@ -23,6 +24,10 @@ app.post('/signup_as_pet_owner', signup_as_pet_owner);
 app.post('/add_breeder_details', FBBreederAuth, addBreederDetails);
 app.post('/add_pet_owner_details', FBPetAuth, addPetDetails);
 //Other route could be added below, you could refer to functions above to design new functions
+
+//Application
+app.get('/get_application', getApplication);
+app.post('/update_application', updateApplication);
 
 //This line exports API functions of firebse in HTTP form
 exports.api = functions.https.onRequest(app);
