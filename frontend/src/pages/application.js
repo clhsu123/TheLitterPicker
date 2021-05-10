@@ -116,7 +116,7 @@ export class application extends Component {
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
+        //event.preventDefault();
         const newApplication = {
             phone: this.state.phone,
             email: this.state.email,
@@ -181,6 +181,7 @@ export class application extends Component {
               <React.Fragment>
                 {this.state.activeStep === steps.length ? (
                   <React.Fragment>
+                    {this.handleSubmit()}
                     <Typography variant="h5" gutterBottom>
                       Thank you for your application!
                     </Typography>
