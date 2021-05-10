@@ -245,26 +245,32 @@ export class application extends Component {
               label="Email"
               fullWidth
               autoComplete="email"
+              value={this.state.email}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               id="firstName"
-              name="firstName"
+              name="firstname"
               label="First name"
               fullWidth
               autoComplete="given-name"
+              valuee={this.state.firstname}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               id="lastName"
-              name="lastName"
+              name="lastname"
               label="Last name"
               fullWidth
               autoComplete="family-name"
+              value={this.state.lastname}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -275,6 +281,8 @@ export class application extends Component {
               label="Address line 1"
               fullWidth
               autoComplete="shipping address-line1"
+              value={this.state.address1}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -284,6 +292,8 @@ export class application extends Component {
               label="Address line 2"
               fullWidth
               autoComplete="shipping address-line2"
+              value={this.state.address2}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -294,10 +304,12 @@ export class application extends Component {
               label="City"
               fullWidth
               autoComplete="shipping address-level2"
+              value={this.state.city}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+            <TextField id="state" name="state" label="State/Province/Region" fullWidth value={this.state.state} onChange={this.handleChange}/>
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -307,6 +319,8 @@ export class application extends Component {
               label="Zip / Postal code"
               fullWidth
               autoComplete="shipping postal-code"
+              value={this.state.zip}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -317,6 +331,8 @@ export class application extends Component {
               label="Country"
               fullWidth
               autoComplete="shipping country"
+              value={this.state.country}
+              onChange={this.handleChange}
             />
           </Grid>
         </Grid>
@@ -335,13 +351,12 @@ export class application extends Component {
             <TextField
               required
               id="current-living-status"
+              name="currentLivingStatus"
               label="Current Living Status"
               fullWidth
               select
-              value={this.state.currentLivingStatus}
-              onChange={this.handleChange}
               >
-                  <MenuItem value={"singleFamilyHouse"}>Single Family House</MenuItem>
+                  <MenuItem value={this.state.currentLivingStatus} onClick={this.handleChange}>Single Family House</MenuItem>
                   <MenuItem value={"townHouse"}>Town House</MenuItem>
                   <MenuItem value={"condo"}>Condo</MenuItem>
                   <MenuItem value={"apartment"}>Apartment</MenuItem>
@@ -349,7 +364,7 @@ export class application extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="yard-fenced" value="yes" />}
+              control={<Checkbox color="primary" name="fullyFencedYard" value="yes" onClick={this.handleChange}/>}
               label="Does your home have a fully fenced yard?"
             />
           </Grid>
@@ -371,7 +386,7 @@ export class application extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="hasDog" value="yes" />}
+              control={<Checkbox color="primary" name="currentDog" value="yes" />}
               label="Do you currently own a dog?"
             />
           </Grid>
