@@ -7,6 +7,8 @@ import jwtDecode from 'jwt-decode';
 //Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser, getUserData } from './redux/actions/userActions';
 //Components
 // import Navbar from './components/new_Navbar';
 import Navbar from './components/Navbar';
@@ -14,11 +16,12 @@ import AuthRoute from './util/AuthRoute';
 //Pages
 //import home_firebase from './pages/home_firebase';
 import login from './pages/login';
-import signup from './pages/signup';
+import signupAsBreeder from './pages/signupAsBreeder';
 import profile from './pages/profile';
 import search from './pages/Search';
 // import home from './pages/home';
 import NewHome from './pages/newHome';
+import axios from 'axios';
 
 const theme = createMuiTheme({
   palette: {
@@ -78,17 +81,18 @@ const theme = createMuiTheme({
 });
 
 // To authenticate if the token is not expired, no initial value
-let authenticated;
 const token = localStorage.FBIdToken;
 if(token){
   const decodedToken = jwtDecode(token);
   if(decodedToken.exp * 1000 < Date.now()){
     // Redirect to login page
+    store.dispatch(logoutUser());
     window.location.href = '/login';
-    authenticated = false;
   }
   else{
-    authenticated = true;
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 }
 
@@ -107,8 +111,8 @@ export class App extends Component {
             <Navbar />
             <div className="container">
               <Switch>
-                <AuthRoute exact path="/login" component={login} authenticated={authenticated} />
-                <AuthRoute exact path="/signup" component={signup} authenticated={authenticated}/>
+                <AuthRoute exact path="/login" component={login} />
+                <AuthRoute exact path="/signupAsBreeder" component={signupAsBreeder} />
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
                 <Route exact path="/" component={NewHome} />

@@ -81,7 +81,7 @@ export class Navbar extends Component {
                     <Box className={classes.box}>
                         <SearchBar />
                     </Box>
-                    <Button className={classes.signup} variant="contained" color="secondary" component={Link} to="/signup">
+                    <Button className={classes.signup} variant="contained" color="secondary" component={Link} to="/signupAsBreeder">
                         Sign up
                     </Button>
                     <Button className={classes.login} variant="outlined" color="secondary" component={Link} to="/login">
