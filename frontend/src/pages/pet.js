@@ -33,15 +33,17 @@ export class pet extends Component {
                 <Grid item xs = {12}>
                     <h2>Summary</h2>
                 </Grid>
+                
                 <Grid item xs = {12}>
                     <Box display="flex" justifyContent="center" border = {1} borderRadius = {15}>
-                    <p>You love (groan) dad jokes and you actually live mom jokes, but kids are natural comedians! Why not encourage them to get punny with these kid-approved quips that require little to no explanation from parents? Whether it’s a joke a day for the kids, lunchbox jokes for every day or clean jokes to tell to kids, don’t be surprised when the comedy sketch goes beyond today! Scroll down for silly jokes and corny jokes, many of which have been sent to us by kid-readers (like you!).</p>
+                        <p>You love (groan) dad jokes and you actually live mom jokes, but kids are natural comedians! Why not encourage them to get punny with these kid-approved quips that require little to no explanation from parents? Whether it’s a joke a day for the kids, lunchbox jokes for every day or clean jokes to tell to kids, don’t be surprised when the comedy sketch goes beyond today! Scroll down for silly jokes and corny jokes, many of which have been sent to us by kid-readers (like you!).</p>
                     </Box>
                 </Grid>
                 
                 <Grid item xs = {12}>
                     <h2>My Applications</h2>
                 </Grid>
+                
                 <Grid container item xs = {12}>
                     <Grid container item xs = {8}>
                         <Grid item xs = {8}>
