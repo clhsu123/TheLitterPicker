@@ -7,6 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
+import { withRouter } from "react-router";
 
 const styles = {
     root: {
@@ -37,8 +38,13 @@ export class BreederInfoCard extends React.Component {
         this.state = {
             readMore: false,
         };
-
+        this.handleOnClick = this.handleOnClick.bind(this);
         this.handleReadMoreClick = this.handleReadMoreClick.bind(this);
+    }
+
+    handleOnClick() {
+        console.log("card is clicked");
+        this.props.history.push('/breeder_profile', {breeder_info: this.props.info});
     }
 
     handleReadMoreClick() {
@@ -52,7 +58,7 @@ export class BreederInfoCard extends React.Component {
         const breeder_info = this.props.info;
         return (
             <ListItem alignItems="flex-start">
-                <Card className={classes.root}>
+                <Card onClick={this.handleOnClick} className={classes.root}>
                     <CardMedia
                         className={classes.avatar}
                         title="Breeder Image"
@@ -113,4 +119,4 @@ export class BreederInfoCard extends React.Component {
     }
 }
 
-export default withStyles(styles)(BreederInfoCard);
+export default withRouter(withStyles(styles)(BreederInfoCard));

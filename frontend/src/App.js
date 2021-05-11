@@ -18,6 +18,7 @@ import AuthRoute from './util/AuthRoute';
 import login from './pages/login';
 import signupAsBreeder from './pages/signupAsBreeder';
 import profile from './pages/AuthProfile';
+import Profile from './pages/Profile';
 import search from './pages/Search';
 import pet from './pages/pet';
 import PetOwner from './pages/PetOwner';
@@ -120,6 +121,7 @@ export class App extends Component {
                 {/* <Route exact path="/signup" component={signup} /> */}
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
+                <Route exact path="/breeder_profile" component={Profile} />
                 <Route exact path="/pet" component={pet} />
                 <Route exact path="/petowner" component={PetOwner} />
                 <Route exact path="/" component={NewHome} />

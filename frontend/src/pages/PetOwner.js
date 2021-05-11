@@ -32,7 +32,7 @@ const styles = {
         // flexDirection: 'row',
         // alignSelf: 'flex-end'
     },
-    selfIntro: {
+    overview: {
         padding: '10px 10px 10px 10px',
     }
 };
