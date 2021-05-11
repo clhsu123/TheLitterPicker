@@ -81,12 +81,29 @@ export class application extends Component {
             createdAt: '',
             activeStep: 0
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleReview = this.handleReview.bind(this);
+        this.handleReview = this.handleReview.bind(this);
     }
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
+    }
+
+    handleOnClick = (event) => {
+      console.log(steps.length);
+      console.log(this.state.activeStep);
+      if(this.state.activeStep === (steps.length-1)){
+        this.handleSubmit(event);
+        this.setState({ activeStep: this.state.activeStep + 1})
+      }
+      else{
+        this.setState({ activeStep: this.state.activeStep + 1})
+      } 
+      //this.state.activeStep === steps.length? this.handleSubmit : this.setState({ activeStep: this.state.activeStep + 1});
     }
 
     handleReview = (event) => {
@@ -116,7 +133,7 @@ export class application extends Component {
     }
 
     handleSubmit = (event) => {
-        //event.preventDefault();
+        event.preventDefault();
         const newApplication = {
             phone: this.state.phone,
             email: this.state.email,
@@ -181,7 +198,6 @@ export class application extends Component {
               <React.Fragment>
                 {this.state.activeStep === steps.length ? (
                   <React.Fragment>
-                    {this.handleSubmit()}
                     <Typography variant="h5" gutterBottom>
                       Thank you for your application!
                     </Typography>
@@ -203,7 +219,10 @@ export class application extends Component {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick= {() => this.state.activeStep === steps.length? this.handleSubmit : this.setState({ activeStep: this.state.activeStep + 1})}
+                        onClick= {
+                          this.handleOnClick
+                        }
+                        //() => this.state.activeStep === steps.length? this.handleSubmit : this.setState({ activeStep: this.state.activeStep + 1})
                         className={classes.button}
                       >
                         {this.state.activeStep === steps.length - 1 ? 'Apply' : 'Next'}
@@ -245,32 +264,26 @@ export class application extends Component {
               label="Email"
               fullWidth
               autoComplete="email"
-              value={this.state.email}
-              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               id="firstName"
-              name="firstname"
+              name="firstName"
               label="First name"
               fullWidth
               autoComplete="given-name"
-              valuee={this.state.firstname}
-              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               id="lastName"
-              name="lastname"
+              name="lastName"
               label="Last name"
               fullWidth
               autoComplete="family-name"
-              value={this.state.lastname}
-              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -281,8 +294,6 @@ export class application extends Component {
               label="Address line 1"
               fullWidth
               autoComplete="shipping address-line1"
-              value={this.state.address1}
-              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -292,8 +303,6 @@ export class application extends Component {
               label="Address line 2"
               fullWidth
               autoComplete="shipping address-line2"
-              value={this.state.address2}
-              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -304,12 +313,10 @@ export class application extends Component {
               label="City"
               fullWidth
               autoComplete="shipping address-level2"
-              value={this.state.city}
-              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField id="state" name="state" label="State/Province/Region" fullWidth value={this.state.state} onChange={this.handleChange}/>
+            <TextField id="state" name="state" label="State/Province/Region" fullWidth />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -319,8 +326,6 @@ export class application extends Component {
               label="Zip / Postal code"
               fullWidth
               autoComplete="shipping postal-code"
-              value={this.state.zip}
-              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -331,8 +336,6 @@ export class application extends Component {
               label="Country"
               fullWidth
               autoComplete="shipping country"
-              value={this.state.country}
-              onChange={this.handleChange}
             />
           </Grid>
         </Grid>
@@ -351,12 +354,13 @@ export class application extends Component {
             <TextField
               required
               id="current-living-status"
-              name="currentLivingStatus"
               label="Current Living Status"
               fullWidth
               select
+              value={this.state.currentLivingStatus}
+              onChange={this.handleChange}
               >
-                  <MenuItem value={this.state.currentLivingStatus} onClick={this.handleChange}>Single Family House</MenuItem>
+                  <MenuItem value={"singleFamilyHouse"}>Single Family House</MenuItem>
                   <MenuItem value={"townHouse"}>Town House</MenuItem>
                   <MenuItem value={"condo"}>Condo</MenuItem>
                   <MenuItem value={"apartment"}>Apartment</MenuItem>
@@ -364,7 +368,7 @@ export class application extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="fullyFencedYard" value="yes" onClick={this.handleChange}/>}
+              control={<Checkbox color="primary" name="yard-fenced" value="yes" />}
               label="Does your home have a fully fenced yard?"
             />
           </Grid>
@@ -386,7 +390,7 @@ export class application extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="currentDog" value="yes" />}
+              control={<Checkbox color="primary" name="hasDog" value="yes" />}
               label="Do you currently own a dog?"
             />
           </Grid>
