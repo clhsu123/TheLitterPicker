@@ -22,7 +22,7 @@ const { signup,
     get_breeder_details_by_handle,
     get_pet_owner_details_by_handle
     } = require('./handlers/user');
-const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, signup_as_breeder, signup_as_pet_owner, addBreederDetails, addPetDetails} = require('./handlers/user');
+    
 const { getApplication, updateApplication } = require('./handlers/application');
 
 
