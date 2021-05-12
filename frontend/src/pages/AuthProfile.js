@@ -1,239 +1,3 @@
-/*
-
-import React, { Component } from 'react'
-import Grid from '@material-ui/core/Grid';
-import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import AppIcon1 from '../images/phone.png';
-import AppIcon2 from '../images/mail.png';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-
-
-//Redux stuff
-import { connect } from 'react-redux';
-
-const styles = {
-    pic: {
-        textAlign: 'center'
-    },
-    icon: {
-        margin: 'auto'
-    },
-    prof_button: {
-        width: '10'
-    },
-    update_button: {
-        margin: '10 10 10 10'
-    }
-};
-
-export class AuthProfile extends Component {
-    render() {
-        const { classes, user: { 
-            address,
-            applications,
-            background_photo, 
-            contact_email, 
-            registration_email, 
-            dog_breed_type, 
-            handle,
-            overview,
-            tags,
-            profile_photo,
-            createdAt,
-            phone,
-            title,
-            loading,
-            authenticated
-        }
-        } = this.props; 
-        return (
-            <Grid container spacing = {1}>
-                <Grid container item xs = {12} alignItems = 'center' spacing = {1}>
-                    <Grid item sm>
-                        <p>Pic one</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic two</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic three</p>
-                    </Grid>
-                </Grid>
-                <Grid container item xs = {12}>
-                    <Grid item xs = {3}> 
-                        <img src = {profile_photo} />
-                    </Grid>
-                    <Grid item xs = {3}>
-                        <p>{address}</p>
-                    </Grid>
-                    <Grid item xs = {0.5} className = {classes.icon}> 
-                        <img src={AppIcon1} alt="phone" width="30" height="30" />
-                    </Grid>
-                    <Grid item xs = {3}>
-                        <p>{phone}</p>
-                    </Grid>
-                    <Grid item xs = {0.5} className = {classes.icon}>
-                        <img src={AppIcon2} alt="mail" width='30' height="30" />
-                    </Grid>
-                    <Grid item xs={2.5}>
-                        <p>{registration_email}</p>
-                    </Grid>
-                </Grid>
-                <Grid container item xs = {12}>
-                    <Grid container item xs = {8}>
-                        <Grid container item xs = {8}>
-                        <Grid item sm>
-                            <Button variant="outlined" color="primary">
-                                Boys/Sires
-                            </Button>
-                        </Grid>
-                        <Grid item sm>
-                            <Button variant="outlined" color="primary">
-                                Girls/Dams
-                            </Button>
-                        </Grid>
-                        <Grid item sm>
-                            <Button variant="outlined" color="primary">
-                                Available Puppies
-                            </Button>
-                        </Grid>
-                        </Grid>
-                        <Grid container item xs = {8} alignItems="center" className = {classes.overview}>
-                            <Grid item sm>
-                                <h1>Overview</h1>
-                            </Grid>
-                            <Grid item sm>
-                                <Button variant="outlined" color="primary" className = {classes.update_button}>
-                                    update
-                                </Button>
-                            </Grid>
-                            <Grid item sm/>
-                        </Grid>
-                        <Grid container item xs = {8}>
-                            <p>{overview}</p>
-                        </Grid>
-                    </Grid>
-                    <Grid container item xs = {4}>
-                        <Grid item xs className = {classes.prof_button}>
-                            <Button variant="contained" color="primary" fullWidth>
-                                UpAuthProfile
-                            </Button>
-                            <br /><br />
-                            <Button variant="contained" color="primary" fullWidth>
-                                View Applications
-                            </Button>
-                            <br /><br />
-                            <Button variant="contained" color="primary" fullWidth>
-                                Customize Application Form
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                
-                <Grid container item xs = {12}>
-                    <h1>News and Updates</h1>
-                </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
-                </Grid>
-
-                <Grid container item xs = {12}>
-                    <h1>Sires</h1>
-                </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
-                </Grid>
-
-                <Grid container item xs = {12}>
-                    <h1>Dams</h1>
-                </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
-                </Grid>
-
-                <Grid container item xs = {12}>
-                    <h1>Available Puppies</h1>
-                </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Grid>
-        )
-    }
-}
-
-const mapStateToProps = (state) => ({
-    user: state.user
-})
-
-AuthProfile.propTypes = {
-    classes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
-};
-
-export default connect(mapStateToProps)(withStyles(styles)(AuthProfile))
-
-*/
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
@@ -250,8 +14,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+
 //Redux stuff
 import { connect } from 'react-redux';
+import { logoutUser, uploadImage } from '../redux/actions/userActions';
 
 const styles = {
     root: {
@@ -282,7 +50,20 @@ export class AuthProfile extends React.Component {
     handleImageChange = (event) => {
         const image = event.target.files[0];
         // send to server
-    }
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        this.props.uploadImage(formData);
+    };
+
+    handleEditPicture = () => {
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+    };
+    
+    handleLogout = () => {
+        this.props.logoutUser();
+        this.props.history.push('/');
+    };
 
     render() {
         const { classes, user: { 
@@ -313,13 +94,20 @@ export class AuthProfile extends React.Component {
                             <input 
                             type="file"
                             id="imageInput"
-                            hidden="hidden" 
+                            hidden="hidden"
                             onChange={this.handleImageChange} 
                             />
-                            <IconButton onClick ={this.handleEditPicture} className="button">
-                                <EditIcon color="primary" />
-                            </IconButton>
+                            <Tooltip title="Edit profile picture" placement="top">
+                                <IconButton onClick ={this.handleEditPicture} className="button">
+                                    <EditIcon color="primary" />
+                                </IconButton>
+                            </Tooltip>
                         </Button>
+                        <Tooltip title="Logout" placement="top">
+                            <iconButton onClick={this.handleLogout}>
+                                <KeyboardReturn color="primary" />
+                            </iconButton>
+                        </Tooltip>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
@@ -351,6 +139,7 @@ export class AuthProfile extends React.Component {
                                 </InputAdornment>
                             }
                         />
+                        
                     </Grid>
                 </Grid>
                 <Grid container item xs={12} direction='row' alignItems="baseline">
@@ -411,9 +200,13 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
+const mapActionsToProps = { logoutUser, uploadImage };
+
 AuthProfile.propTypes = {
+    uploadImage: PropTypes.func.isRequired,
+    logoutUser: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(AuthProfile));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AuthProfile));
