@@ -20,7 +20,10 @@ const styles = {
         margin: '10px 10px 10px 10px',
         padding: '0px 0px 0px 20px',
         flexGrow: 1,
-
+        
+    },
+    selfIntro: {
+        padding: '10px 10px 10px 10px',        
     },
     profile_photo: {
         width: '50px',
