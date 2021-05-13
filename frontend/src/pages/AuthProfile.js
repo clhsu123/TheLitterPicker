@@ -19,7 +19,7 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 //Redux stuff
 import { connect } from 'react-redux';
-import { logoutUser, uploadImage } from '../redux/actions/userActions';
+import { logoutUser, uploadBreederProfileImage } from '../redux/actions/userActions';
 
 const styles = {
     root: {
@@ -52,7 +52,7 @@ export class AuthProfile extends React.Component {
         // send to server
         const formData = new FormData();
         formData.append('image', image, image.name);
-        this.props.uploadImage(formData);
+        this.props.uploadBreederProfileImage(formData);
     };
 
     handleEditPicture = () => {
@@ -200,10 +200,10 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
-const mapActionsToProps = { logoutUser, uploadImage };
+const mapActionsToProps = { logoutUser, uploadBreederProfileImage };
 
 AuthProfile.propTypes = {
-    uploadImage: PropTypes.func.isRequired,
+    uploadBreederProfileImage: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired

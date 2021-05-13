@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // Redux stuff
 import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/userActions'
+import { loginBreeder } from '../redux/actions/userActions'
 //MUI stuff
 
 const styles = {
@@ -62,7 +62,7 @@ export class login extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        this.props.loginUser(userData, this.props.history);
+        this.props.loginBreeder(userData, this.props.history);
     };
     handleChange = (event) => {
         this.setState({
@@ -144,6 +144,6 @@ const mapStateToProps = (state) =>({
 });
 
 const mapActionsToProps = {
-    loginUser
+    loginBreeder
 }
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(login))
