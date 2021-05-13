@@ -276,6 +276,7 @@ exports.add_pet_owner_details_by_handle = (req, res) => {
 };
 
 // Get own use details
+/*
 exports.getAuthenticatedUser = (req, res) => {
     let userData = {};
     db.doc(`/users/${req.user.handle}`).get()
@@ -297,6 +298,7 @@ exports.getAuthenticatedUser = (req, res) => {
          return res.status(500).json({ error: err.code });
      })
 };
+*/
 // Upload image for users
 exports.uploadImage = (req, res) => {
     const BusBoy = require('busboy');
@@ -334,7 +336,7 @@ exports.uploadImage = (req, res) => {
         })
         .then(() => {
             const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
-            return db.doc(`/users/${req.user.handle}`).update({ imageUrl });
+            return db.doc(`/PuppyBreeders/${req.user.handle}`).update({ profile_photo: imageUrl });
         })
         .then(() => {
             return res.json( {message: 'Image uploaded succesfully'});

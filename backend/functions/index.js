@@ -33,7 +33,7 @@ app.get('/screams', getAllScreams); //Fetch all datas (In JSON format) from coll
 //User route
 app.post('/signup', signup); //Sign up function, once signed up, add a document to collection "users" and return a token (used to identify user)
 app.post('/login', login); //Login funtion, once logged in, return a token (used to identify user)
-//app.post('/user/image', FBAuth, uploadImage)
+app.post('/user/image', FBBreederAuth, uploadImage);
 //app.post('/user', FBAuth, addUserDetails)
 //app.get('/user', FBAuth, getAuthenticatedUser);
 app.post('/signup_as_breeder', signup_as_breeder);
