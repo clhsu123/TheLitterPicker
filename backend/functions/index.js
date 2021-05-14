@@ -12,6 +12,7 @@ const { signup_as_breeder,
         add_breeder_details_by_handle,
         get_breeder_details,
         get_breeder_details_by_handle,
+        add_dog_to_breeder
     } = require('./handlers/breeders');
 const { signup_as_pet_owner,
         addPetDetails,
@@ -41,6 +42,7 @@ app.get('/get_pet_owner_details', FBPetAuth, get_pet_owner_details);
 app.post('/get_pet_owner_details_by_handle', get_pet_owner_details_by_handle);
 app.post('/add_pet_owner_details_by_handle', add_pet_owner_details_by_handle);
 app.post('/get_breeder_by_breed_type', getBreederByBreedType);
+app.post('/add_dog_to_breeder', FBBreederAuth, add_dog_to_breeder);
 // Other route could be added below, you could refer to functions above to design new functions
 
 //Application

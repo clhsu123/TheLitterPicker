@@ -181,3 +181,27 @@ exports.get_breeder_details_by_handle=(req, res) => {
     })
     .catch(err => console.error(err));
 };
+
+exports.add_dog_to_breeder = (req, res) => {
+    const new_data = {
+       birthdate: req.body.birthdate,
+       description: req.body.description,
+       gender: req.body.gender,
+       images: req.body.images,
+       isPuppy: req.body.isPuppy,
+       name: req.body.name,
+       videos: req.body.videos,
+    }
+    
+    db.
+        doc(`PuppyBreeders/${req.user.handle}`)
+        .collection('Dogs')
+        .add(new_data)
+        .then(doc => {
+            res.json({ message: `document ${doc.id} created successfully`});
+        })
+        .catch(err => {
+            res.status(500).json({ error: `something went wrong`});
+            console.error(err);
+        });
+}
