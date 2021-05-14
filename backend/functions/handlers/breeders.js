@@ -183,6 +183,7 @@ exports.get_breeder_details_by_handle=(req, res) => {
 };
 
 exports.add_dog_to_breeder = (req, res) => {
+    let dogId;
     const new_data = {
        birthdate: req.body.birthdate,
        description: req.body.description,
@@ -198,10 +199,27 @@ exports.add_dog_to_breeder = (req, res) => {
         .collection('Dogs')
         .add(new_data)
         .then(doc => {
-            res.json({ message: `document ${doc.id} created successfully`});
+            dogId = doc.id;
+            db.doc(`PuppyBreeders/${req.user.handle}/Dogs/${dogId}`)
+            .update({ dogId: dogId })
+        })
+        .then(()=> {
+            res.json({ message: `document ${dogId} created successfully`});
         })
         .catch(err => {
             res.status(500).json({ error: `something went wrong`});
             console.error(err);
         });
-}
+};
+
+exports.update_dog = (req, res) => {
+    let dogDetails = req.body;
+    db.doc(`/PuppyBreeders/${req.user.handle}/dogs/${req.body.dogId}`).update(dogDetails)
+        .then(() => {
+            return res.json({ message: 'Details added successfully'});
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({error: err.code})
+        });
+};
