@@ -2,7 +2,7 @@ import { SET_USER_BREEDER, SET_USER_PET_OWNER, SET_ERRORS, CLEAR_ERRORS, LOADING
 
 const initialState = {
     authenticated: false,
-    accoutType: "",
+    accountType: "",
     loading: false,
     address: "",
     applications: [],

@@ -1,5 +1,6 @@
 const { db, admin } = require('../util/admin');
-
+const config = require('../util/config');
+const firebase = require('firebase');
 const { validateSignupData , validateLoginData, reduceUserDetails} = require('../util/validaters');
 
 exports.signup_as_breeder = (req,res) => {

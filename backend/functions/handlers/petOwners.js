@@ -1,5 +1,6 @@
 const { db } = require('../util/admin');
-
+const config = require('../util/config');
+const firebase = require('firebase');
 const { validateSignupData , validateLoginData, reduceUserDetails} = require('../util/validaters');
 
 exports.signup_as_pet_owner = (req,res) => {
@@ -95,12 +96,11 @@ exports.get_pet_owner_details= (req,res) => {
             let pet_owners = [];
             data.forEach((doc) => {
                 pet_owners.push( {
-                    applications: doc.data().handle,
+                    applications: doc.data().applications,
                     registration_email: doc.data().registration_email,
                     handle: doc.data().handle,
                     selfIntro: doc.data().selfIntro,
                     profile_photo: doc.data().profile_photo,
-
                     //createdAt: doc.data().createdAt
                 });
             });

@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-
+import EditDetails from '../components/EditDetails';
 //Redux stuff
 import { connect } from 'react-redux';
 import { logoutUser, uploadBreederProfileImage } from '../redux/actions/userActions';
@@ -108,6 +108,9 @@ export class AuthProfile extends React.Component {
                                 <KeyboardReturn color="primary" />
                             </iconButton>
                         </Tooltip>
+                        <p>這裏</p>
+                        <EditDetails/>
+                        <p>這裏</p>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >

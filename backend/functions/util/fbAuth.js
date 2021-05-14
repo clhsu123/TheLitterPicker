@@ -42,7 +42,7 @@ exports.FBPetAuth = (req, res, next) => {
     .then(decodedToken => {
         req.user = decodedToken;
         console.log(decodedToken);
-        return db.collection('PetOwner')
+        return db.collection('PetOwners')
         .where('userId', '==', req.user.uid)
         .limit(1)
         .get();

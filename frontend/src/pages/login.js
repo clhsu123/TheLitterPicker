@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // Redux stuff
 import { connect } from 'react-redux';
-import { loginBreeder } from '../redux/actions/userActions'
+import { loginBreeder, loginPetOwner } from '../redux/actions/userActions'
 //MUI stuff
 
 const styles = {
@@ -56,7 +56,7 @@ export class login extends Component {
             this.setState({ errors: nextProps.UI.errors});
         }
     }
-    handleSubmit = (event) => {
+    handleSubmitBreeder = (event) => {
         event.preventDefault();
         const userData = {
             email: this.state.email,
@@ -64,6 +64,14 @@ export class login extends Component {
         };
         this.props.loginBreeder(userData, this.props.history);
     };
+    handleSubmitPetOwner = (event) => {
+        event.preventDefault();
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        this.props.loginPetOwner(userData, this.props.history);
+    }
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -81,7 +89,7 @@ export class login extends Component {
                     <Typography variant="h2" className={classes.pageTitle}>
                         
                     </Typography>
-                    <form noValidate onSubmit={this.handleSubmit}>
+                    <form noValidate>
                         <TextField 
                             id="email"
                             name="email"
@@ -115,8 +123,21 @@ export class login extends Component {
                             color="primary" 
                             className={classes.button}
                             disabled={loading}
+                            onClick = {this.handleSubmitBreeder}
                         >
-                            Login
+                            As Breeder
+                            {loading && (
+                                <CircularProgress size = {20} className={classes.progress}/>
+                            )}
+                        </Button>
+                        <Button 
+                            type="submit" 
+                            color="primary" 
+                            className={classes.button}
+                            disabled={loading}
+                            onClick = {this.handleSubmitPetOwner}
+                        >
+                            As User
                             {loading && (
                                 <CircularProgress size = {20} className={classes.progress}/>
                             )}
@@ -133,7 +154,8 @@ export class login extends Component {
 
 login.propTypes = {
     classes: PropTypes.object.isRequired,
-    loginUser: PropTypes.func.isRequired,
+    loginBreeder: PropTypes.func.isRequired,
+    loginPetOwner: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     UI: PropTypes.object.isRequired
 };
@@ -144,6 +166,7 @@ const mapStateToProps = (state) =>({
 });
 
 const mapActionsToProps = {
-    loginBreeder
+    loginBreeder,
+    loginPetOwner
 }
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(login))

@@ -16,7 +16,7 @@ import AuthRoute from './util/AuthRoute';
 //Pages
 //import home_firebase from './pages/home_firebase';
 import login from './pages/login';
-import signupAsBreeder from './pages/signupAsBreeder';
+import signup from './pages/signup';
 import profile from './pages/AuthProfile';
 import search from './pages/Search';
 import pet from './pages/pet';
@@ -114,7 +114,7 @@ export class App extends Component {
             <div className="container">
               <Switch>
                 <AuthRoute exact path="/login" component={login} />
-                <AuthRoute exact path="/signupAsBreeder" component={signupAsBreeder} />
+                <AuthRoute exact path="/signup" component={signup} />
                 <Route exact path="/application" component={application} />
                 <Route exact path="/login" component={login} />
                 {/* <Route exact path="/signup" component={signup} /> */}

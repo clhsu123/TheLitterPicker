@@ -121,7 +121,15 @@ export const uploadBreederProfileImage = (formData) => (dispatch) => {
         })
         .catch(err => console.log(err));
 };
-
+export const editBreederDetails = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios.post('/add_breeder_details', userDetails)
+    .then(() => {
+        dispatch(getBreederData());
+    })
+    .catch(err => console.log(err));
+};
+ 
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);
