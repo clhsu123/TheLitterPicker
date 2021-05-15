@@ -76,7 +76,7 @@ export class application extends Component {
             currentDog: '',
             preferredGender: '',
             generalPreference: '',
-            preferenceOriented: '',
+            preferenceOriented: false,
             additionInformation: '',
             createdAt: '',
             activeStep: 0
@@ -219,10 +219,7 @@ export class application extends Component {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick= {
-                          this.handleOnClick
-                        }
-                        //() => this.state.activeStep === steps.length? this.handleSubmit : this.setState({ activeStep: this.state.activeStep + 1})
+                        onClick={this.handleOnClick}
                         className={classes.button}
                       >
                         {this.state.activeStep === steps.length - 1 ? 'Apply' : 'Next'}
@@ -264,26 +261,32 @@ export class application extends Component {
               label="Email"
               fullWidth
               autoComplete="email"
+              value={this.state.email}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               id="firstName"
-              name="firstName"
+              name="firstname"
               label="First name"
               fullWidth
               autoComplete="given-name"
+              value={this.state.firstname}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               id="lastName"
-              name="lastName"
+              name="lastname"
               label="Last name"
               fullWidth
               autoComplete="family-name"
+              value={this.state.lastname}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -294,6 +297,8 @@ export class application extends Component {
               label="Address line 1"
               fullWidth
               autoComplete="shipping address-line1"
+              value={this.state.address1}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -303,6 +308,8 @@ export class application extends Component {
               label="Address line 2"
               fullWidth
               autoComplete="shipping address-line2"
+              value={this.state.address2}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -313,10 +320,19 @@ export class application extends Component {
               label="City"
               fullWidth
               autoComplete="shipping address-level2"
+              value={this.state.city}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+            <TextField
+            id="state"
+            name="state"
+            label="State/Province/Region"
+            fullWidth
+            value={this.state.state}
+            onChange={this.handleChange}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -326,6 +342,8 @@ export class application extends Component {
               label="Zip / Postal code"
               fullWidth
               autoComplete="shipping postal-code"
+              value={this.state.zip}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -336,6 +354,8 @@ export class application extends Component {
               label="Country"
               fullWidth
               autoComplete="shipping country"
+              value={this.state.country}
+              onChange={this.handleChange}
             />
           </Grid>
         </Grid>
@@ -420,7 +440,7 @@ export class application extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="preference0" value="yes" />}
+              control={<Checkbox color="primary" name="preferenceOriented" value={this.state.preferenceOriented} />}
               label="These are my preferences, but I would consider a healthy puppy of another color."
             />
           </Grid>
