@@ -48,6 +48,12 @@ export class Profile extends React.Component {
             puppies_info: [],
         };
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
+        this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
+    }
+
+    handleViewApplicationsClicked() {
+        console.log("view applications");
+        this.props.history.push('/view_applicatoins', {breeder_info: this.state.breeder_info});
     }
 
     classifyDogInfo = (dogs_data) => {
@@ -159,21 +165,25 @@ export class Profile extends React.Component {
                         </Grid>
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
-                        {/* <Grid item xs={5} className={classes.button}>
-                            <Button variant="contained" color="secondary" component={Link} to="/view_applicatoins">
+                        <Grid item xs={5} className={classes.button}>
+                            {/* <Button variant="contained" color="secondary" component={Link} to="/view_applicatoins">
+                                View Applications
+                            </Button> */}
+                            <Button variant="contained" color="secondary" onClick={this.handleViewApplicationsClicked}>
                                 View Applications
                             </Button>
+                            
                         </Grid>
                         <Grid item xs={5} className={classes.button}>
                             <Button variant="contained" color="secondary" component={Link} to="/customize_application_form">
                                 Customize Application Form
                             </Button>
-                        </Grid> */}
-                        <Grid item xs={5} className={classes.button}>
+                        </Grid>
+                        {/* <Grid item xs={5} className={classes.button}>
                             <Button variant="contained" color="secondary" component={Link} to="/application">
                                 Apply Applications
                             </Button>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Grid>
                 <Grid item className={classes.subtitle}>

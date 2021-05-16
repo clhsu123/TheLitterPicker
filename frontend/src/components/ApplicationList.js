@@ -19,7 +19,8 @@ export class ApplicationList extends React.Component {
     
     componentDidMount() {
         // testing
-        const application_ids = this.props.application_ids;
+        // const application_ids = this.props.application_ids;
+        const application_ids = ['aHsrSjZiNVqOituvfZBW', 'caOfscXFQHT9iQzEcX8I', 'dCebRRD10WKdrWRxmtwN'];
         console.log(application_ids);
         var a1 = {
             notification: 'Please note the cost of a puppy is $2,300. We truly care about our puppies and their future well being. This is why we require any potential puppy owner to fill out this form. Once your application is completed and submitted, we will review it and give you an answer within 24-48 hours.', firstname: 'marcy', lastname: 'tucker', email: 'yjw123444@gmail.com', phone: '852-963-6564',
