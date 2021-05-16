@@ -58,8 +58,9 @@ export class BreederInfoCard extends React.Component {
         const breeder_info = this.props.info;
         return (
             <ListItem alignItems="flex-start">
-                <Card onClick={this.handleOnClick} className={classes.root}>
+                <Card className={classes.root}>
                     <CardMedia
+                        onClick={this.handleOnClick}
                         className={classes.avatar}
                         title="Breeder Image"
                         image={breeder_info.profile_photo}
@@ -94,7 +95,7 @@ export class BreederInfoCard extends React.Component {
                                 {breeder_info.overview}
                             </Typography>
 
-                            <Typography>
+                            {/* <Typography>
                                 <a onClick={this.handleReadMoreClick}>Read more</a>
                             </Typography>
 
@@ -107,7 +108,8 @@ export class BreederInfoCard extends React.Component {
                                     pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
                                     saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
                                 </Typography>
-                            </Collapse>
+                            </Collapse> */}
+
                         </CardContent>
 
                     </div>

@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import EmailIcon from '@material-ui/icons/Email';
-import PetsIcon from '@material-ui/icons/Pets';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
@@ -160,7 +159,7 @@ export class Profile extends React.Component {
                         </Grid>
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
-                        <Grid item xs={5} className={classes.button}>
+                        {/* <Grid item xs={5} className={classes.button}>
                             <Button variant="contained" color="secondary" component={Link} to="/view_applicatoins">
                                 View Applications
                             </Button>
@@ -168,6 +167,11 @@ export class Profile extends React.Component {
                         <Grid item xs={5} className={classes.button}>
                             <Button variant="contained" color="secondary" component={Link} to="/customize_application_form">
                                 Customize Application Form
+                            </Button>
+                        </Grid> */}
+                        <Grid item xs={5} className={classes.button}>
+                            <Button variant="contained" color="secondary" component={Link} to="/application">
+                                Apply Applications
                             </Button>
                         </Grid>
                     </Grid>

@@ -45,8 +45,8 @@ export class NewHome extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick () {
-        this.props.history.push('/search', {keyword: "collie"});
+    handleClick (user_entered_keyword) {
+        this.props.history.push('/search', {keyword: user_entered_keyword});
     }
 
     render() {
@@ -80,21 +80,21 @@ export class NewHome extends React.Component {
                         label="Collie"
                         clickable
                         color="secondary"
-                        onClick={this.handleClick}
+                        onClick={() => this.handleClick("collie")}
                     />
                     <Chip className={classes.chip}
                         icon={<PetsIcon />}
                         label="Chihuahua"
                         clickable
                         color="primary"
-                        onClick={this.handleClick}
+                        onClick={() => this.handleClick("chihuahua")}
                     />
                     <Chip className={classes.chip}
                         icon={<PetsIcon />}
                         label="Bulldog"
                         clickable
                         color="secondary"
-                        onClick={this.handleClick}
+                        onClick={() => this.handleClick("bulldog")}
                     />
                 </Grid>
 
@@ -104,14 +104,14 @@ export class NewHome extends React.Component {
                         label="Shiba"
                         clickable
                         color="secondary"
-                        onClick={this.handleClick}
+                        onClick={() => this.handleClick("shiba")}
                     />
                     <Chip className={classes.chip}
                         icon={<PetsIcon />}
                         label="Samoyed"
                         clickable
                         color="primary"
-                        onClick={this.handleClick}
+                        onClick={() => this.handleClick("samoyed")}
                     />
                 </Grid>
                 
