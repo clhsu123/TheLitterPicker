@@ -1,7 +1,9 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_AUTHENTICATED, SET_UNAUTHENTICATED } from '../types';
+import { SET_USER_BREEDER, SET_USER_PET_OWNER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER} from '../types';
 
 const initialState = {
     authenticated: false,
+    accountType: "",
+    loading: false,
     address: "",
     applications: [],
     background_photo: "",
@@ -10,6 +12,7 @@ const initialState = {
     dog_breed_type: "",
     handle: "",
     overview: "",
+    selfIntro:"",
     tags: [],
     profile_photo: "",
     createdAt: "",
@@ -26,11 +29,25 @@ export default function(state = initialState, action){
             };
         case SET_UNAUTHENTICATED:
                 return initialState;
-        case SET_USER:
+        case SET_USER_BREEDER:
                 return {
                     authenticated: true,
+                    accountType: "breeder",
+                    loading: false,
                     ...action.payload
                 };
+        case SET_USER_PET_OWNER:
+                return {
+                    authenticated: true,
+                    accountType: "petowner",
+                    loading: false,
+                    ...action.payload
+                };
+        case LOADING_USER:
+            return {
+                ...state,
+                loading: true
+            };
         default:
            return state; 
     }

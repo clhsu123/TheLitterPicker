@@ -14,7 +14,7 @@ import Grid from '@material-ui/core/Grid';
 
 //Redux stuff
 import { connect } from 'react-redux';
-import { signupBreeder, logoutUser } from '../redux/actions/userActions';
+import { signupBreeder, signupPetOwner, logoutUser } from '../redux/actions/userActions';
 const styles = {
     form: {
         textAlign: 'center'
@@ -43,7 +43,7 @@ const styles = {
 };
 
 
-export class signupAsBreeder extends Component {
+export class signup extends Component {
     constructor(){
         super();
         this.state = {
@@ -59,11 +59,8 @@ export class signupAsBreeder extends Component {
             this.setState({ errors: nextProps.UI.errors});
         }
     }
-    handleSubmit = (event) => {
+    handleSubmitBreeder = (event) => {
         event.preventDefault();
-        this.setState({
-            loading: true
-        });
         const newUserData = {
             email: this.state.email,
             password: this.state.password,
@@ -72,6 +69,17 @@ export class signupAsBreeder extends Component {
         };
         this.props.signupBreeder(newUserData, this.props.history);
     };
+
+    handleSubmitPetOwner = (event) => {
+        event.preventDefault();
+        const newUserData = {
+            email: this.state.email,
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword,
+            handle: this.state.handle
+        }
+        this.props.signupPetOwner(newUserData, this.props.history);
+    }
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -89,7 +97,7 @@ export class signupAsBreeder extends Component {
                     <Typography variant="h2" className={classes.pageTitle}>
                         
                     </Typography>
-                    <form noValidate onSubmit={this.handleSubmit}>
+                    <form noValidate>
                         <TextField 
                             id="email"
                             name="email"
@@ -148,8 +156,21 @@ export class signupAsBreeder extends Component {
                             color="primary" 
                             className={classes.button}
                             disabled={loading}
+                            onClick = {this.handleSubmitBreeder}
                         >
-                            Signup
+                            As Breeder
+                            {loading && (
+                                <CircularProgress size = {20} className={classes.progress}/>
+                            )}
+                        </Button>
+                        <Button 
+                            type="submit" 
+                            color="primary" 
+                            className={classes.button}
+                            disabled={loading}
+                            onClick = {this.handleSubmitPetOwner}
+                        >
+                            As User
                             {loading && (
                                 <CircularProgress size = {20} className={classes.progress}/>
                             )}
@@ -164,15 +185,23 @@ export class signupAsBreeder extends Component {
     }
 }
 
-signupAsBreeder.propTypes = {
+signup.propTypes = {
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
     UI: PropTypes.object.isRequired,
-    logoutUser: PropTypes.object.isRequired
+    logoutUser: PropTypes.object.isRequired,
+    signupBreeder: PropTypes.func.isRequired,
+    signupPetOwner: PropTypes.func.isRequired
 };
+
 
 const mapStateToProps = (state) => ({
     user: state.user,
     UI: state.UI
 })
-export default connect(mapStateToProps, { signupBreeder })(withStyles(styles)(signupAsBreeder));
+
+const mapActionsToProps = {
+    signupBreeder,
+    signupPetOwner
+}
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(signup));

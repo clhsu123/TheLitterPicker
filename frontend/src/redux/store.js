@@ -11,7 +11,7 @@ const initialState = {};
 const middleware = [thunk];
 
 const reducers = combineReducers({
-    // Everything that comes from the userReducer will be stored in the user object
+    // Everything that comes from the breederReducer will be stored in the user object
     user: userReducer,
     data: dataReducer,
     UI: uiReducer

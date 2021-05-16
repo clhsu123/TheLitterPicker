@@ -5,24 +5,22 @@ const app = require('express')();
 //Import self-defined functions from other folders
 const { FBBreederAuth , FBPetAuth } = require('./util/fbAuth');
 const { getAllScreams , postOneScream} = require('./handlers/scream');
-const { signup, 
-    login, 
-    uploadImage, 
-    addUserDetails, 
-    getAuthenticatedUser, 
-    signup_as_breeder, 
-    signup_as_pet_owner, 
-    addBreederDetails, 
-    addPetDetails, 
-    getBreederByBreedType, 
-    add_breeder_details_by_handle, 
-    add_pet_owner_details_by_handle, 
-    get_breeder_details, 
-    get_pet_owner_details, 
-    get_breeder_details_by_handle,
-    get_pet_owner_details_by_handle
-    } = require('./handlers/user');
-const { getApplication, updateApplication } = require('./handlers/application');
+const { login, uploadImage } = require('./handlers/user');
+const { signup_as_breeder,
+        addBreederDetails,
+        getBreederByBreedType,
+        add_breeder_details_by_handle,
+        get_breeder_details,
+        get_breeder_details_by_handle,
+        add_dog_to_breeder
+    } = require('./handlers/breeders');
+const { signup_as_pet_owner,
+        addPetDetails,
+        add_pet_owner_details_by_handle,  
+        get_pet_owner_details, 
+        get_pet_owner_details_by_handle
+    } = require('./handlers/petOwners');
+    const { getApplication, updateApplication } = require('./handlers/application');
 
 
 //Scream route
@@ -30,11 +28,9 @@ app.get('/screams', getAllScreams); //Fetch all datas (In JSON format) from coll
 //app.post('/scream', FBAuth, postOneScream); //Post one document onto collection "scream"
 
 //User route
-app.post('/signup', signup); //Sign up function, once signed up, add a document to collection "users" and return a token (used to identify user)
-app.post('/login', login); //Login funtion, once logged in, return a token (used to identify user)
-//app.post('/user/image', FBAuth, uploadImage)
-//app.post('/user', FBAuth, addUserDetails)
-//app.get('/user', FBAuth, getAuthenticatedUser);
+
+app.post('/login', login);
+app.post('/user/image', FBBreederAuth, uploadImage);
 app.post('/signup_as_breeder', signup_as_breeder);
 app.post('/signup_as_pet_owner', signup_as_pet_owner);
 app.post('/add_breeder_details', FBBreederAuth, addBreederDetails);
@@ -46,7 +42,8 @@ app.get('/get_pet_owner_details', FBPetAuth, get_pet_owner_details);
 app.post('/get_pet_owner_details_by_handle', get_pet_owner_details_by_handle);
 app.post('/add_pet_owner_details_by_handle', add_pet_owner_details_by_handle);
 app.post('/get_breeder_by_breed_type', getBreederByBreedType);
-//Other route could be added below, you could refer to functions above to design new functions
+app.post('/add_dog_to_breeder', FBBreederAuth, add_dog_to_breeder);
+// Other route could be added below, you could refer to functions above to design new functions
 
 //Application
 app.get('/get_application', getApplication);

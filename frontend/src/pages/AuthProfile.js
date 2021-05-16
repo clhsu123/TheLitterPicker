@@ -1,206 +1,215 @@
-import React, { Component } from 'react'
-import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import AppIcon1 from '../images/phone.png';
-import AppIcon2 from '../images/mail.png';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
+import EmailIcon from '@material-ui/icons/Email';
+import PetsIcon from '@material-ui/icons/Pets';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { InputBase } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+import EditDetails from '../components/EditDetails';
+//Redux stuff
+import { connect } from 'react-redux';
+import { logoutUser, uploadBreederProfileImage } from '../redux/actions/userActions';
 
 const styles = {
-    pic: {
-        textAlign: 'center'
+    root: {
+        margin: '10px 10px 10px 10px',
+        padding: '20px 10px 10px 10px',
+        // textAlign: 'center',
+    },
+    subtitle: {
+        margin: '10px 10px 10px 10px',
+    },
+    title_text: {
+        fontWeight: 'bold',
+
     },
     icon: {
-        margin: 'auto'
+        margin: '2px 2px 2px 2px',
     },
-    prof_button: {
-        width: '10'
+    overview: {
+        padding: '15px 15px 15px 15px',
     },
-    update_button: {
-        margin: '10 10 10 10'
+    button: {
+        margin: '10px 10px 10px 10px',
+        // padding: '10px 10px 10px 10px',
     }
 };
 
-export class profile extends Component {
+export class AuthProfile extends React.Component {
+    handleImageChange = (event) => {
+        const image = event.target.files[0];
+        // send to server
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        this.props.uploadBreederProfileImage(formData);
+    };
+
+    handleEditPicture = () => {
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+    };
+    
+    handleLogout = () => {
+        this.props.logoutUser();
+        this.props.history.push('/');
+    };
+
     render() {
-        const { classes } = this.props; 
+        const { classes, user: { 
+            address,
+            applications,
+            background_photo, 
+            contact_email, 
+            registration_email, 
+            dog_breed_type, 
+            handle,
+            overview,
+            tags,
+            profile_photo,
+            createdAt,
+            phone,
+            title,
+            loading,
+            authenticated
+            }
+        } = this.props; 
+
         return (
-            <Grid container spacing = {1}>
-                <Grid container item xs = {12} alignItems = 'center' spacing = {1}>
-                    <Grid item sm>
-                        <p>Pic one</p>
+            <Grid container spacing={3} className={classes.root}>
+                <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
+                    <Grid item xs={2}>
+                        <Button>
+                            <img src={profile_photo} width='100' height='100' />
+                            <input 
+                            type="file"
+                            id="imageInput"
+                            hidden="hidden"
+                            onChange={this.handleImageChange} 
+                            />
+                            <Tooltip title="Edit profile picture" placement="top">
+                                <IconButton onClick ={this.handleEditPicture} className="button">
+                                    <EditIcon color="primary" />
+                                </IconButton>
+                            </Tooltip>
+                        </Button>
+                        <Tooltip title="Logout" placement="top">
+                            <iconButton onClick={this.handleLogout}>
+                                <KeyboardReturn color="primary" />
+                            </iconButton>
+                        </Tooltip>
+                        <p>這裏</p>
+                        <EditDetails/>
+                        <p>這裏</p>
                     </Grid>
-                    <Grid item sm>
-                        <p>Pic two</p>
+                    <Grid item xs={4}>
+                        <Typography variant="h4" component="h4" >
+                            <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
+                                {title}
+                            </Box>
+                        </Typography>
                     </Grid>
-                    <Grid item sm>
-                        <p>Pic three</p>
+                    <Grid item xs={2}>
+                        <InputBase
+                            id="breeder phone"
+                            type='text'
+                            value={phone}
+                            startAdornment={
+                                <InputAdornment position="start">
+                                    <PhoneIphoneIcon />
+                                </InputAdornment>
+                            }
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <InputBase
+                            id="breeder email"
+                            type='email'
+                            value={registration_email}
+                            startAdornment={
+                                <InputAdornment position="start">
+                                    <EmailIcon />
+                                </InputAdornment>
+                            }
+                        />
+                        
                     </Grid>
                 </Grid>
-                <Grid container item xs = {12}>
-                    <Grid item xs = {3}> 
-                        <p>pic</p>
-                    </Grid>
-                    <Grid item xs = {3}>
-                        <p>name</p>
-                    </Grid>
-                    <Grid item xs = {0.5} className = {classes.icon}> 
-                        <img src={AppIcon1} alt="phone" width="30" height="30" />
-                    </Grid>
-                    <Grid item xs = {3}>
-                        <p>Phone number</p>
-                    </Grid>
-                    <Grid item xs = {0.5} className = {classes.icon}>
-                        <img src={AppIcon2} alt="mail" width='30' height="30" />
-                    </Grid>
-                    <Grid item xs={2.5}>
-                        <p>chelunh1@uci.edu</p>
-                    </Grid>
-                </Grid>
-                <Grid container item xs = {12}>
-                    <Grid container item xs = {8}>
-                        <Grid container item xs = {8}>
-                        <Grid item sm>
-                            <Button variant="outlined" color="primary">
-                                Boys/Sires
-                            </Button>
+                <Grid container item xs={12} direction='row' alignItems="baseline">
+                    <Grid container item xs={8} direction="column">
+                        <Grid item className={classes.subtitle}>
+                            <Typography variant="h5" component="h5" >
+                                <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                    Overview
+                                </Box>
+                            </Typography>
                         </Grid>
-                        <Grid item sm>
-                            <Button variant="outlined" color="primary">
-                                Girls/Dams
-                            </Button>
-                        </Grid>
-                        <Grid item sm>
-                            <Button variant="outlined" color="primary">
-                                Available Puppies
-                            </Button>
-                        </Grid>
-                        </Grid>
-                        <Grid container item xs = {8} alignItems="center" className = {classes.overview}>
-                            <Grid item sm>
-                                <h1>Overview</h1>
-                            </Grid>
-                            <Grid item sm>
-                                <Button variant="outlined" color="primary" className = {classes.update_button}>
-                                    update
-                                </Button>
-                            </Grid>
-                            <Grid item sm/>
-                        </Grid>
-                        <Grid container item xs = {8}>
-                            <p>Coming from only the purest and finest of bloodlines, we have carefully selected which dogs we breed. We are intentional ...</p>
+                        <Grid item>
+                            <Paper variant="outlined" className={classes.overview}>
+                                {overview}
+                            </Paper>
                         </Grid>
                     </Grid>
-                    <Grid container item xs = {4}>
-                        <Grid item xs className = {classes.prof_button}>
-                            <Button variant="contained" color="primary" fullWidth>
-                                Upadate Profile
-                            </Button>
-                            <br /><br />
-                            <Button variant="contained" color="primary" fullWidth>
+                    <Grid container item xs={4} direction="column" alignItems="center">
+                        <Grid item xs={5} className={classes.button}>
+                            <Button variant="contained" color="secondary" component={Link} to="/view_applicatoins">
                                 View Applications
                             </Button>
-                            <br /><br />
-                            <Button variant="contained" color="primary" fullWidth>
+                        </Grid>
+                        <Grid item xs={5} className={classes.button}>
+                            <Button variant="contained" color="secondary" component={Link} to="/customize_application_form">
                                 Customize Application Form
                             </Button>
                         </Grid>
                     </Grid>
                 </Grid>
-                
-                <Grid container item xs = {12}>
-                    <h1>News and Updates</h1>
+                <Grid item xs={12}>
+                    <Typography variant="h5" component="h5" >
+                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                            Boys / Sires
+                        </Box>
+                    </Typography>
                 </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h5" component="h5" >
+                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                            Girls / Dams
+                        </Box>
+                    </Typography>
                 </Grid>
-
-                <Grid container item xs = {12}>
-                    <h1>Sires</h1>
-                </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
-                </Grid>
-
-                <Grid container item xs = {12}>
-                    <h1>Dams</h1>
-                </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
-                </Grid>
-
-                <Grid container item xs = {12}>
-                    <h1>Available Puppies</h1>
-                </Grid>
-
-                <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
-                    <Grid item sm>
-                        <p>Pic 1</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 2</p>
-                    </Grid>
-                    <Grid item sm>
-                        <p>Pic 3</p>
-                    </Grid>
-                    <Grid item sm>
-                        <Button variant="outlined" color="primary">
-                            more
-                        </Button>
-                    </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h5" component="h5" >
+                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                            Available Puppies
+                        </Box>
+                    </Typography>
                 </Grid>
             </Grid>
-        )
+        );
     }
 }
 
-profile.propTypes = {
-    classes: PropTypes.object.isRequired
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+const mapActionsToProps = { logoutUser, uploadBreederProfileImage };
+
+AuthProfile.propTypes = {
+    uploadBreederProfileImage: PropTypes.func.isRequired,
+    logoutUser: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(profile)
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AuthProfile));

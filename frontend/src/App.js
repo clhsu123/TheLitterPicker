@@ -8,7 +8,7 @@ import jwtDecode from 'jwt-decode';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
-import { logoutUser, getUserData } from './redux/actions/userActions';
+import { logoutUser, getBreederData } from './redux/actions/userActions';
 //Components
 // import Navbar from './components/new_Navbar';
 import Navbar from './components/Navbar';
@@ -16,7 +16,7 @@ import AuthRoute from './util/AuthRoute';
 //Pages
 //import home_firebase from './pages/home_firebase';
 import login from './pages/login';
-import signupAsBreeder from './pages/signupAsBreeder';
+import signup from './pages/signup';
 import profile from './pages/AuthProfile';
 import Profile from './pages/Profile';
 import search from './pages/Search';
@@ -95,7 +95,7 @@ if(token){
   else{
     store.dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common['Authorization'] = token;
-    store.dispatch(getUserData());
+    store.dispatch(getBreederData());
   }
 }
 
@@ -115,7 +115,7 @@ export class App extends Component {
             <div className="container">
               <Switch>
                 <AuthRoute exact path="/login" component={login} />
-                <AuthRoute exact path="/signupAsBreeder" component={signupAsBreeder} />
+                <AuthRoute exact path="/signup" component={signup} />
                 <Route exact path="/application" component={application} />
                 <Route exact path="/login" component={login} />
                 {/* <Route exact path="/signup" component={signup} /> */}
