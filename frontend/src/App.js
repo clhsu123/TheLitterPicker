@@ -10,8 +10,8 @@ import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getBreederData } from './redux/actions/userActions';
 //Components
-// import Navbar from './components/new_Navbar';
-import Navbar from './components/Navbar';
+import Navbar from './components/new_Navbar';
+//import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
 //Pages
 //import home_firebase from './pages/home_firebase';
