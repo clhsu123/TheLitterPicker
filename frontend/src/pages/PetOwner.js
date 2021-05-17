@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +8,13 @@ import Box from '@material-ui/core/Box';
 import ApplicationList from '../components/ApplicationList';
 import { Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+
+//Redux stuff
+import { connect } from 'react-redux';
+
+
+//Edit Detail Component
+import EditPetDetails from '../components/EditPetDetails';
 
 const styles = {
     root: {
@@ -44,7 +52,6 @@ export class PetOwner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            petowner_info: {},
         };
     }
 
@@ -64,19 +71,19 @@ export class PetOwner extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, user } = this.props;
         const petowner_info = this.state.petowner_info;
         return (
             <div className={classes.root}>
                 <Grid container spacing={3}>
                     <Grid container item xs={12} direction='row'>
                         <Button>
-                            <img src={petowner_info.profile_photo} width='100' height='100' />
+                            <img src={user.profile_photo} width='100' height='100' />
                         </Button>
                         <Grid item xs={12} sm={2} className={classes.username}>
                             <Typography variant="h5" component="h5" >
                                 <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                                    {petowner_info.handle}
+                                    {user.handle}
                                 </Box>
                             </Typography>
                         </Grid>
@@ -84,6 +91,7 @@ export class PetOwner extends React.Component {
                             <Button variant="contained" color="secondary" component={Link} to="/update_profile">
                                 Update Profile
                             </Button>
+                            <EditPetDetails />
                         </Grid>
                     </Grid>
 
@@ -97,7 +105,7 @@ export class PetOwner extends React.Component {
 
                     <Grid item xs={12}>
                         <Paper variant="outlined" className={classes.selfIntro}>
-                            {petowner_info.selfIntro}
+                            {user.selfIntro}
                         </Paper>
                     </Grid>
 
@@ -111,12 +119,20 @@ export class PetOwner extends React.Component {
 
                     <Grid item xs={12}>
                         {/* <BreederInfoList breeders={this.state.breeders} /> */}
-                        <ApplicationList application_ids={petowner_info.applications} />
+                        <ApplicationList application_ids={user.applications} />
                     </Grid>
                 </Grid>
             </div>
         );
     }
 }
+const mapStateToProps = (state) => ({
+    user: state.user
+});
 
-export default withStyles(styles)(PetOwner);
+PetOwner.propTypes = {
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(PetOwner));

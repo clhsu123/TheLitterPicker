@@ -3,8 +3,8 @@ const { db, admin } = require('./admin');
 
 exports.FBBreederAuth = (req, res, next) => {
     let idToken;
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer ')){
-        idToken = req.headers.authorization.split('Bearer ')[1];
+    if(req.headers.authorization && req.headers.authorization.startsWith('Breeder ')){
+        idToken = req.headers.authorization.split('Breeder ')[1];
     } else {
         console.error('No token found')
         return res.status(403).json({ error: 'Unauthorized'});
@@ -31,8 +31,8 @@ exports.FBBreederAuth = (req, res, next) => {
 
 exports.FBPetAuth = (req, res, next) => {
     let idToken;
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer ')){
-        idToken = req.headers.authorization.split('Bearer ')[1];
+    if(req.headers.authorization && req.headers.authorization.startsWith('PetOwner ')){
+        idToken = req.headers.authorization.split('PetOwner ')[1];
     } else {
         console.error('No token found')
         return res.status(403).json({ error: 'Unauthorized'});

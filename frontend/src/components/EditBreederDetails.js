@@ -20,7 +20,7 @@ import EditIcon from '@material-ui/icons/Edit';
 const styles = {
     
 }
-class EditDetails extends Component {
+class EditBreederDetails extends Component {
     state = {
         open : false,
         address: "",
@@ -176,7 +176,7 @@ class EditDetails extends Component {
     }
 }
 
-EditDetails.propTypes = {
+EditBreederDetails.propTypes = {
     editUserDetails: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
 }
@@ -185,4 +185,4 @@ const mapStateToProps = (state) => ({
     user: state.user
 })
 
-export default connect(mapStateToProps, { editBreederDetails })(withStyles(styles)(EditDetails));
+export default connect(mapStateToProps, { editBreederDetails })(withStyles(styles)(EditBreederDetails));
