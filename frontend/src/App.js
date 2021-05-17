@@ -19,6 +19,7 @@ import login from './pages/login';
 import signup from './pages/signup';
 import profile from './pages/AuthProfile';
 import Profile from './pages/Profile';
+import AuthBreederProfile from './pages/AuthBreederProfile';
 import ViewApplications from './pages/ViewApplications';
 import search from './pages/Search';
 import pet from './pages/pet';
@@ -122,6 +123,7 @@ export class App extends Component {
                 {/* <Route exact path="/signup" component={signup} /> */}
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
+                <Route exact path="/auth_breeder_profile" component={AuthBreederProfile} />
                 <Route exact path="/breeder_profile" component={Profile} />
                 <Route exact path="/view_applicatoins" component={ViewApplications} />
                 <Route exact path="/pet" component={pet} />

@@ -12,10 +12,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Chip from '@material-ui/core/Chip';
 import { Link } from 'react-router-dom';
 import SearchBar from './searchBar';
+import axios from 'axios';
 
 // redux stuff
 import { connect } from 'react-redux';
-import { ButtonBase } from '@material-ui/core';
 
 const styles = {
     appBar: {
@@ -45,8 +45,29 @@ const styles = {
 export class new_Navbar extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            breeder_info: {}
+        };
+        //this.avatarOnClicked = this.avatarOnClicked.bind(this);
     }
+
+    // avatarOnClicked(accountType, handle) {
+    //     console.log("avatar is clicked!");
+    //     if (accountType == 'breeder') {
+    //         axios
+    //             .post('/get_breeder_details_by_handle', handle)
+    //             .then(res => {
+    //                 this.setState({
+    //                     breeder_info: res.data
+    //                 });
+    //             })
+    //             .catch(err => console.log(err));
+    //             // this.props.history.push('/breeder_profile', { breeder_info: this.state.breeder_info });
+    //         } else {
+    //         // this.props.history.push('/petowner');
+    //     }
+    // }
+
     render() {
         const { classes, user: {
             handle,
@@ -85,7 +106,8 @@ export class new_Navbar extends Component {
                                         </Grid>
                                     </Grid>
                                     :
-                                    <Button>
+                                    // <Button onClick={() => this.avatarOnClicked(accountType, handle)}>
+                                    <Button component={Link} to={(accountType=='breeder') ? '/auth_breeder_profile' : '/petowner'}>
                                         <Grid container direction='row' alignItems="center">
                                             <Grid item className={classes.avatar}>
                                                 <Avatar src={profile_photo} />
