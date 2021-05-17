@@ -11,6 +11,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
+import axios from 'axios';
 
 const styles = {
     root: {
@@ -87,23 +88,36 @@ export class Profile extends React.Component {
     componentDidMount() {
         // testing
         // assume we get Dogs sub-collections data from the database
-        var d1 = {
-            name: 'eva', gender: 'female',
-            birthdate: '12-31-2020', isPuppy: true, description: 'The Border Collie is the star of the herding group. He is a hard worker, with keen instincts and intelligence. Your Border Collie puppy will thrive on lots of exercise and a job to do, even if that job is catching a Frisbee or running an agility course. To see him at work or play is a thing of beauty; he is graceful, agile and responsive. He is affectionate with his family and always ready for the next activity.', images: ['https://cdn11.bigcommerce.com/s-oe2q4reh/images/stencil/2048x2048/products/747/1315/Border_Collie_Puppy__65459.1572977599.jpg?c=2', 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/12235957/Border-Collie-On-White-01.jpg'], videos: ['', '']
-        }
+        // var d1 = {
+        //     name: 'eva', gender: 'female',
+        //     birthdate: '12-31-2020', isPuppy: true, description: 'The Border Collie is the star of the herding group. He is a hard worker, with keen instincts and intelligence. Your Border Collie puppy will thrive on lots of exercise and a job to do, even if that job is catching a Frisbee or running an agility course. To see him at work or play is a thing of beauty; he is graceful, agile and responsive. He is affectionate with his family and always ready for the next activity.', images: ['https://cdn11.bigcommerce.com/s-oe2q4reh/images/stencil/2048x2048/products/747/1315/Border_Collie_Puppy__65459.1572977599.jpg?c=2', 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/12235957/Border-Collie-On-White-01.jpg'], videos: ['', '']
+        // }
         
-        var d2 = {
-            name: 'mimi', gender: 'male',
-            birthdate: '12-10-2020', isPuppy: false, description: 'Border Collies are generally a healthy and robust breed. Like all breeds there may be some health issues. Some dogs may be faced with these health challenges in their lives, but the majority of Border Collies are healthy dogs.', images: ['https://www.keystonepuppies.com/wp-content/uploads/2018/09/Border-Collie-Category.jpg', 'https://i.redd.it/xtfk2xpka44z.jpg'], videos: ['', '']
-        }
+        // var d2 = {
+        //     name: 'mimi', gender: 'male',
+        //     birthdate: '12-10-2020', isPuppy: false, description: 'Border Collies are generally a healthy and robust breed. Like all breeds there may be some health issues. Some dogs may be faced with these health challenges in their lives, but the majority of Border Collies are healthy dogs.', images: ['https://www.keystonepuppies.com/wp-content/uploads/2018/09/Border-Collie-Category.jpg', 'https://i.redd.it/xtfk2xpka44z.jpg'], videos: ['', '']
+        // }
         
-        var d3 = {
-            name: 'kiki', gender: 'female',
-            birthdate: '06-01-2020', isPuppy: false, description: 'he gets along with other animals and children and excels at dog sports, like agility, obedience and rally. The key to a happy bearded collie is exercise, mental stimulation, training and socialization. With that, he will be a great partner for an active, outdoorsy family.', images: ['https://i.pinimg.com/originals/e0/d2/2b/e0d22ba47d80c01e4e528fd76770d787.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbXGzV3BtDFjmLY96WKbIrVthftrbr7AeN4x08Wj3PwxVEp1ogq9X3tkApEUfafUOHd3s&usqp=CAU'], videos: ['', '']
-        }
-        const dogs_data = [d1, d2, d3];
-        this.setState({ dogs_info: dogs_data });
-        this.classifyDogInfo(dogs_data);
+        // var d3 = {
+        //     name: 'kiki', gender: 'female',
+        //     birthdate: '06-01-2020', isPuppy: false, description: 'he gets along with other animals and children and excels at dog sports, like agility, obedience and rally. The key to a happy bearded collie is exercise, mental stimulation, training and socialization. With that, he will be a great partner for an active, outdoorsy family.', images: ['https://i.pinimg.com/originals/e0/d2/2b/e0d22ba47d80c01e4e528fd76770d787.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbXGzV3BtDFjmLY96WKbIrVthftrbr7AeN4x08Wj3PwxVEp1ogq9X3tkApEUfafUOHd3s&usqp=CAU'], videos: ['', '']
+        // }
+        // const dogs_data = [d1, d2, d3];
+        // this.setState({ dogs_info: dogs_data });
+        // this.classifyDogInfo(dogs_data);
+
+        console.log("haha");
+        console.log(this.state.breeder_info.handle);
+        axios
+            .post('/get_dog_by_breeder_handle', {'handle': this.state.breeder_info.handle})
+            .then(res => {
+                this.classifyDogInfo(res.data);
+                console.log(res.data);
+                this.setState({
+                    dogs_info: res.data
+                });
+            })
+        .catch(err => console.log(err));
     }
     
     render() {
