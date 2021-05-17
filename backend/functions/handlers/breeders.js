@@ -191,7 +191,7 @@ exports.add_dog_to_breeder = (req, res) => {
        images: req.body.images,
        isPuppy: req.body.isPuppy,
        name: req.body.name,
-       videos: req.body.videos,
+       videos: req.body.videos
     }
     
     db.
@@ -214,7 +214,7 @@ exports.add_dog_to_breeder = (req, res) => {
 
 exports.update_dog = (req, res) => {
     let dogDetails = req.body;
-    db.doc(`/PuppyBreeders/${req.user.handle}/dogs/${req.body.dogId}`).update(dogDetails)
+    db.doc(`/PuppyBreeders/${req.user.handle}/dogs/${dogDetails.dogId}`).update(dogDetails)
         .then(() => {
             return res.json({ message: 'Details added successfully'});
         })
@@ -222,4 +222,50 @@ exports.update_dog = (req, res) => {
             console.error(err);
             return res.status(500).json({error: err.code})
         });
+};
+
+exports.getDog = (req,res) => {
+    db
+        .collection(`PuppyBreeders/${req.user.handle}/Dogs`)
+        .orderBy('birthdate', 'desc')
+        .get()
+        .then((data) => {
+            let dogs = [];
+            data.forEach((doc) => {
+                dogs.push( {
+                    birthdate: doc.data().birthdate,
+                    description: doc.data().description,
+                    gender: doc.data().gender,
+                    images: doc.data().images,
+                    isPuppy: doc.data().isPuppy,
+                    name: doc.data().name,
+                    videos: doc.data().videos
+                });
+            });
+        return res.json(dogs);
+    })
+    .catch(err => console.error(err));
+};
+
+exports.getDogByHandle = (req,res) => {
+    db
+        .collection(`PuppyBreeders/${req.body.handle}/Dogs`)
+        .orderBy('birthdate', 'desc')
+        .get()
+        .then((data) => {
+            let dogs = [];
+            data.forEach((doc) => {
+                dogs.push( {
+                    birthdate: doc.data().birthdate,
+                    description: doc.data().description,
+                    gender: doc.data().gender,
+                    images: doc.data().images,
+                    isPuppy: doc.data().isPuppy,
+                    name: doc.data().name,
+                    videos: doc.data().videos
+                });
+            });
+        return res.json(dogs);
+    })
+    .catch(err => console.error(err));
 };
