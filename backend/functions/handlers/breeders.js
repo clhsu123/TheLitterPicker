@@ -214,7 +214,7 @@ exports.add_dog_to_breeder = (req, res) => {
 
 exports.update_dog = (req, res) => {
     let dogDetails = req.body;
-    db.doc(`/PuppyBreeders/${req.user.handle}/dogs/${dogDetails.dogId}`).update(dogDetails)
+    db.doc(`/PuppyBreeders/${req.user.handle}/Dogs/${dogDetails.dogId}`).update(dogDetails)
         .then(() => {
             return res.json({ message: 'Details added successfully'});
         })
