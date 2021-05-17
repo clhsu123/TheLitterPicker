@@ -13,7 +13,7 @@ export const loginBreeder = (userData, history) => (dispatch) => {
     axios
             .post('/login', userData)
             .then(res=>{
-                setAuthorizationHeader(res.data.token);
+                setAuthorizationHeaderBreeder(res.data.token);
                 dispatch(getBreederData());
                 dispatch({ type: CLEAR_ERRORS});
                 //Redirect to the home page
@@ -32,8 +32,8 @@ export const loginPetOwner = (userData, history) => (dispatch) => {
     axios
             .post('/login', userData)
             .then(res=>{
-                setAuthorizationHeader(res.data.token);
-                dispatch(getPetOwnerdata());
+                setAuthorizationHeaderPetOwner(res.data.token);
+                dispatch(getPetOwnerData());
                 dispatch({ type: CLEAR_ERRORS});
                 //Redirect to the home page
                 history.push('/');
@@ -51,7 +51,7 @@ export const signupBreeder = (newUserData, history) => (dispatch) => {
     axios
             .post('/signup_as_breeder', newUserData)
             .then(res=>{
-                setAuthorizationHeader(res.data.token);
+                setAuthorizationHeaderBreeder(res.data.token);
                 dispatch(getBreederData());
                 dispatch({ type: CLEAR_ERRORS });
                 //Redirect to the home page
@@ -70,8 +70,8 @@ export const signupPetOwner = (newUserData, history) => (dispatch) => {
     axios
             .post('/signup_as_pet_owner', newUserData)
             .then(res=>{
-                setAuthorizationHeader(res.data.token);
-                dispatch(getPetOwnerdata());
+                setAuthorizationHeaderPetOwner(res.data.token);
+                dispatch(getPetOwnerData());
                 dispatch({ type: CLEAR_ERRORS });
                 //Redirect to the home page
                 history.push('/');
@@ -96,7 +96,7 @@ export const getBreederData = () => (dispatch) => {
         .catch(err =>console.log(err));
 };
 
-export const getPetOwnerdata = () => (dispatch) => {
+export const getPetOwnerData = () => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios.get('/get_pet_owner_details')
         .then(res => {
@@ -129,8 +129,22 @@ export const editBreederDetails = (userDetails) => (dispatch) => {
     })
     .catch(err => console.log(err));
 };
-const setAuthorizationHeader = (token) => {
-    const FBIdToken = `Bearer ${token}`;
+export const editPetOwnerDetails = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios.post('/add_pet_owner_details', userDetails)
+    .then(() => {
+        dispatch(getPetOwnerData());
+    })
+    .catch(err => console.log(err));
+};
+const setAuthorizationHeaderBreeder = (token) => {
+    const FBIdToken = `Breeder ${token}`;
+    localStorage.setItem('FBIdToken', FBIdToken);
+    axios.defaults.headers.common['Authorization'] = FBIdToken;
+};
+
+const setAuthorizationHeaderPetOwner = (token) => {
+    const FBIdToken = `PetOwner ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);
     axios.defaults.headers.common['Authorization'] = FBIdToken;
 };

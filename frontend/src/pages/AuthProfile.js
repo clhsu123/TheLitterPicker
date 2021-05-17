@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import EditDetails from '../components/EditDetails';
+import EditBreederDetails from '../components/EditBreederDetails';
 import AddDogs from '../components/AddDogs';
 
 //Redux stuff
@@ -111,7 +111,7 @@ export class AuthProfile extends React.Component {
                             </iconButton>
                         </Tooltip>
                         <p>這裏</p>
-                        <EditDetails />
+                        <EditBreederDetails />
                         <p>這裏</p>
                         <p>這裏</p>
                         <AddDogs />
