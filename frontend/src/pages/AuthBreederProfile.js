@@ -66,7 +66,9 @@ export class AuthBreederProfile extends React.Component {
     };
 
     handleViewApplicationsClicked() {
-        this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
+        const { user } = this.props; 
+        // this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
+        this.props.history.push('/view_applicatoins', { breeder_info: user });
     }
 
     classifyDogInfo = (dogs_data) => {
@@ -95,7 +97,8 @@ export class AuthBreederProfile extends React.Component {
     }
 
     componentDidMount() {
-        const { classes, user } = this.props;        
+        const { classes, user } = this.props; 
+        // this.setState({breeder_info: user});       
         // testing
         // assume we get Dogs sub-collections data from the database
         // var d1 = {

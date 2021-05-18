@@ -107,7 +107,7 @@ export class new_Navbar extends Component {
                                             </Button>
                                         </Grid>
                                         <Grid item>
-                                            <logoutButton/>
+                                            {/* <logoutButton/> */}
                                         </Grid>
                                     </Grid>
                             }
