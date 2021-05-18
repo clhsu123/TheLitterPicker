@@ -12,10 +12,17 @@ import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
-import axios from 'axios';
-
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
+import EditBreederDetails from '../components/EditBreederDetails';
+import AddDogs from '../components/AddDogs';
 // redux stuff
 import { connect } from 'react-redux';
+import { logoutUser, uploadBreederProfileImage } from '../redux/actions/userActions';
+// axios
+import axios from 'axios';
 
 const styles = {
     root: {
@@ -55,10 +62,24 @@ export class AuthBreederProfile extends React.Component {
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
     }
-
+    handleImageChange = (event) => {
+        const image = event.target.files[0];
+        // send to server
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        this.props.uploadBreederProfileImage(formData);
+    };
+    handleEditPicture = () => {
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+    };
     handleViewApplicationsClicked() {
         this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
-    }
+    };
+    handleLogout = () => {
+        this.props.logoutUser();
+        this.props.history.push('/');
+    };
 
     classifyDogInfo = (dogs_data) => {
         // var dogs = this.state.dogs_info;
@@ -132,6 +153,17 @@ export class AuthBreederProfile extends React.Component {
                         <Button>
                             <img src={breeder_info.profile_photo} width='100' height='100' />
                         </Button>
+                        <input 
+                            type="file"
+                            id="imageInput"
+                            hidden="hidden"
+                            onChange={this.handleImageChange} 
+                        />
+                        <Tooltip title="Edit profile picture" placement="top">
+                            <IconButton onClick ={this.handleEditPicture} className="button">
+                                <EditIcon color="primary" />
+                            </IconButton>
+                        </Tooltip>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
@@ -174,6 +206,8 @@ export class AuthBreederProfile extends React.Component {
                                     Overview
                                 </Box>
                             </Typography>
+                            <EditBreederDetails />
+                            <AddDogs />
                         </Grid>
                         <Grid item>
                             <Paper variant="outlined" className={classes.overview}>
@@ -235,11 +269,13 @@ export class AuthBreederProfile extends React.Component {
 
 AuthBreederProfile.propTypes = {
     classes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    logoutUser: PropTypes.func.isRequired,
+    uploadBreederProfileImage: PropTypes.func.isRequired
 };
-
+const mapActionsToProps = { logoutUser, uploadBreederProfileImage };
 const mapStateToProps = (state) => ({
     user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(AuthBreederProfile));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AuthBreederProfile));
