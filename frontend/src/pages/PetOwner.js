@@ -88,9 +88,7 @@ export class PetOwner extends React.Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={8} className={classes.update_profile}>
-                            <Button variant="contained" color="secondary" component={Link} to="/update_profile">
-                                Update Profile
-                            </Button>
+                            <EditPetDetails />
                         </Grid>
                         {/* edit pet details */}
                         {/* <Grid item xs={12} sm={8} className={classes.update_profile}>
