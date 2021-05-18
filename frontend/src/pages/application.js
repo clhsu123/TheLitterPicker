@@ -71,9 +71,9 @@ export class application extends Component {
             zip: '',
             country: '',
             currentLivingStatus: '',
-            fullyFencedYard: '',
+            fullyFencedYard: false,
             areaOfInterest: '',
-            currentDog: '',
+            currentDog: false,
             preferredGender: '',
             generalPreference: '',
             preferenceOriented: false,
@@ -89,9 +89,13 @@ export class application extends Component {
         })
     }
 
+    handleCheckBox = (event) => {
+      this.setState({
+        [event.target.name]: event.target.checked
+      })
+    }
+
     handleOnClick = (event) => {
-      console.log(steps.length);
-      console.log(this.state.activeStep);
       if(this.state.activeStep === (steps.length-1)){
         this.handleSubmit(event);
         this.setState({ activeStep: this.state.activeStep + 1})
@@ -99,32 +103,6 @@ export class application extends Component {
       else{
         this.setState({ activeStep: this.state.activeStep + 1})
       } 
-    }
-
-    handleReview = (event) => {
-        event.preventDefault();
-        const newApplication = {
-            phone: this.state.phone,
-            email: this.state.email,
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            address1: this.state.address1,
-            address2: this.state.address2,
-            city: this.state.city,
-            state: this.state.state,
-            zip: this.state.zip,
-            country: this.state.country,
-            currentLivingStatus: this.state.currentLivingStatus,
-            fullyFencedYard: this.state.fullyFencedYard,
-            areaOfInterest: this.state.areaOfInterest,
-            currentDog: this.state.currentDog,
-            preferredGender: this.state.preferredGender,
-            generalPreference: this.state.generalPreference,
-            preferenceOriented: this.state.preferenceOriented,
-            additionInformation: this.state.additionInformation,
-            createdAt: new Date().toISOString()
-        };
-
     }
 
     handleSubmit = (event) => {
@@ -155,7 +133,6 @@ export class application extends Component {
             .then(res=>{
                 console.log(res.data);
             });
-
     };
 
     getStepContent(step) {
@@ -165,11 +142,11 @@ export class application extends Component {
         case 1:
           return this.InquiryInformation();
         case 2:
-          return;
+          return this.Review();
         default:
           throw new Error('Unknown step');
       }
-  }
+    }
   
   Checkout() {
       const { classes } = this.props;
@@ -384,7 +361,12 @@ export class application extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="yard-fenced" value="yes" />}
+              control={<Checkbox 
+                color="primary" 
+                name="fullyFencedYard" 
+                checked={this.state.fullyFencedYard}
+                onChange={this.handleCheckBox}
+                />}
               label="Does your home have a fully fenced yard?"
             />
           </Grid>
@@ -393,9 +375,10 @@ export class application extends Component {
               required
               id="area-of-interest"
               label="Area of Interest"
+              name="areaOfInterest"
               fullWidth
               select
-              value={this.state.areaOfIntereest}
+              value={this.state.areaOfInterest}
               onChange={this.handleChange}
               >
                   <MenuItem value={"show"}>Show/conformation</MenuItem>
@@ -406,7 +389,12 @@ export class application extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="hasDog" value="yes" />}
+              control={<Checkbox 
+                color="primary" 
+                name="currentDog" 
+                checked={this.state.currentDog}
+                onChange={this.handleCheckBox}
+                />}
               label="Do you currently own a dog?"
             />
           </Grid>
@@ -415,6 +403,7 @@ export class application extends Component {
               required
               id="gender"
               label="Preferred Gender"
+              name="preferredGender"
               fullWidth
               select
               value={this.state.preferredGender}
@@ -429,20 +418,32 @@ export class application extends Component {
               required
               id="puppy-preferences"
               label="Tell us your preference for coat, eye color, etc."
+              name="generalPreference"
               multiline
               fullWidth
               variant="outlined"
+              value={this.state.generalPreference}
+              onChange={this.handleChange}
             />
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="preferenceOriented" value={this.state.preferenceOriented} />}
+              control={<Checkbox 
+                color="primary"
+                checked={this.state.preferenceOriented} 
+                name="preferenceOriented"  
+                onChange={this.handleCheckBox}
+                />}
               label="These are my preferences, but I would consider a healthy puppy of another color."
             />
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
-              control={<Checkbox color="primary" name="preference1" value="yes" />}
+              control={<Checkbox 
+                color="primary"
+                disabled 
+                checked={!this.state.preferenceOriented} 
+                />}
               label="I only want a puppy of the color combination I indicated, and I will search until I find it."
             />
           </Grid>
@@ -451,6 +452,9 @@ export class application extends Component {
               required
               id="applicant-comment"
               label="Any additional information that you want to share?"
+              name="additionInformation"
+              value={this.state.additionInformation}
+              onChange={this.handleChange}
               multiline
               fullWidth
               variant="outlined"
@@ -458,6 +462,216 @@ export class application extends Component {
           </Grid>
         </Grid>
       </React.Fragment>
+    );
+  }
+
+  Review(){
+    return(
+      <React.Fragment>
+      <Typography variant="h6" gutterBottom>
+        Review Your Application
+      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <TextField
+            required
+            disabled
+            id="phone"
+            label="Contact phone"
+            fullWidth
+            value={this.state.phone}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            disabled
+            id="email"
+            label="Email"
+            fullWidth
+            value={this.state.email}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            disabled
+            id="firstName"
+            label="First name"
+            fullWidth
+            value={this.state.firstname}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            disabled
+            id="lastName"
+            label="Last name"
+            fullWidth
+            value={this.state.lastname}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            disabled
+            id="address1"
+            label="Address line 1"
+            fullWidth
+            value={this.state.address1}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            disabled
+            id="address2"
+            label="Address line 2"
+            fullWidth
+            value={this.state.address2}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            disabled
+            id="city"
+            label="City"
+            fullWidth
+            value={this.state.city}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+          disabled
+          id="state"
+          label="State/Province/Region"
+          fullWidth
+          value={this.state.state}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            disabled
+            id="zip"
+            label="Zip / Postal code"
+            fullWidth
+            value={this.state.zip}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            disabled
+            id="country"
+            label="Country"
+            fullWidth
+            value={this.state.country}
+          />
+        </Grid>
+      </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              required
+              disabled
+              id="current-living-status"
+              label="Current Living Status"
+              fullWidth
+              value={this.state.currentLivingStatus}
+              />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Checkbox 
+                disabled
+                color="primary" 
+                name="fullyFencedYard" 
+                checked={this.state.fullyFencedYard}
+                />}
+              label="Does your home have a fully fenced yard?"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="area-of-interest"
+              label="Area of Interest"
+              fullWidth
+              select
+              value={this.state.areaOfInterest}
+              ></TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Checkbox 
+                disabled
+                color="primary" 
+                name="currentDog" 
+                checked={this.state.currentDog}
+                />}
+              label="Do you currently own a dog?"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              disabled
+              id="gender"
+              label="Preferred Gender"
+              fullWidth
+              select
+              value={this.state.preferredGender}
+              ></TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              disabled
+              id="puppy-preferences"
+              label="Tell us your preference for coat, eye color, etc."
+              multiline
+              fullWidth
+              variant="outlined"
+              value={this.state.generalPreference}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Checkbox 
+                disabled
+                color="primary"
+                checked={this.state.preferenceOriented} 
+                />}
+              label="These are my preferences, but I would consider a healthy puppy of another color."
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Checkbox 
+                color="primary"
+                disabled 
+                checked={!this.state.preferenceOriented} 
+                />}
+              label="I only want a puppy of the color combination I indicated, and I will search until I find it."
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              disabled
+              id="applicant-comment"
+              label="Any additional information that you want to share?"
+              value={this.state.additionInformation}
+              multiline
+              fullWidth
+              variant="outlined"
+            />
+          </Grid>
+        </Grid>
+    </React.Fragment>
+    
     );
   }
 
