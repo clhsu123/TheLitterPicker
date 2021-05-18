@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Tooltip from '@material-ui/core/Tooltip';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
 import IconButton from '@material-ui/core/IconButton';
@@ -107,7 +109,8 @@ export class AuthBreederProfile extends React.Component {
     }
 
     componentDidMount() {
-        const { classes, user } = this.props;        
+        const { classes, user } = this.props; 
+        // this.setState({breeder_info: user});       
         // testing
         // assume we get Dogs sub-collections data from the database
         // var d1 = {
@@ -165,15 +168,14 @@ export class AuthBreederProfile extends React.Component {
                             </IconButton>
                         </Tooltip>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item>
                         <Typography variant="h4" component="h4" >
                             <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
                                 {breeder_info.title}
-                                {/* {user.title} */}
                             </Box>
                         </Typography>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item>
                         <InputBase
                             id="breeder phone"
                             type='text'
@@ -185,7 +187,7 @@ export class AuthBreederProfile extends React.Component {
                             }
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item>
                         <InputBase
                             id="breeder email"
                             type='email'
@@ -217,13 +219,18 @@ export class AuthBreederProfile extends React.Component {
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
                         <Grid item xs={5} className={classes.button}>
+                            {/* <Button variant="contained" color="primary">
+                                Update Profile
+                            </Button> */}
+                                <EditBreederDetails />
+                        </Grid>
+                        <Grid item xs={5} className={classes.button}>
                             {/* <Button variant="contained" color="secondary" component={Link} to="/view_applicatoins">
                                 View Applications
                             </Button> */}
                             <Button variant="contained" color="secondary" onClick={this.handleViewApplicationsClicked}>
                                 View Applications
                             </Button>
-
                         </Grid>
                         <Grid item xs={5} className={classes.button}>
                             <Button variant="contained" color="secondary" component={Link} to="/customize_application_form">
@@ -268,6 +275,7 @@ export class AuthBreederProfile extends React.Component {
 }
 
 AuthBreederProfile.propTypes = {
+    uploadBreederProfileImage: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
     logoutUser: PropTypes.func.isRequired,

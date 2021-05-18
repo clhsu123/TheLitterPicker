@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import EmailIcon from '@material-ui/icons/Email';
-import PetsIcon from '@material-ui/icons/Pets';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';

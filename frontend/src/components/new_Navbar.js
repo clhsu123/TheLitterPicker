@@ -8,8 +8,7 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Chip from '@material-ui/core/Chip';
+import logoutButton from './logoutButton';
 import { Link } from 'react-router-dom';
 import SearchBar from './searchBar';
 import axios from 'axios';
@@ -51,23 +50,6 @@ export class new_Navbar extends Component {
         //this.avatarOnClicked = this.avatarOnClicked.bind(this);
     }
 
-    // avatarOnClicked(accountType, handle) {
-    //     console.log("avatar is clicked!");
-    //     if (accountType == 'breeder') {
-    //         axios
-    //             .post('/get_breeder_details_by_handle', handle)
-    //             .then(res => {
-    //                 this.setState({
-    //                     breeder_info: res.data
-    //                 });
-    //             })
-    //             .catch(err => console.log(err));
-    //             // this.props.history.push('/breeder_profile', { breeder_info: this.state.breeder_info });
-    //         } else {
-    //         // this.props.history.push('/petowner');
-    //     }
-    // }
-
     render() {
         const { classes, user: {
             handle,
@@ -107,20 +89,27 @@ export class new_Navbar extends Component {
                                     </Grid>
                                     :
                                     // <Button onClick={() => this.avatarOnClicked(accountType, handle)}>
-                                    <Button component={Link} to={(accountType=='breeder') ? '/auth_breeder_profile' : '/petowner'}>
-                                        <Grid container direction='row' alignItems="center">
-                                            <Grid item className={classes.avatar}>
-                                                <Avatar src={profile_photo} />
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography variant="body1" >
-                                                    <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightLight" letterSpacing={4} color="#000055">
-                                                        {handle}
-                                                    </Box>
-                                                </Typography>
-                                            </Grid>
+                                    <Grid container direction='row' alignItems="center">
+                                        <Grid item>
+                                            <Button component={Link} to={(accountType=='breeder') ? '/auth_breeder_profile' : '/petowner'}>
+                                                <Grid container direction='row' alignItems="center">
+                                                    <Grid item className={classes.avatar}>
+                                                        <Avatar src={profile_photo} />
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Typography variant="body1" >
+                                                            <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightLight" letterSpacing={4} color="#000055">
+                                                                {handle}
+                                                            </Box>
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Button>
                                         </Grid>
-                                    </Button>
+                                        <Grid item>
+                                            {/* <logoutButton/> */}
+                                        </Grid>
+                                    </Grid>
                             }
                         </Grid>
                     </Grid>
@@ -132,7 +121,7 @@ export class new_Navbar extends Component {
 
 new_Navbar.propTypes = {
     classes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
