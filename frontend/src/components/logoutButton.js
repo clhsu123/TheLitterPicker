@@ -1,19 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 
 //Redux stuff
 import { connect } from 'react-redux';
 import { logoutUser } from '../redux/actions/userActions';
+
 export class logoutButton extends Component {
+
     handleLogout = () => {
-        this.props.logoutUser;
+        // this.props.logoutUser;
+        this.props.logoutUser();
+        this.props.history.push('/');
     };
+
     render() {
         return (
-            <Tooltip title="Logout" placement="top">
-                <iconButton onClick={this.handleLogout}>
-                    <KeyboardReturn color="primary" />
-                </iconButton>
-            </Tooltip>
+            // <Fragment>
+            //     <Tooltip title="Logout" placement="top">
+            //         {/* <IconButton onClick={this.handleLogout}>
+            //             <KeyboardReturn color="primary" />
+            //         </IconButton> */}
+            //         <Button variant="contained" color="secondary" onClick={this.handleLogout}>
+            //             Log Out
+            //         </Button>
+            //     </Tooltip>
+            // </Fragment>
+            <Button variant="contained" color="secondary" onClick={this.handleLogout}>
+                Log Out
+            </Button>
         )
     }
 }

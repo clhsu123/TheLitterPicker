@@ -10,12 +10,16 @@ import Paper from '@material-ui/core/Paper';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Tooltip from '@material-ui/core/Tooltip';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
+import EditBreederDetails from '../components/EditBreederDetails';
 import axios from 'axios';
 
 // redux stuff
 import { connect } from 'react-redux';
+import { uploadBreederProfileImage } from '../redux/actions/userActions';
 
 const styles = {
     root: {
@@ -55,6 +59,11 @@ export class AuthBreederProfile extends React.Component {
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
     }
+
+    handleEditPicture = () => {
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+    };
 
     handleViewApplicationsClicked() {
         this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
@@ -127,21 +136,22 @@ export class AuthBreederProfile extends React.Component {
         const breeder_info = user;
         return (
             <Grid container spacing={3} className={classes.root}>
-                <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
-                    <Grid item xs={2}>
-                        <Button>
-                            <img src={breeder_info.profile_photo} width='100' height='100' />
-                        </Button>
+                <Grid container item xs={12} direction='row' alignItems="center" justify="space-around">
+                    <Grid item>
+                        <Tooltip title="Edit profile picture" placement="bottom">        
+                            <Button onClick ={this.handleEditPicture}>
+                                <img src={breeder_info.profile_photo} width='100' height='100' />
+                            </Button>
+                        </Tooltip>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item>
                         <Typography variant="h4" component="h4" >
                             <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
                                 {breeder_info.title}
-                                {/* {user.title} */}
                             </Box>
                         </Typography>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item>
                         <InputBase
                             id="breeder phone"
                             type='text'
@@ -153,7 +163,7 @@ export class AuthBreederProfile extends React.Component {
                             }
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item>
                         <InputBase
                             id="breeder email"
                             type='email'
@@ -183,13 +193,18 @@ export class AuthBreederProfile extends React.Component {
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
                         <Grid item xs={5} className={classes.button}>
+                            {/* <Button variant="contained" color="primary">
+                                Update Profile
+                            </Button> */}
+                                <EditBreederDetails />
+                        </Grid>
+                        <Grid item xs={5} className={classes.button}>
                             {/* <Button variant="contained" color="secondary" component={Link} to="/view_applicatoins">
                                 View Applications
                             </Button> */}
                             <Button variant="contained" color="secondary" onClick={this.handleViewApplicationsClicked}>
                                 View Applications
                             </Button>
-
                         </Grid>
                         <Grid item xs={5} className={classes.button}>
                             <Button variant="contained" color="secondary" component={Link} to="/customize_application_form">
@@ -234,6 +249,7 @@ export class AuthBreederProfile extends React.Component {
 }
 
 AuthBreederProfile.propTypes = {
+    uploadBreederProfileImage: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired
 };
@@ -242,4 +258,6 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(AuthBreederProfile));
+const mapActionsToProps = { uploadBreederProfileImage };
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(AuthBreederProfile));

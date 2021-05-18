@@ -87,8 +87,13 @@ class EditBreederDetails extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="Edit details" placement="top">
+                {/* <Tooltip title="Edit details" placement="top">
                     <IconButton onClick={this.handleOpen} className={classes.button} />
+                </Tooltip> */}
+                <Tooltip title="edit your profile" placement="right-start">
+                    <Button variant="contained" color="primary" onClick={this.handleOpen}>
+                        Update Profile
+                    </Button>                
                 </Tooltip>
                 <Dialog
                 open={this.state.open}

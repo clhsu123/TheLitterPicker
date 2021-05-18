@@ -35,6 +35,10 @@ const styles = {
     button: {
         margin: '10px 10px 10px 10px',
         // padding: '10px 10px 10px 10px',
+    },
+    photolist: {
+        display: 'flex',
+        flexDirection: 'row',
     }
 };
 
@@ -213,7 +217,7 @@ export class Profile extends React.Component {
                         </Box>
                     </Typography>
                 </Grid>
-                <Grid container item direction="row">
+                <Grid container item direction="row" >
                     <PhotoList dogs_list={this.state.puppies_info} />
                 </Grid>
             </Grid>
