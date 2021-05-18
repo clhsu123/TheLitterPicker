@@ -110,12 +110,8 @@ export class AuthProfile extends React.Component {
                                 <KeyboardReturn color="primary" />
                             </iconButton>
                         </Tooltip>
-                        <p>這裏</p>
                         <EditBreederDetails />
-                        <p>這裏</p>
-                        <p>這裏</p>
                         <AddDogs />
-                        <p>這裏</p>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
