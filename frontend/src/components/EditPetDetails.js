@@ -68,7 +68,11 @@ class EditPetDetails extends Component {
         return (
             <Fragment>
                 <Tooltip title="Edit details" placement="top">
-                    <IconButton onClick={this.handleOpen} className={classes.button} />
+                    <IconButton onClick={this.handleOpen} className={classes.button}>
+                        <Button variant="contained" color="primary">
+                            Update
+                        </Button>
+                    </IconButton>  
                 </Tooltip>
                 <Dialog
                 open={this.state.open}
