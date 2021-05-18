@@ -8,8 +8,47 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
 
-const styles = {
+
+const tutorialSteps = [
+    {
+      label: 'We are thrilled that Crosswood Inertia was adopted by Zak George, a world-renown dog trainer. Follow him on Instagram, Facebook, and YouTube to learn invaluable techniques for training your dog. ',
+      imgPath: 'http://nebula.wsimg.com/e36cd65ad068686a8a0f27be25893aa8?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+    },
+    {
+      label: 'Wisp, femail pup, 6 weeks, sold',
+      imgPath:
+        'http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+    },
+    {
+      label: 'Crosswood Monreaux and Gibson pups, expected early April, 2021. $2000+ CADia',
+      imgPath:
+        'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+    },
+    {
+      label: 'Monreaux and Gibson previous litter',
+      imgPath:
+        'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+    },
+    {
+      label: 'puppies',
+      imgPath:
+        'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+    },
+  ];
+
+const maxSteps = tutorialSteps.length;
+
+
+const useStyles = makeStyles((theme) => ({
     pic: {
         textAlign: 'center'
     },
@@ -21,12 +60,54 @@ const styles = {
     },
     update_button: {
         margin: '10 10 10 10'
-    }
-};
+    },
+    root: {
+        maxWidth: 400,
+        flexGrow: 1,
+    },
+    header: {
+        display: 'flex',
+        alignItems: 'center',
+        height: 50,
+        paddingLeft: theme.spacing(4),
+        backgroundColor: theme.palette.background.default,
+    },
+    img: {
+        height: 255,
+        display: 'block',
+        maxWidth: 400,
+        overflow: 'hidden',
+        width: '100%',
+        alignItems: 'center',
+    },
+}));
+
+//const theme = useTheme();
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 export class profile extends Component {
-    render() {
+    constructor(){
+        super();
+        this.state = {
+            activeStep: 0,
+        }
+    }
+    handleNext = () => {
+        this.setState({ activeStep: this.state.activeStep + 1});
+    };
+    
+    handleBack = () => {
+        this.setState({ activeStep: this.state.activeStep - 1});
+    };
+    
+    handleStepChange = (step) => {
+        this.setState({ activeStep: step });
+    };
+
+
+    profileLayout() {
         const { classes } = this.props; 
+        const { theme } = this.props;
         return (
             <Grid container spacing = {1}>
                 <Grid container item xs = {12} alignItems = 'center' spacing = {1}>
@@ -111,9 +192,44 @@ export class profile extends Component {
                     </Grid>
                 </Grid>
                 
-                <Grid container item xs = {12}>
-                    <h1>News and Updates</h1>
-                </Grid>
+                <h1>News and Updates</h1>
+                <div className={classes.root}>
+                    <Paper square elevation={0} className={classes.header}>
+                        <Typography>{tutorialSteps[this.state.activeStep].label}</Typography>
+                    </Paper>
+                    <AutoPlaySwipeableViews
+                        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                        index={this.state.activeStep}
+                        onChangeIndex={this.handleStepChange}
+                        enableMouseEvents
+                    >
+                        {tutorialSteps.map((step, index) => (
+                        <div key={step.label}>
+                            {Math.abs(this.state.activeStep - index) <= 2 ? (
+                            <img className={classes.img} src={step.imgPath} alt={step.label} />
+                            ) : null}
+                        </div>
+                        ))}
+                    </AutoPlaySwipeableViews>
+                    <MobileStepper
+                        steps={maxSteps}
+                        position="static"
+                        variant="text"
+                        activeStep={this.state.activeStep}
+                        nextButton={
+                        <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === maxSteps - 1}>
+                            Next
+                            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                        </Button>
+                        }
+                        backButton={
+                        <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+                            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                            Back
+                        </Button>
+                        }
+                    />
+                </div>
 
                 <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
                     <Grid item sm>
@@ -197,10 +313,15 @@ export class profile extends Component {
             </Grid>
         )
     }
+
+
+    render() {
+        return this.profileLayout();
+    }
 }
 
 profile.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(profile)
+export default withStyles(useStyles, { withTheme: true })(profile);
