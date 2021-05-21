@@ -392,10 +392,11 @@ export class profile extends Component {
                         </IconButton>
                     </Toolbar>
                 </AppBar>
-
+                <Typography variant="subtitle1"> dog info </Typography>
                 {this.state.selectedTile && (
                     <img className={classes.img} src={this.state.selectedTile.src} alt={this.state.selectedTile.title} />
                 )}
+
                 </Dialog>
             </div>
                 </Grid>
