@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { MenuItem } from '@material-ui/core';
-
 
 const useStyles = theme => ({
     appBar: {
@@ -57,9 +56,10 @@ const useStyles = theme => ({
 const steps = ['Address and Contact', 'Inquiry Information', 'Review your application'];
 
 export class application extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
+            breederHandle: this.props.history.location.state?.breeder_info.handle,
             phone: '',
             email: '',
             firstname: '',
@@ -108,6 +108,7 @@ export class application extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const newApplication = {
+            handle: this.state.breederHandle,
             phone: this.state.phone,
             email: this.state.email,
             firstname: this.state.firstname,
@@ -126,10 +127,10 @@ export class application extends Component {
             generalPreference: this.state.generalPreference,
             preferenceOriented: this.state.preferenceOriented,
             additionInformation: this.state.additionInformation,
-            createdAt: new Date().toISOString()
+            //createdAt: new Date().toISOString()
         };
         axios
-            .post('/update_application', newApplication)
+            .post('/update_application_secure', newApplication)
             .then(res=>{
                 console.log(res.data);
             });
@@ -676,6 +677,7 @@ export class application extends Component {
   }
 
     render(){
+      const { user } = this.props;
         return this.Checkout();
     }
 }

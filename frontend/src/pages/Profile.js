@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router";
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -54,8 +55,12 @@ export class Profile extends React.Component {
         };
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
     }
-
+    handleOnClick(){
+        console.log('clicked');
+        this.props.history.push('/application', {breeder_info: this.state.breeder_info});
+    }
     handleViewApplicationsClicked() {
         console.log("view applications");
         this.props.history.push('/view_applicatoins', {breeder_info: this.state.breeder_info});
@@ -110,8 +115,8 @@ export class Profile extends React.Component {
         // this.setState({ dogs_info: dogs_data });
         // this.classifyDogInfo(dogs_data);
 
-        console.log("haha");
-        console.log(this.state.breeder_info.handle);
+        //console.log("haha");
+        //console.log(this.state.breeder_info.handle);
         axios
             .post('/get_dog_by_breeder_handle', {'handle': this.state.breeder_info.handle})
             .then(res => {
@@ -184,7 +189,7 @@ export class Profile extends React.Component {
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
                         <Grid item xs={5} className={classes.button}>
-                            <Button variant="contained" color="secondary" component={Link} to="/application">
+                            <Button variant="contained" color="secondary" onClick={this.handleOnClick}>
                                 Apply Applications
                             </Button>
                         </Grid>
@@ -225,4 +230,4 @@ export class Profile extends React.Component {
     }
 }
 
-export default withStyles(styles)(Profile);
+export default withRouter(withStyles(styles)(Profile));
