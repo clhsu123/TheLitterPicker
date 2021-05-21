@@ -16,8 +16,6 @@ import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import EditBreederDetails from '../components/EditBreederDetails';
 import AddDogs from '../components/AddDogs';
 // redux stuff
