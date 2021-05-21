@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AppIcon1 from '../images/phone.png';
 import AppIcon2 from '../images/mail.png';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -17,6 +13,63 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 
+
+import { makeStyles } from "@material-ui/core/styles";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import IconButton from "@material-ui/core/IconButton";
+import InfoIcon from "@material-ui/icons/Info";
+
+import Dialog from "@material-ui/core/Dialog";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
+
+const imagesList = [
+    {
+      id: 1,
+      src: "http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1",
+      title: "foo",
+      description: "bar",
+      author: "Rajini"
+    },
+    {
+      id: 2,
+      src: "http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1",
+      title: "foo",
+      description: "bar",
+      author: "Kamal"
+    },
+    {
+      id: 3,
+      src: "http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1",
+      title: "foo",
+      description: "bar",
+      author: "Vijay"
+    },
+    {
+      id: 4,
+      src: "http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1",
+      title: "foo",
+      description: "bar",
+      author: "Ajith"
+    },
+    {
+      id: 5,
+      src: "http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1",
+      title: "Sunset",
+      description: "bar",
+      author: "Sharukh"
+    },
+];
 
 const tutorialSteps = [
     {
@@ -82,16 +135,50 @@ const useStyles = theme =>({
         alignItems: 'center',
         position: 'relative',
     },
+    galleryRoot: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        overflow: "hidden",
+        backgroundColor: theme.palette.background.paper
+    },
+    gridList: {
+        width: "auto",
+        height: "auto"
+    },
+    appBar: {
+        position: "relative"
+    },
+    imgIcon: {
+        color: "rgba(255, 255, 255, 0.54)"
+    },
+    galleryImg: {
+        display: 'block',
+        margin: 'auto',
+        maxHeight: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        alignItems: 'center',
+        position: 'relative',
+    }
 });
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 
 export class profile extends Component {
     constructor(){
         super();
         this.state = {
             activeStep: 0,
+            selectedTile: null,
+            value: ''
         }
+        //this.displayGallery = this.displayGallery.bind(this);
     }
     handleNext = () => {
         this.setState({ activeStep: this.state.activeStep + 1});
@@ -104,6 +191,17 @@ export class profile extends Component {
     handleStepChange = (step) => {
         this.setState({ activeStep: step });
     };
+
+    handleClickOpen = tile => {
+        this.setState({ selectedTile: tile});
+        console.log("clicked");
+        console.log("tile");
+    }
+
+    handleClose = () => {
+        this.setState({ selectedTile: null});
+    }
+
 
     render() {
         const { classes, theme } = this.props; 
@@ -253,7 +351,55 @@ export class profile extends Component {
 
                 <Grid container item xs = {12}>
                     <h1>Sires</h1>
+                    <div className={classes.galleryRoot}>
+                <GridList cols={3}>
+                    className={classes.gridList}
+                    {imagesList.map(tile => (
+                        <GridListTile key={tile.id}>
+                            <img src={tile.src} alt={tile.title} />
+                                <GridListTileBar
+                                    title={tile.title}
+                                    subtitle={<span>by: {tile.author}</span>}
+                                    actionIcon={
+                                      <IconButton
+                                        aria-label={`info about ${tile.title}`}
+                                        className={classes.imgIcon}
+                                        value={tile.id}
+                                        onClick={() => this.handleClickOpen(tile)}
+                                      >
+                                        <InfoIcon />
+                                      </IconButton>
+                                    }
+                                />
+                        </GridListTile>
+                    ))}
+                </GridList>
+                <Dialog
+                    //fullScreen
+                    open={this.state.selectedTile !== null}
+                    onClose={this.handleClose}
+                    TransitionComponent={Transition}
+                >
+                <AppBar className={classes.appBar}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={this.handleClose}
+                            aria-label="close"
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+
+                {this.state.selectedTile && (
+                    <img className={classes.img} src={this.state.selectedTile.src} alt={this.state.selectedTile.title} />
+                )}
+                </Dialog>
+            </div>
                 </Grid>
+
 
                 <Grid container item xs = {12} spacing = {1} alignItems = 'center'>
                     <Grid item sm>
