@@ -22,7 +22,12 @@ const { signup_as_pet_owner,
         get_pet_owner_details, 
         get_pet_owner_details_by_handle
     } = require('./handlers/petOwners');
-    const { getApplication, updateApplication } = require('./handlers/application');
+const { getApplication, 
+        updateApplication, 
+        getBreederApplication, 
+        getPetOwnerApplication, 
+        updateApplicationSecure 
+    } = require('./handlers/application');
 
 
 //Scream route
@@ -52,6 +57,11 @@ app.post('/get_dog_by_breeder_handle', getDogByHandle);
 //Application
 app.get('/get_application', getApplication);
 app.post('/update_application', updateApplication);
+
+//Fetch specific user's application and update applications of specific users
+app.post('/get_application_breeder', getBreederApplication);
+app.post('/get_application_pet_owner', getPetOwnerApplication);
+app.post('/update_application_secure', FBPetAuth, updateApplicationSecure);
 
 //This line exports API functions of firebse in HTTP form
 exports.api = functions.https.onRequest(app);
