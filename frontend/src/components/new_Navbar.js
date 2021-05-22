@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import logoutButton from './logoutButton';
+import LogOutButton from './LogOutBtn';
 import { Link } from 'react-router-dom';
 import SearchBar from './searchBar';
 import axios from 'axios';
@@ -38,6 +38,9 @@ const styles = {
     },
     text: {
         textAlign: 'center'
+    },
+    logout: {
+        margin: '10px 0px 10px 10px',
     }
 };
 
@@ -98,7 +101,7 @@ export class new_Navbar extends Component {
                                                     </Grid>
                                                     <Grid item>
                                                         <Typography variant="body1" >
-                                                            <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightLight" letterSpacing={4} color="#000055">
+                                                            <Box fontStyle="normal" fontWeight="fontWeightLight" letterSpacing={4} color="#000055">
                                                                 {handle}
                                                             </Box>
                                                         </Typography>
@@ -106,8 +109,8 @@ export class new_Navbar extends Component {
                                                 </Grid>
                                             </Button>
                                         </Grid>
-                                        <Grid item>
-                                            {/* <logoutButton/> */}
+                                        <Grid item className={classes.logout}>
+                                            <LogOutButton />
                                         </Grid>
                                     </Grid>
                             }

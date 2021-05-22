@@ -14,7 +14,7 @@ const styles = {
         display: 'flex'
     },
     card_content: {
-        width: 2400,
+        width: 1000,
     },
     tags: {
         // textDecoration: 'underline',

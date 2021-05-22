@@ -11,7 +11,6 @@ import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Tooltip from '@material-ui/core/Tooltip';
-import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
 import IconButton from '@material-ui/core/IconButton';
@@ -114,7 +113,7 @@ export class AuthBreederProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // breeder_info: {},
+            breeder_info: {},
             dogs_info: [],
             boys_info: [],
             girls_info: [],
@@ -170,7 +169,7 @@ export class AuthBreederProfile extends React.Component {
 
     componentDidMount() {
         const { classes, user } = this.props; 
-        // this.setState({breeder_info: user});       
+        this.setState({breeder_info: user});       
         // testing
         // assume we get Dogs sub-collections data from the database
         // var d1 = {
