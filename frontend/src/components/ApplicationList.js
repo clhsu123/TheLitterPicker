@@ -68,7 +68,7 @@ export class ApplicationList extends React.Component {
         const applications = this.state.user_applications;
         console.log(applications);
         const applicationInfoItems = applications.map((application) =>{
-            <ApplicationCard info = {application}></ApplicationCard>
+            <ApplicationCard info={application}></ApplicationCard>
         }
         );
         

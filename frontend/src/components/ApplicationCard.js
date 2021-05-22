@@ -37,7 +37,6 @@ export class ApplicationCard extends React.Component {
 
     componentDidMount() {
         console.log(this.props.info);
-        /*
         if (this.props.info.status == 0) {
             this.setState({
                 application_status: 'pending'
@@ -51,7 +50,6 @@ export class ApplicationCard extends React.Component {
                 application_status: 'declined'
             })
         }
-        */
     }
 
 
