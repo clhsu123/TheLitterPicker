@@ -78,9 +78,6 @@ class AddDogs extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                {/* <Tooltip title="Add Dogs" placement="top">
-                    <IconButton onClick={this.handleOpen} className={classes.button} />
-                </Tooltip> */}
                 <Tooltip title="Edit details" placement="top">
                     <Button variant="contained" color="primary" onClick={this.handleOpen}>
                         Add Dogs
