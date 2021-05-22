@@ -136,7 +136,7 @@ export class AuthBreederProfile extends React.Component {
         fileInput.click();
     };
     handleViewApplicationsClicked() {
-        this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
+        this.props.history.push('/view_applicatoins');
     };
     handleLogout = () => {
         this.props.logoutUser();

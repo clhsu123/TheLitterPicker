@@ -55,8 +55,10 @@ export class PetOwner extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log(this.props.user.application_list);
         // testing
+        /*
         var petowner_data = {
             applications: ['aHsrSjZiNVqOituvfZBW', 'caOfscXFQHT9iQzEcX8I', 'dCebRRD10WKdrWRxmtwN'],
             handle: 'marcytucker',
@@ -65,14 +67,11 @@ export class PetOwner extends React.Component {
             registration_email: 'marceline1999@gmail.com',
             selfIntro: 'I am a dog lover, and currently seeking for cute shiba and chihuahua puppies.'
         }
-        const petowner_info = petowner_data;
-        this.setState({ petowner_info: petowner_info });
-
+        */
     }
 
     render() {
         const { classes, user } = this.props;
-        const petowner_info = this.state.petowner_info;
         return (
             <div className={classes.root}>
                 <Grid container spacing={3}>
@@ -122,7 +121,7 @@ export class PetOwner extends React.Component {
 
                     <Grid item xs={12}>
                         {/* <BreederInfoList breeders={this.state.breeders} /> */}
-                        <ApplicationList application_ids={user.applications} />
+                        <ApplicationList application_ids={user.application_list} />
                     </Grid>
                 </Grid>
             </div>

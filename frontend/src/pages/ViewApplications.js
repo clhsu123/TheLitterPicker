@@ -11,6 +11,10 @@ import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import ApplicationList from '../components/ApplicationList';
+import PropTypes from 'prop-types';
+
+// Redux stuff
+import { connect } from 'react-redux';
 
 const styles = {
     root: {
@@ -41,29 +45,28 @@ export class ViewApplications extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            breeder_info: this.props.history.location.state?.breeder_info,
         };
 
     }
 
     componentDidMount() {
+        console.log(this.props.user.application_list);
     }
 
     render() {
-        const { classes } = this.props;
-        const breeder_info = this.state.breeder_info;
+        const { classes, user } = this.props;
         return (
             <Grid container spacing={3} className={classes.root}>
                 <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
                     <Grid item xs={2}>
                         <Button>
-                            <img src={breeder_info.profile_photo} width='100' height='100' />
+                            <img src={user.profile_photo} width='100' height='100' />
                         </Button>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
                             <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
-                                {breeder_info.title}
+                                {user.title}
                             </Box>
                         </Typography>
                     </Grid>
@@ -71,7 +74,7 @@ export class ViewApplications extends React.Component {
                         <InputBase
                             id="breeder phone"
                             type='text'
-                            value={breeder_info.phone}
+                            value={user.phone}
                             startAdornment={
                                 <InputAdornment position="start">
                                     <PhoneIphoneIcon />
@@ -83,7 +86,7 @@ export class ViewApplications extends React.Component {
                         <InputBase
                             id="breeder email"
                             type='email'
-                            value={breeder_info.contact_email}
+                            value={user.contact_email}
                             startAdornment={
                                 <InputAdornment position="start">
                                     <EmailIcon />
@@ -104,7 +107,7 @@ export class ViewApplications extends React.Component {
                         {/* <Paper variant="outlined" className={classes.overview}>
                             {breeder_info.overview}
                         </Paper> */}
-                        <ApplicationList application_ids={breeder_info.applications} />
+                        <ApplicationList application_ids={user.application_list} />
                     </Grid>
                 </Grid>
             </Grid>
@@ -112,4 +115,12 @@ export class ViewApplications extends React.Component {
     }
 }
 
-export default withStyles(styles)(ViewApplications);
+ViewApplications.propTypes = {
+    user: PropTypes.object.isRequired
+};
+
+
+const mapStateToProps = (state) => ({
+    user: state.user,
+})
+export default connect(mapStateToProps)(withStyles(styles)(ViewApplications));

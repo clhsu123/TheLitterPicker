@@ -1,8 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import List from "@material-ui/core/List";
-import ApplicationCard from '../components/ApplicationCard';
-
+import ApplicationCard from './ApplicationCard';
 const styles = {
     root: {
         margin: '0px 0px 0px 0px',
@@ -13,15 +12,16 @@ export class ApplicationList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user_applications: [],
+            user_applications: this.props.application_ids
         };
     }
     
     componentDidMount() {
+        console.log(this.state.user_applications[0]);
         // testing
-        // const application_ids = this.props.application_ids;
-        const application_ids = ['aHsrSjZiNVqOituvfZBW', 'caOfscXFQHT9iQzEcX8I', 'dCebRRD10WKdrWRxmtwN'];
-        console.log(application_ids);
+        //const application_ids = this.props.application_ids;
+        //const application_ids = ['aHsrSjZiNVqOituvfZBW', 'caOfscXFQHT9iQzEcX8I', 'dCebRRD10WKdrWRxmtwN'];
+        //console.log(application_ids);
         var a1 = {
             notification: 'Please note the cost of a puppy is $2,300. We truly care about our puppies and their future well being. This is why we require any potential puppy owner to fill out this form. Once your application is completed and submitted, we will review it and give you an answer within 24-48 hours.', firstname: 'marcy', lastname: 'tucker', email: 'yjw123444@gmail.com', phone: '852-963-6564',
             address1: '230 walnut street', address2: '', city: 'Irvine', state: 'CA', zip: '92622',
@@ -47,9 +47,8 @@ export class ApplicationList extends React.Component {
             additionalInformation: '', createdAt: new Date("February 21, 2021"),
         }
         
-        const applications_data = [a1, a2, a3];
-        const user_applications = applications_data;
-        this.setState({ user_applications: user_applications });
+        //const applications_data = [a1, a2, a3];
+        //this.setState({ user_applications: user_applications });
         
         /* get the applications that the current user has applied to from our database with application_ids (an array storing a list of document.id) */
         // const application_ids = this.props.application_ids;
@@ -64,12 +63,16 @@ export class ApplicationList extends React.Component {
     }
 
     render() {
+        
         const { classes } = this.props;
         const applications = this.state.user_applications;
-        const applicationInfoItems = applications.map((application) =>
-            <ApplicationCard info={application}></ApplicationCard>
+        console.log(applications);
+        const applicationInfoItems = applications.map((application) =>{
+            <ApplicationCard info = {application}></ApplicationCard>
+        }
         );
-        return (
+        
+        return (           
             <List >
                 {applicationInfoItems}
             </List>
