@@ -12,12 +12,8 @@ import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import ApplicationList from '../components/ApplicationList';
-import PropTypes from 'prop-types';
 
 // Redux stuff
-import { connect } from 'react-redux';
-
-// redux stuff
 import { connect } from 'react-redux';
 
 const styles = {
