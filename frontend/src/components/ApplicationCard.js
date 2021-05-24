@@ -5,8 +5,15 @@ import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
 const styles = {
     root: {
@@ -24,6 +31,12 @@ const styles = {
     },
     withdrawl: {
         margin: '5px 5px 5px 5px',
+    },
+    dialog_content: {
+        display: 'flex',
+    },
+    dialog_content_title: {
+        color: 'black'
     }
 };
 
@@ -32,7 +45,22 @@ export class ApplicationCard extends React.Component {
         super(props);
         this.state = {
             application_status: '',
+            detail_dialog_open: false,
         };
+        this.handleViewDetailClicked = this.handleViewDetailClicked.bind(this);
+        this.handleViewDetailClose = this.handleViewDetailClose.bind(this);
+    }
+
+    handleViewDetailClicked() {
+        this.setState({
+            detail_dialog_open: true,
+        });
+    }
+
+    handleViewDetailClose() {
+        this.setState({
+            detail_dialog_open: false,
+        });
     }
 
     componentDidMount() {
@@ -60,8 +88,8 @@ export class ApplicationCard extends React.Component {
         const year = d.substring(0, 4);
         const month = d.substring(5, 7)
         const day = d.substring(8, 10);
-        const created_date =[year, month, day].join('-');
-        return (    
+        const created_date = [year, month, day].join('-');
+        return (
             <ListItem alignItems="flex-start">
                 <Card className={classes.root}>
                     <div className={classes.card_content}>
@@ -72,11 +100,11 @@ export class ApplicationCard extends React.Component {
                                         <Grid item xs={2}>
                                             <Typography variant="body1">
                                                 Breeder Info:
-                                        </Typography>
+                                            </Typography>
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Typography variant="body1" color="textSecondary">
-                                                {application_info.areaOfInterest}
+                                                {application_info.adopterHandle}
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -110,9 +138,158 @@ export class ApplicationCard extends React.Component {
 
                                 <Grid item container xs={2} direction="column">
                                     <Grid item>
-                                        <Button className={classes.viewdetails} variant="contained" color="secondary" size='small' component={Link} to="/viewdetails">
+                                        <Button className={classes.viewdetails} variant="contained" color="secondary" size='small' onClick={this.handleViewDetailClicked}>
                                             View Detail
                                         </Button>
+                                        <Dialog fullWidth={true} open={this.state.detail_dialog_open} onClose={this.handleViewDetailClose} aria-labelledby="form-dialog-title">
+                                            <DialogTitle id="form-dialog-title">Application Details</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Adopter Full Name:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.firstname}&nbsp;
+                                                            {application_info.lastname}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Adopter Username:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.adopterHandle}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Phone:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.phone}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Email:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.email}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Address 1:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.address1}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Address 2:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.address2}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            City, State:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.city},&nbsp;{application_info.state}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            ZIP:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.zip}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Current Living Status:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.currentLivingStatus}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Has Fully-fenced Yard:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.fullyFencedYard ? 'Yes':'No'}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Area of Interest:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.areaOfInterest}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Is Currently Having Dogs:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.currentDog ? 'Yes':'No'}
+                                                        </Typography>
+                                                    </Box>                                                    
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Preferred Dog Gender:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.preferredGender}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            General Dog Preference:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.generalPreference}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Is Preference Oriented:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.preferenceOriented ? 'Yes':'No'}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Additional Info:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {application_info.additionInformation}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className={classes.dialog_content}>
+                                                        <Typography variant="body1" className={classes.dialog_content_title}>
+                                                            Application Submit Date:&nbsp;&nbsp;
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {created_date}
+                                                        </Typography>
+                                                    </Box>
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={this.handleViewDetailClose} color="primary">
+                                                    Close
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog>
                                     </Grid>
                                     <Grid item>
                                         <Button className={classes.withdrawl} variant="outlined" color="secondary" size='small' component={Link} to="/withdrawl">

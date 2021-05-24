@@ -65,7 +65,7 @@ export class ViewApplications extends React.Component {
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
-                            <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
+                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
                                 {user.title}
                             </Box>
                         </Typography>
@@ -98,15 +98,12 @@ export class ViewApplications extends React.Component {
                 <Grid container item xs={8} direction="column">
                     <Grid item className={classes.subtitle}>
                         <Typography variant="h5" component="h5" >
-                            <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                                 Past Applicatoins
                             </Box>
                         </Typography>
                     </Grid>
                     <Grid item>
-                        {/* <Paper variant="outlined" className={classes.overview}>
-                            {breeder_info.overview}
-                        </Paper> */}
                         <ApplicationList application_ids={user.application_list} />
                     </Grid>
                 </Grid>

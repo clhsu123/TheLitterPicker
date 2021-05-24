@@ -60,13 +60,13 @@ export class Profile extends React.Component {
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
     }
-    handleOnClick(){
+    handleOnClick() {
         console.log('clicked');
-        this.props.history.push('/application', {breeder_info: this.state.breeder_info});
+        this.props.history.push('/application', { breeder_info: this.state.breeder_info });
     }
     handleViewApplicationsClicked() {
         console.log("view applications");
-        this.props.history.push('/view_applicatoins', {breeder_info: this.state.breeder_info});
+        this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
     }
 
     classifyDogInfo = (dogs_data) => {
@@ -77,12 +77,12 @@ export class Profile extends React.Component {
         var puppies = [];
         var i, d;
         console.log(dogs);
-        
+
         for (var i = 0; i < dogs.length; i++) {
             d = dogs[i];
-            if(d.isPuppy===true) {
+            if (d.isPuppy === true) {
                 puppies.push(d);
-            } else if(d.gender==="female") {
+            } else if (d.gender === "female") {
                 girls.push(d);
             } else {
                 boys.push(d);
@@ -96,19 +96,19 @@ export class Profile extends React.Component {
         });
         console.log(this.state.boys_info);
     }
-    
+
     componentDidMount() {
         axios
-            .post('/get_dog_by_breeder_handle', {'handle': this.state.breeder_info.handle})
+            .post('/get_dog_by_breeder_handle', { 'handle': this.state.breeder_info.handle })
             .then(res => {
                 this.classifyDogInfo(res.data);
                 this.setState({
                     dogs_info: res.data
                 });
             })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
     }
-    
+
     render() {
         const { classes, user } = this.props;
         const breeder_info = this.state.breeder_info;
@@ -122,7 +122,7 @@ export class Profile extends React.Component {
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
-                            <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
+                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
                                 {breeder_info.title}
                             </Box>
                         </Typography>
@@ -169,7 +169,7 @@ export class Profile extends React.Component {
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
                         <Grid item xs={5} className={classes.button}>
-                            {user.accountType == "petowner"?
+                            {user.accountType == "petowner" ?
                                 <Button variant="contained" color="secondary" onClick={this.handleOnClick}>
                                     Apply Applications
                                 </Button>
@@ -181,7 +181,7 @@ export class Profile extends React.Component {
                 </Grid>
                 <Grid item className={classes.subtitle}>
                     <Typography variant="h5" component="h5" >
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                             Boys / Sires
                         </Box>
                     </Typography>
@@ -191,7 +191,7 @@ export class Profile extends React.Component {
                 </Grid>
                 <Grid item xs={12} className={classes.subtitle}>
                     <Typography variant="h5" component="h5" >
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                             Girls / Dams
                         </Box>
                     </Typography>
@@ -201,7 +201,7 @@ export class Profile extends React.Component {
                 </Grid>
                 <Grid item xs={12} className={classes.subtitle}>
                     <Typography variant="h5" component="h5" >
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                             Available Puppies
                         </Box>
                     </Typography>

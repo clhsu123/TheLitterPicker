@@ -84,7 +84,7 @@ export class search extends React.Component {
             <Grid container spacing={3} className={classes.root}>
                 <Grid item xs={12} className={classes.subtitle}>
                     <Typography variant="h4" component="h4" >
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055" xs={1}>
+                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055" xs={1}>
                             Results of "{keyword}" Breeders
                         </Box>
                     </Typography>

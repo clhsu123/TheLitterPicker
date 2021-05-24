@@ -32,28 +32,28 @@ import { autoPlay } from 'react-swipeable-views-utils';
 
 const tutorialSteps = [
     {
-      label: 'We are thrilled that Crosswood Inertia was adopted by Zak George, a world-renown dog trainer. Follow him on Instagram, Facebook, and YouTube to learn invaluable techniques for training your dog. ',
-      imgPath: 'http://nebula.wsimg.com/e36cd65ad068686a8a0f27be25893aa8?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+        label: 'We are thrilled that Crosswood Inertia was adopted by Zak George, a world-renown dog trainer. Follow him on Instagram, Facebook, and YouTube to learn invaluable techniques for training your dog. ',
+        imgPath: 'http://nebula.wsimg.com/e36cd65ad068686a8a0f27be25893aa8?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
     },
     {
-      label: 'Wisp, femail pup, 6 weeks, sold',
-      imgPath:
-        'http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+        label: 'Wisp, femail pup, 6 weeks, sold',
+        imgPath:
+            'http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
     },
     {
-      label: 'Crosswood Monreaux and Gibson pups, expected early April, 2021. $2000+ CADia',
-      imgPath:
-        'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+        label: 'Crosswood Monreaux and Gibson pups, expected early April, 2021. $2000+ CADia',
+        imgPath:
+            'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
     },
     {
-      label: 'Monreaux and Gibson previous litter',
-      imgPath:
-        'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+        label: 'Monreaux and Gibson previous litter',
+        imgPath:
+            'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
     },
     {
-      label: 'puppies',
-      imgPath:
-        'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+        label: 'puppies',
+        imgPath:
+            'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
     },
 ];
 
@@ -161,29 +161,29 @@ export class AuthBreederProfile extends React.Component {
     }
 
     componentDidMount() {
-        const { classes, user } = this.props; 
+        const { classes, user } = this.props;
         // get Dogs sub-collections data from the database
         axios
-        .get('/get_dog')
-        .then(res => {
+            .get('/get_dog')
+            .then(res => {
 
-            this.classifyDogInfo(res.data);
-            this.setState({
-                dogs_info: res.data
-            });
-        })
-        .catch(err => console.log(err));
+                this.classifyDogInfo(res.data);
+                this.setState({
+                    dogs_info: res.data
+                });
+            })
+            .catch(err => console.log(err));
     }
 
 
     handleNext = () => {
-        this.setState({ activeStep: this.state.activeStep + 1});
+        this.setState({ activeStep: this.state.activeStep + 1 });
     };
-    
+
     handleBack = () => {
-        this.setState({ activeStep: this.state.activeStep - 1});
+        this.setState({ activeStep: this.state.activeStep - 1 });
     };
-    
+
     handleStepChange = (step) => {
         this.setState({ activeStep: step });
     };
@@ -191,7 +191,7 @@ export class AuthBreederProfile extends React.Component {
 
 
     render() {
-        const { classes, theme, user} = this.props;
+        const { classes, theme, user } = this.props;
         const breeder_info = user;
         return (
             <Grid container spacing={3} className={classes.root}>
@@ -200,14 +200,14 @@ export class AuthBreederProfile extends React.Component {
                         <Button>
                             <img src={breeder_info.profile_photo} width='100' height='100' />
                         </Button>
-                        <input 
+                        <input
                             type="file"
                             id="imageInput"
                             hidden="hidden"
-                            onChange={this.handleImageChange} 
+                            onChange={this.handleImageChange}
                         />
                         <Tooltip title="Edit profile picture" placement="top">
-                            <Button variant="contained" color="primary"onClick ={this.handleEditPicture}>
+                            <Button variant="contained" color="primary" onClick={this.handleEditPicture}>
                                 Edit
                             </Button>
                         </Tooltip>
@@ -248,7 +248,7 @@ export class AuthBreederProfile extends React.Component {
                     <Grid container item xs={8} direction="column">
                         <Grid item className={classes.subtitle}>
                             <Typography variant="h5" component="h5" >
-                                <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                                     Overview
                                 </Box>
                             </Typography>
@@ -262,7 +262,7 @@ export class AuthBreederProfile extends React.Component {
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
                         <Grid item xs={5} className={classes.button}>
-                                <EditBreederDetails />
+                            <EditBreederDetails />
                         </Grid>
                         <Grid item xs={5} className={classes.button}>
                             <Button variant="contained" color="secondary" onClick={this.handleViewApplicationsClicked}>
@@ -280,9 +280,9 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
 
 
-                <Grid container item xs = {12}>
+                <Grid container item xs={12}>
                     <h1>News and Updates</h1>
-                    <Grid container item xs = {12}>
+                    <Grid container item xs={12}>
                         <div className={classes.rootNews}>
                             <Paper square elevation={0} className={classes.header}>
                                 <Typography>{tutorialSteps[this.state.activeStep].label}</Typography>
@@ -294,11 +294,11 @@ export class AuthBreederProfile extends React.Component {
                                 enableMouseEvents
                             >
                                 {tutorialSteps.map((step, index) => (
-                                <div key={step.label}>
-                                    {Math.abs(this.state.activeStep - index) <= 2 ? (
-                                    <img className={classes.img} src={step.imgPath} alt={step.label} />
-                                    ) : null}
-                                </div>
+                                    <div key={step.label}>
+                                        {Math.abs(this.state.activeStep - index) <= 2 ? (
+                                            <img className={classes.img} src={step.imgPath} alt={step.label} />
+                                        ) : null}
+                                    </div>
                                 ))}
                             </AutoPlaySwipeableViews>
                             <MobileStepper
@@ -307,14 +307,14 @@ export class AuthBreederProfile extends React.Component {
                                 variant="text"
                                 activeStep={this.state.activeStep}
                                 nextButton={
-                                <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === maxSteps - 1}>
-                                    Next
+                                    <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === maxSteps - 1}>
+                                        Next
                                     {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-                                </Button>
+                                    </Button>
                                 }
                                 backButton={
-                                <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
-                                    {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                                    <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+                                        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                                     Back
                                 </Button>
                                 }
@@ -326,7 +326,7 @@ export class AuthBreederProfile extends React.Component {
 
                 <Grid item className={classes.subtitle}>
                     <Typography variant="h5" component="h5" >
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                             Boys / Sires
                         </Box>
                     </Typography>
@@ -336,7 +336,7 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
                 <Grid item xs={12} className={classes.subtitle}>
                     <Typography variant="h5" component="h5" >
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                             Girls / Dams
                         </Box>
                     </Typography>
@@ -346,7 +346,7 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
                 <Grid item xs={12} className={classes.subtitle}>
                     <Typography variant="h5" component="h5" >
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                             Available Puppies
                         </Box>
                     </Typography>
