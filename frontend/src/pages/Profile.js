@@ -206,7 +206,7 @@ export class Profile extends React.Component {
                                 <DialogTitle id="alert-dialog-title">{"You Are Not A Pet Owner User"}</DialogTitle>
                                 <DialogContent>
                                     <DialogContentText id="alert-dialog-description">
-                                        Please sign up as a pet owner User to apply for puppies application.
+                                        Please sign up as a pet owner user to apply for puppies application.
                                     </DialogContentText>
                                 </DialogContent>
                                 <DialogActions>
