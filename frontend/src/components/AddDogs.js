@@ -28,7 +28,7 @@ class AddDogs extends Component {
         birthdate: "",
         description: "",
         gender: "",
-        images: "",
+        images: [],
         isPuppy: false,
         name: "",
         videos: []
@@ -52,29 +52,24 @@ class AddDogs extends Component {
         this.setState({ isPuppy: input});
     };
 
-    handleImageChange = (event) => {
-        console.log("inside the handle image change");
+    handleImageChangeDog = (event) => {
         const image = event.target.files[0];
         // send to server
         const formData = new FormData();
         formData.append('image', image, image.name);
         axios
-        .post('/user/dogImage', formData)
+        .post('/dogImage', formData)
         .then(res => {
-            console.log(res.data);
-            this.setState({ images: res.data.imageUrl});
+            this.setState({ images: [res.data.imageUrl] });
         })
     };
 
-    handleEditPicture = () => {
-        console.log("inside the handleEditPicture");
-        const fileInput = document.getElementById('imageInput');
+    handleEditPictureDog = () => {
+        const fileInput = document.getElementById('imageInputDog');
         fileInput.click();
     }
 
     handleSubmit = () => {
-        console.log("inside the submit");
-        console.log(this.state.images);
         const dogDetails = {
             birthdate: this.state.birthdate,
             description: this.state.description,
@@ -88,9 +83,7 @@ class AddDogs extends Component {
             .post('/add_dog_to_breeder', dogDetails)
         this.handleClose();
     };
-    componentDidMount() {
-        console.log("just inside component");
-    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -169,12 +162,12 @@ class AddDogs extends Component {
                             <br /><br />
                             <input 
                             type="file"
-                            id="imageInput"
+                            id="imageInputDog"
                             hidden="hidden"
-                            onChange={this.handleImageChange} 
+                            onChange={this.handleImageChangeDog} 
                             />
                             <Tooltip title="Edit dog picture" placement="top">
-                                <Button variant="contained" color="primary" onClick ={this.handleEditPicture}>
+                                <Button variant="contained" color="primary" onClick ={this.handleEditPictureDog}>
                                     Add Picture
                                 </Button>
                             </Tooltip>

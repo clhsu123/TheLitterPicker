@@ -49,10 +49,6 @@ export class ViewApplications extends React.Component {
 
     }
 
-    componentDidMount() {
-        console.log(this.props.user.application_list);
-    }
-
     render() {
         const { classes, user } = this.props;
         return (
