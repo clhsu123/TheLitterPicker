@@ -19,7 +19,7 @@ import EditBreederDetails from '../components/EditBreederDetails';
 import AddDogs from '../components/AddDogs';
 // redux stuff
 import { connect } from 'react-redux';
-import { logoutUser, uploadBreederProfileImage } from '../redux/actions/userActions';
+import { uploadBreederProfileImage } from '../redux/actions/userActions';
 // axios
 import axios from 'axios';
 
@@ -213,9 +213,9 @@ export class AuthBreederProfile extends React.Component {
                             onChange={this.handleImageChange} 
                         />
                         <Tooltip title="Edit profile picture" placement="top">
-                            <IconButton onClick ={this.handleEditPicture} className="button">
-                                <EditIcon color="primary" />
-                            </IconButton>
+                                <Button variant="contained" color="primary"onClick ={this.handleEditPicture}>
+                                    Edit
+                                </Button>
                         </Tooltip>
                     </Grid>
                     <Grid item>
@@ -372,7 +372,7 @@ AuthBreederProfile.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     uploadBreederProfileImage: PropTypes.func.isRequired
 };
-const mapActionsToProps = { logoutUser, uploadBreederProfileImage };
+const mapActionsToProps = { uploadBreederProfileImage };
 const mapStateToProps = (state) => ({
     user: state.user
 });

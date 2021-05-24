@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ApplicationList from '../components/ApplicationList';
 import { Button, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/core/IconButton';
 //Redux stuff
 import { connect } from 'react-redux';
-
+import { uploadPetOwnerProfileImage } from '../redux/actions/userActions';
 
 //Edit Detail Component
 import EditPetDetails from '../components/EditPetDetails';
@@ -55,8 +56,17 @@ export class PetOwner extends React.Component {
         };
     }
 
-    componentDidMount(){
-    }
+    handleImageChange = (event) => {
+        const image = event.target.files[0];
+        // send to server
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        this.props.uploadPetOwnerProfileImage(formData);
+    };
+    handleEditPicture = () => {
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+    };
 
     render() {
         const { classes, user } = this.props;
@@ -67,6 +77,17 @@ export class PetOwner extends React.Component {
                         <Button>
                             <img src={user.profile_photo} width='100' height='100' />
                         </Button>
+                        <input 
+                            type="file"
+                            id="imageInput"
+                            hidden="hidden"
+                            onChange={this.handleImageChange} 
+                        />
+                        <Tooltip title="Edit profile picture" placement="top">
+                                <Button variant="contained" color="primary">
+                                    Edit
+                                </Button>
+                        </Tooltip>
                         <Grid item xs={12} sm={2} className={classes.username}>
                             <Typography variant="h5" component="h5" >
                                 <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
@@ -112,10 +133,11 @@ export class PetOwner extends React.Component {
 const mapStateToProps = (state) => ({
     user: state.user
 });
-
+const mapActionsToProps = { uploadPetOwnerProfileImage };
 PetOwner.propTypes = {
     classes: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    uploadPetOwnerProfileImage: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(PetOwner));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(PetOwner));
