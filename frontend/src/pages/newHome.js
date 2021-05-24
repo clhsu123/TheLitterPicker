@@ -56,14 +56,14 @@ export class NewHome extends React.Component {
 
                 <Grid item xs={12} className={classes.title}>
                     <Typography variant="h1" component="h1">
-                        <Box fontFamily="Jazz LET, fantasy" fontStyle="oblique" fontWeight="fontWeightBold" letterSpacing={8} xs={1}>
+                        <Box fontStyle="oblique" fontWeight="fontWeightBold" letterSpacing={8} xs={1}>
                             TheLitterPicker.com
                         </Box>
                     </Typography>
                 </Grid>
                 <Grid item xs={12} className={classes.subtitle}>
                     <Typography variant="h4" component="h4" >
-                        <Box fontFamily="Jazz LET" fontStyle="oblique" fontWeight="fontWeightMedium" letterSpacing={3} color="#000055" xs={1}>
+                        <Box fontStyle="oblique" fontWeight="fontWeightMedium" letterSpacing={3} color="#000000" xs={1}>
                             Find your ideal puppies by dog breeds
                         </Box>
                     </Typography>

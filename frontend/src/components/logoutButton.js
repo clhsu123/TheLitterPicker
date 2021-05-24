@@ -10,7 +10,11 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../redux/actions/userActions';
 
 export class logoutButton extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    
     handleLogout = () => {
         // this.props.logoutUser;
         this.props.logoutUser();

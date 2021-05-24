@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +12,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import ApplicationList from '../components/ApplicationList';
+
+// redux stuff
+import { connect } from 'react-redux';
 
 const styles = {
     root: {
@@ -41,7 +45,6 @@ export class ViewApplications extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            breeder_info: this.props.history.location.state?.breeder_info,
         };
 
     }
@@ -50,8 +53,8 @@ export class ViewApplications extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
-        const breeder_info = this.state.breeder_info;
+        const { classes, user } = this.props;
+        const breeder_info = user;
         return (
             <Grid container spacing={3} className={classes.root}>
                 <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
@@ -112,4 +115,13 @@ export class ViewApplications extends React.Component {
     }
 }
 
-export default withStyles(styles)(ViewApplications);
+ViewApplications.propTypes = {
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(ViewApplications));

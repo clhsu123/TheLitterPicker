@@ -32,6 +32,7 @@ const styles = {
     },
     overview: {
         padding: '15px 15px 15px 15px',
+        // fontFamily: 'Impact',
     },
     button: {
         margin: '10px 10px 10px 10px',
@@ -176,7 +177,7 @@ export class Profile extends React.Component {
                     <Grid container item xs={8} direction="column">
                         <Grid item className={classes.subtitle}>
                             <Typography variant="h5" component="h5" >
-                                <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                                     Overview
                                 </Box>
                             </Typography>
