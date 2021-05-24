@@ -22,6 +22,7 @@ export class SearchBar extends React.Component {
             keyword: "",
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     handleChange = (e) => {
@@ -33,7 +34,13 @@ export class SearchBar extends React.Component {
     handleClickSearchButton = (e) => {
         // console.log("clicked");
         // console.log(this.state.keyword);
-        this.props.history.push('/search', {keyword: this.state.keyword});
+        this.props.history.push('/search', { keyword: this.state.keyword });
+    }
+    
+    handleKeyPress = (e) => {
+        if (e.keyCode == 13) {
+            this.props.history.push('/search', { keyword: this.state.keyword });
+        }
     }
 
 
@@ -49,6 +56,7 @@ export class SearchBar extends React.Component {
                             placeholder=''
                             value={this.state.keyword}
                             onChange={this.handleChange}
+                            onKeyDown={this.handleKeyPress}
                             startAdornment={<InputAdornment position="start">Search</InputAdornment>}
                             endAdornment={
                                 <InputAdornment position="end">

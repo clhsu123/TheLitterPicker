@@ -12,6 +12,12 @@ import EmailIcon from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { InputBase } from '@material-ui/core';
 import { PhotoList } from '../components/PhotoList';
+import { Link } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
 //Redux
@@ -55,15 +61,34 @@ export class Profile extends React.Component {
             boys_info: [],
             girls_info: [],
             puppies_info: [],
+            alert_sign_as_petowner: false,
         };
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
+        this.handleAlertDialogClose = this.handleAlertDialogClose.bind(this);
     }
+
     handleOnClick() {
-        console.log('clicked');
-        this.props.history.push('/application', { breeder_info: this.state.breeder_info });
+        // console.log('clicked');
+        // this.props.history.push('/application', { breeder_info: this.state.breeder_info });
+        
+        const { user } = this.props;
+        if(user.accountType == "petowner") {
+            this.props.history.push('/application', { breeder_info: this.state.breeder_info });
+        } else {
+            this.setState({
+                alert_sign_as_petowner: true
+            });
+        }
     }
+
+    handleAlertDialogClose() {
+        this.setState({
+            alert_sign_as_petowner: false,
+        });
+    }
+
     handleViewApplicationsClicked() {
         console.log("view applications");
         this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
@@ -169,13 +194,30 @@ export class Profile extends React.Component {
                     </Grid>
                     <Grid container item xs={4} direction="column" alignItems="center">
                         <Grid item xs={5} className={classes.button}>
-                            {user.accountType == "petowner" ?
-                                <Button variant="contained" color="secondary" onClick={this.handleOnClick}>
-                                    Apply Applications
-                                </Button>
-                                :
-                                <h2>Please sign up as a user to send application</h2>
-                            }
+                            <Button variant="contained" color="secondary" onClick={this.handleOnClick}>
+                                Apply Applications
+                            </Button>
+                            <Dialog
+                                open={this.state.alert_sign_as_petowner}
+                                onClose={this.handleAlertDialogClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">{"You Are Not A Pet Owner User"}</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        Please sign up as a pet owner User to apply for puppies application.
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={this.handleAlertDialogClose} color="primary">
+                                        Close
+                                    </Button>
+                                    <Button onClick={this.handleAlertDialogClose} color="primary" autoFocus component={Link} to="/signup">
+                                        Sign Up
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
                         </Grid>
                     </Grid>
                 </Grid>
