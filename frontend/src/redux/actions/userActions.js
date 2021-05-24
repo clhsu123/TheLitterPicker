@@ -5,7 +5,8 @@ import { SET_USER_BREEDER,
     CLEAR_ERRORS,
     LOADING_UI, 
     SET_UNAUTHENTICATED ,
-    LOADING_USER
+    LOADING_USER,
+    SET_APPLICATION
 } from '../types';
 
 export const loginBreeder = (userData, history) => (dispatch) => {
@@ -92,6 +93,7 @@ export const getBreederData = () => (dispatch) => {
                 type: SET_USER_BREEDER,
                 payload: res.data[0]
             })
+            dispatch(getApplicationBreeder());
         })
         .catch(err =>console.log(err));
 };
@@ -104,6 +106,7 @@ export const getPetOwnerData = () => (dispatch) => {
                 type: SET_USER_PET_OWNER,
                 payload: res.data[0]
             })
+            dispatch(getApplicationPetOwner());
         })
 }
 
@@ -137,6 +140,32 @@ export const editPetOwnerDetails = (userDetails) => (dispatch) => {
     })
     .catch(err => console.log(err));
 };
+
+export const getApplicationPetOwner = () => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+    .post('/get_application_pet_owner_secure')
+    .then(res =>{
+        dispatch({
+            type: SET_APPLICATION,
+            payload: res.data
+        })
+    })
+    .catch(err => console.log(err));
+}
+
+export const getApplicationBreeder = () => (dispatch) => {
+    dispatch({ type: LOADING_USER});
+    axios
+    .post('/get_application_breeder_secure')
+    .then( res => {
+        dispatch({
+            type: SET_APPLICATION,
+            payload: res.data
+        })
+    })
+    .catch(err => console.log(err));
+}
 const setAuthorizationHeaderBreeder = (token) => {
     const FBIdToken = `Breeder ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);

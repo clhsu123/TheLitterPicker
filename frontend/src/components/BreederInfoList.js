@@ -19,7 +19,7 @@ export class BreederInfoList extends React.Component {
     render() {
         const { classes } = this.props;
         const breeders = this.props.breeders;
-        const breedersInfoItems = breeders.map((breeder) =>
+        const breedersInfoItems = breeders.map((breeder) => 
             <BreederInfoCard key={breeder.handle.toString()} info={breeder}></BreederInfoCard>
         );
         return (

@@ -1,4 +1,4 @@
-import { SET_USER_BREEDER, SET_USER_PET_OWNER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER} from '../types';
+import { SET_APPLICATION, SET_USER_BREEDER, SET_USER_PET_OWNER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER} from '../types';
 
 const initialState = {
     authenticated: false,
@@ -6,6 +6,7 @@ const initialState = {
     loading: false,
     address: "",
     applications: [],
+    application_list: [],
     background_photo: "",
     contact_email: "",
     registration_email: "",
@@ -43,6 +44,11 @@ export default function(state = initialState, action){
                     loading: false,
                     ...action.payload
                 };
+        case SET_APPLICATION:
+            return {
+                ...state,
+                application_list: action.payload
+            };
         case LOADING_USER:
             return {
                 ...state,

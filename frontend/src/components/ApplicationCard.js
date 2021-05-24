@@ -36,6 +36,7 @@ export class ApplicationCard extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props.info);
         if (this.props.info.status == 0) {
             this.setState({
                 application_status: 'pending'
@@ -57,11 +58,12 @@ export class ApplicationCard extends React.Component {
         const { classes } = this.props;
         const application_info = this.props.info;
         var d = application_info.createdAt;
-        var month = '' + (d.getMonth() + 1);
-        var day = '' + d.getDate();
-        var year = d.getFullYear();
-        const created_date =[year, month, day].join('-');
-        return (
+        //var month = '' + (d.getMonth() + 1);
+        //var day = '' + d.getDate();
+        //var year = d.getFullYear();
+        //const created_date =[year, month, day].join('-');
+        const created_date = d;
+        return (    
             <ListItem alignItems="flex-start">
                 <Card className={classes.root}>
                     <div className={classes.card_content}>
@@ -125,7 +127,6 @@ export class ApplicationCard extends React.Component {
                     </div>
                 </Card>
             </ListItem>
-
         );
 
     }

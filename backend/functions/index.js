@@ -26,7 +26,9 @@ const { getApplication,
         updateApplication, 
         getBreederApplication, 
         getPetOwnerApplication, 
-        updateApplicationSecure 
+        updateApplicationSecure,
+        getBreederApplicationSecure,
+        getPetOwnerApplicationSecure
     } = require('./handlers/application');
 
 
@@ -60,7 +62,9 @@ app.post('/update_application', updateApplication);
 
 //Fetch specific user's application and update applications of specific users
 app.post('/get_application_breeder', getBreederApplication);
+app.post('/get_application_breeder_secure',FBBreederAuth, getBreederApplicationSecure);
 app.post('/get_application_pet_owner', getPetOwnerApplication);
+app.post('/get_application_pet_owner_secure', FBPetAuth, getPetOwnerApplicationSecure);
 app.post('/update_application_secure', FBPetAuth, updateApplicationSecure);
 
 //This line exports API functions of firebse in HTTP form
