@@ -123,6 +123,7 @@ export class AuthBreederProfile extends React.Component {
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
     }
     handleImageChange = (event) => {
+        console.log("changed");
         const image = event.target.files[0];
         // send to server
         const formData = new FormData();
@@ -164,15 +165,14 @@ export class AuthBreederProfile extends React.Component {
         const { classes, user } = this.props;
         // get Dogs sub-collections data from the database
         axios
-            .get('/get_dog')
-            .then(res => {
-
-                this.classifyDogInfo(res.data);
-                this.setState({
-                    dogs_info: res.data
-                });
-            })
-            .catch(err => console.log(err));
+        .get('/get_dog')
+        .then(res => {
+            this.classifyDogInfo(res.data);
+            this.setState({
+                dogs_info: res.data
+            });
+        })
+        .catch(err => console.log(err));
     }
 
 

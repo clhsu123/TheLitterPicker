@@ -124,6 +124,7 @@ export const uploadBreederProfileImage = (formData) => (dispatch) => {
         })
         .catch(err => console.log(err));
 };
+
 export const uploadPetOwnerProfileImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER});
     axios.post('/user/image/petowner', formData)

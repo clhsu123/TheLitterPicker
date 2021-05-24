@@ -261,8 +261,8 @@ exports.uploadDogImage = (req, res) => {
         .then(() => {
             return `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
         })
-        .then((imageUrl) => {
-            return res.json( {imageUrl: imageUrl});
+        .then( imageUrl => {
+            return res.json({ imageUrl: imageUrl });
         })
         .catch(err => {
             console.error(err);
