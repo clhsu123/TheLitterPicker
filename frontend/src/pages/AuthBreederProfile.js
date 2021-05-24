@@ -136,11 +136,6 @@ export class AuthBreederProfile extends React.Component {
     handleViewApplicationsClicked() {
         this.props.history.push('/view_applicatoins');
     };
-    handleLogout = () => {
-        this.props.logoutUser();
-        this.props.history.push('/');
-    };
-
     classifyDogInfo = (dogs_data) => {
         var dogs = dogs_data;
         var boys = [];
@@ -173,7 +168,6 @@ export class AuthBreederProfile extends React.Component {
         .then(res => {
 
             this.classifyDogInfo(res.data);
-            console.log(res.data);
             this.setState({
                 dogs_info: res.data
             });
@@ -213,14 +207,14 @@ export class AuthBreederProfile extends React.Component {
                             onChange={this.handleImageChange} 
                         />
                         <Tooltip title="Edit profile picture" placement="top">
-                                <Button variant="contained" color="primary"onClick ={this.handleEditPicture}>
-                                    Edit
-                                </Button>
+                            <Button variant="contained" color="primary"onClick ={this.handleEditPicture}>
+                                Edit
+                            </Button>
                         </Tooltip>
                     </Grid>
                     <Grid item>
                         <Typography variant="h4" component="h4" >
-                            <Box fontFamily="Jazz LET, fantasy" fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
+                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
                                 {breeder_info.title}
                             </Box>
                         </Typography>

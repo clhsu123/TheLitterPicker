@@ -1,12 +1,9 @@
 import React, { Component,  Fragment} from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// redux stuff
-import { connect } from 'react-redux';
 
 // MUI stuff
 import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -31,7 +28,7 @@ class AddDogs extends Component {
         birthdate: "",
         description: "",
         gender: "",
-        images: [],
+        images: "",
         isPuppy: false,
         name: "",
         videos: []
@@ -53,27 +50,47 @@ class AddDogs extends Component {
 
     setSelected = (input) => {
         this.setState({ isPuppy: input});
-        console.log(this.state.isPuppy);
     };
 
+    handleImageChange = (event) => {
+        console.log("inside the handle image change");
+        const image = event.target.files[0];
+        // send to server
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        axios
+        .post('/user/dogImage', formData)
+        .then(res => {
+            console.log(res.data);
+            this.setState({ images: res.data.imageUrl});
+        })
+    };
+
+    handleEditPicture = () => {
+        console.log("inside the handleEditPicture");
+        const fileInput = document.getElementById('imageInput');
+        fileInput.click();
+    }
+
     handleSubmit = () => {
+        console.log("inside the submit");
+        console.log(this.state.images);
         const dogDetails = {
             birthdate: this.state.birthdate,
             description: this.state.description,
             gender: this.state.gender,
-            images: [],
+            images: this.state.images,
             isPuppy: this.state.isPuppy,
             name: this.state.name,
             videos: []
         };  
         axios
             .post('/add_dog_to_breeder', dogDetails)
-            .then(res => {
-                console.log(res.data);
-            });
         this.handleClose();
     };
-
+    componentDidMount() {
+        console.log("just inside component");
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -149,6 +166,18 @@ class AddDogs extends Component {
                             >
                             <CheckIcon />
                             </ToggleButton>
+                            <br /><br />
+                            <input 
+                            type="file"
+                            id="imageInput"
+                            hidden="hidden"
+                            onChange={this.handleImageChange} 
+                            />
+                            <Tooltip title="Edit dog picture" placement="top">
+                                <Button variant="contained" color="primary" onClick ={this.handleEditPicture}>
+                                    Add Picture
+                                </Button>
+                            </Tooltip>
                         </form>
                     </DialogContent>
                     <DialogActions>

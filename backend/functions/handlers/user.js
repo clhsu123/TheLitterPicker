@@ -224,7 +224,7 @@ exports.uploadImagePetOwner = (req, res) => {
     busboy.end(req.rawBody);
 };
 
-exports.uploaDogImage = (req, res) => {
+exports.uploadDogImage = (req, res) => {
     const BusBoy = require('busboy');
     const path = require('path');
     const os = require('os');

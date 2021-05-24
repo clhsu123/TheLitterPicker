@@ -53,6 +53,7 @@ export class PetOwner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            imageUrl: ''
         };
     }
 
@@ -84,7 +85,7 @@ export class PetOwner extends React.Component {
                             onChange={this.handleImageChange} 
                         />
                         <Tooltip title="Edit profile picture" placement="top">
-                                <Button variant="contained" color="primary">
+                                <Button variant="contained" color="primary" onClick = {this.handleEditPicture}>
                                     Edit
                                 </Button>
                         </Tooltip>

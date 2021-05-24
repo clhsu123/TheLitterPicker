@@ -109,11 +109,9 @@ export class App extends Component {
             <Navbar />
             <div className="container">
               <Switch>
-                <AuthRoute exact path="/login" component={login} />
-                <AuthRoute exact path="/signup" component={signup} />
                 <Route exact path="/application" component={application} />
                 <Route exact path="/login" component={login} />
-                {/* <Route exact path="/signup" component={signup} /> */}
+                <Route exact path="/signup" component={signup} />
                 <Route exact path="/search" component={search} />
                 <Route exact path="/profile" component={profile} />
                 <Route exact path="/auth_breeder_profile" component={AuthBreederProfile} />
