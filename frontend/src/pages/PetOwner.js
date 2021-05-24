@@ -55,19 +55,7 @@ export class PetOwner extends React.Component {
         };
     }
 
-    componentWillMount() {
-        console.log(this.props.user.application_list);
-        // testing
-        /*
-        var petowner_data = {
-            applications: ['aHsrSjZiNVqOituvfZBW', 'caOfscXFQHT9iQzEcX8I', 'dCebRRD10WKdrWRxmtwN'],
-            handle: 'marcytucker',
-            password: 'vampvampmarcy',
-            profile_photo: 'https://firebasestorage.googleapis.com/v0/b/pickerpicker-3e855.appspot.com/o/no-img.png?alt=media&token=782cdd95-8d4d-434b-8e2a-f57d7dace598',
-            registration_email: 'marceline1999@gmail.com',
-            selfIntro: 'I am a dog lover, and currently seeking for cute shiba and chihuahua puppies.'
-        }
-        */
+    componentDidMount(){
     }
 
     render() {
@@ -89,12 +77,6 @@ export class PetOwner extends React.Component {
                         <Grid item xs={12} sm={8} className={classes.update_profile}>
                             <EditPetDetails />
                         </Grid>
-                        {/* edit pet details */}
-                        {/* <Grid item xs={12} sm={8} className={classes.update_profile}>
-                            <Button variant="contained" color="secondary">
-                                <EditPetDetails />
-                            </Button>
-                        </Grid> */}
                     </Grid>
 
                     <Grid item xs={12}>
@@ -120,7 +102,6 @@ export class PetOwner extends React.Component {
                     </Grid>
 
                     <Grid item xs={12}>
-                        {/* <BreederInfoList breeders={this.state.breeders} /> */}
                         <ApplicationList application_ids={user.application_list} />
                     </Grid>
                 </Grid>

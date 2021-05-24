@@ -255,7 +255,7 @@ exports.updateApplicationSecure = (req, res) => {
         generalPreference: req.body.generalPreference,
         preferenceOriented: req.body.preferenceOriented,
         additionInformation: req.body.additionInformation,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString
     };
 
     db
