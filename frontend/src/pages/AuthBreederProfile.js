@@ -422,10 +422,12 @@ export class AuthBreederProfile extends React.Component {
                                 Boys / Sires
                             </Box>
                         </Typography>
+                    </Grid>
+                    <Grid container item xs = {12}>
                         <div className={classes.galleryRoot}>
                             <GridList cols={3}>
                                 className={classes.gridList}
-                                {this.state.dogs_info.map(dog => (
+                                {this.state.boys_info.map(dog => (
                                     <GridListTile key={dog.dogId}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)}/>
                                             <GridListTileBar
@@ -510,6 +512,8 @@ export class AuthBreederProfile extends React.Component {
                                 Girls / Dams
                             </Box>
                         </Typography>
+                    </Grid>
+                    <Grid container item xs = {12}>
                         <div className={classes.galleryRoot}>
                             <GridList cols={3}>
                                 className={classes.gridList}
@@ -601,6 +605,8 @@ export class AuthBreederProfile extends React.Component {
                                 Available puppies
                             </Box>
                         </Typography>
+                    </Grid>
+                    <Grid container item xs = {12}>
                         <div className={classes.galleryRoot}>
                             <GridList cols={3}>
                                 className={classes.gridList}
