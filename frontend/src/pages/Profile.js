@@ -550,7 +550,6 @@ export class Profile extends React.Component {
                                     >
                                         <CloseIcon />
                                     </IconButton>
-                                    <button className={classes.addPictureButton}> add picture </button>
                                 </Toolbar>
                             </AppBar>
                             {this.state.selectedDog && (
@@ -641,7 +640,6 @@ export class Profile extends React.Component {
                                     >
                                         <CloseIcon />
                                     </IconButton>
-                                    <button className={classes.addPictureButton}> add picture </button>
                                 </Toolbar>
                             </AppBar>
                             {this.state.selectedDog && (
