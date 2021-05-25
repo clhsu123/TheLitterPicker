@@ -48,6 +48,8 @@ export class ApplicationCard extends React.Component {
         };
         this.handleViewDetailClicked = this.handleViewDetailClicked.bind(this);
         this.handleViewDetailClose = this.handleViewDetailClose.bind(this);
+        this.handleViewApproveClicked = this.handleViewApproveClicked.bind(this);
+        this.handleViewDeclineClicked = this.handleViewDeclineClicked.bind(this);
     }
 
     handleViewDetailClicked() {
@@ -60,6 +62,12 @@ export class ApplicationCard extends React.Component {
         this.setState({
             detail_dialog_open: false,
         });
+    }
+
+    handleViewApproveClicked() {
+    }
+
+    handleViewDeclineClicked() {
     }
 
     componentDidMount() {
@@ -284,7 +292,13 @@ export class ApplicationCard extends React.Component {
                                                 </DialogContentText>
                                             </DialogContent>
                                             <DialogActions>
-                                                <Button onClick={this.handleViewDetailClose} color="primary">
+                                                <Button onClick={this.handleViewApproveClicked} variant="contained" color="primary">
+                                                    Approve
+                                                </Button>
+                                                <Button onClick={this.handleViewDeclineClicked} variant="outlined" color="primary">
+                                                    Decline
+                                                </Button>
+                                                <Button onClick={this.handleViewDetailClose} color="secondary">
                                                     Close
                                                 </Button>
                                             </DialogActions>
