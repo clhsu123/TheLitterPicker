@@ -28,6 +28,14 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import Dialog from "@material-ui/core/Dialog";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
 
 
 const tutorialSteps = [
@@ -43,23 +51,21 @@ const tutorialSteps = [
     {
         label: 'Crosswood Monreaux and Gibson pups, expected early April, 2021. $2000+ CADia',
         imgPath:
-            'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
+          'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+      },
+      {
         label: 'Monreaux and Gibson previous litter',
         imgPath:
-            'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
+          'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+      },
+      {
         label: 'puppies',
         imgPath:
-            'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
+          'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+      },
 ];
 
 const maxSteps = tutorialSteps.length;
-
-
 
 const styles = theme => ({
     root: {
@@ -105,9 +111,44 @@ const styles = theme => ({
         alignItems: 'center',
         position: 'relative',
     },
+    galleryRoot: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        overflow: "hidden",
+        backgroundColor: theme.palette.background.paper
+    },
+    gridList: {
+        width: "auto",
+        height: "auto"
+    },
+    appBar: {
+        diplay: "flex",
+        justifyContent: 'flex-end',
+        position: "relative",
+    },
+    imgIcon: {
+        color: "rgba(255, 255, 255, 0.54)"
+    },
+    galleryImg: {
+        display: 'block',
+        margin: 'auto',
+        maxHeight: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    addPictureButton: {
+        marginLeft: 'auto'
+    }
 });
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 
 export class AuthBreederProfile extends React.Component {
     constructor(props) {
@@ -118,9 +159,14 @@ export class AuthBreederProfile extends React.Component {
             girls_info: [],
             puppies_info: [],
             activeStep: 0,
+            sireStep: 0,
+            damStep: 0,
+            puppyStep: 0,
+            selectedDog: null
         };
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
+        this.handleClickOpen = this.handleClickOpen.bind(this);
     }
     handleImageChange = (event) => {
         console.log("changed");
@@ -180,13 +226,36 @@ export class AuthBreederProfile extends React.Component {
         this.setState({ activeStep: this.state.activeStep + 1 });
     };
 
+    handleSireNext = () => {
+        this.setState({ sireStep: this.state.sireStep + 1 });
+    }
+
     handleBack = () => {
         this.setState({ activeStep: this.state.activeStep - 1 });
+    };
+
+    handleSireBack = () => {
+        this.setState({ sireStep: this.state.sireStep - 1 });
     };
 
     handleStepChange = (step) => {
         this.setState({ activeStep: step });
     };
+
+    handleSireStepChange = (step) => {
+        this.setState({ sireStep: step });
+    };
+
+    handleClickOpen = dog => {
+        this.setState({ selectedDog: dog});
+        this.setState({ sireStep: 0 });
+        console.log("clicked");
+        console.log("tile");
+    }
+
+    handleClose = () => {
+        this.setState({ selectedDog: null});
+    }
 
 
 
@@ -323,13 +392,88 @@ export class AuthBreederProfile extends React.Component {
                     </Grid>
                 </Grid>
 
-
                 <Grid item className={classes.subtitle}>
-                    <Typography variant="h5" component="h5" >
-                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                            Boys / Sires
-                        </Box>
-                    </Typography>
+                    <Grid container item xs = {12}>
+                        <h1>Sires</h1>
+                        <div className={classes.galleryRoot}>
+                            <GridList cols={3}>
+                                className={classes.gridList}
+                                {this.state.dogs_info.map(dog => (
+                                    <GridListTile key={dog.dogId}>
+                                        <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)}/>
+                                            <GridListTileBar
+                                                title={dog.name}
+                                                subtitle={<span>Birthdate: {dog.birthdate}</span>}
+                                            />
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                            <Dialog
+                                open={this.state.selectedDog !== null}
+                                onClose={this.handleClose}
+                                TransitionComponent={Transition}
+                            >
+                            <AppBar className={classes.appBar}>
+                                <Toolbar>
+                                    <IconButton
+                                        edge="start"
+                                        color="inherit"
+                                        onClick={this.handleClose}
+                                        aria-label="close"
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                    <button className={classes.addPictureButton}> add picture </button>
+                                </Toolbar>
+                            </AppBar>
+                            {this.state.selectedDog && (
+                                <>
+                                    {console.log("how many images: " + this.state.selectedDog.images.length)}
+                                    <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
+                                    <Grid container item xs={12}>
+                                        <div className={classes.rootNews}>
+                                            <Paper square elevation={0} className={classes.header}>
+                                                <Typography variant="subtitle1"> {this.state.selectedDog.description} </Typography>
+                                            </Paper>
+                                            <AutoPlaySwipeableViews
+                                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                                                index={this.state.sireStep}
+                                                onChangeIndex={this.handleSireStepChange}
+                                                enableMouseEvents
+                                            >
+                                                {this.state.selectedDog.images.map((step, index) => (
+                                                    <div key={index}>
+                                                        {Math.abs(this.state.sireStep - index) <= 2 ? (
+                                                            <img className={classes.img} src={step} />
+                                                        ) : null}
+                                                    </div>
+                                                ))}
+                                            </AutoPlaySwipeableViews>
+                                            <MobileStepper
+                                                steps={this.state.selectedDog.images.length}
+                                                position="static"
+                                                variant="text"
+                                                activeStep={this.state.sireStep}
+                                                nextButton={
+                                                    <Button size="small" onClick={this.handleSireNext} disabled={this.state.sireStep === this.state.selectedDog.images.length - 1}>
+                                                        Next
+                                                    {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                                                    </Button>
+                                                }
+                                                backButton={
+                                                    <Button size="small" onClick={this.handleSireBack} disabled={this.state.sireStep === 0}>
+                                                        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                                                    Back
+                                                </Button>
+                                                }
+                                            />
+                                        </div>
+                                    </Grid>
+                                </>
+                            )}
+                            </Dialog>
+                        </div>
+                    </Grid>
                 </Grid>
                 <Grid container item direction="row">
                     <PhotoList dogs_list={this.state.boys_info} />
