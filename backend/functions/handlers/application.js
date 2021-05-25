@@ -1,5 +1,6 @@
 const { db } = require('../util/admin');
-const { addUserDetails } = require('./user');
+
+
 
 exports.getApplication = (req, res) => {
     db
@@ -249,6 +250,7 @@ exports.updateApplicationSecure = (req, res) => {
         address2: req.body.address2,
         city: req.body.city,
         state: req.body.state,
+        status: 0,
         zip: req.body.zip,
         status: 0,
         country: req.body.country,
@@ -260,9 +262,8 @@ exports.updateApplicationSecure = (req, res) => {
         generalPreference: req.body.generalPreference,
         preferenceOriented: req.body.preferenceOriented,
         additionInformation: req.body.additionInformation,
-        createdAt: new Date().toISOString
+        createdAt: new Date().toISOString()
     };
-
     db
         .collection('Applications')
         .add(newApplication)

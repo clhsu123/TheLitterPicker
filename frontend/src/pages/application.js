@@ -127,7 +127,6 @@ export class application extends Component {
             generalPreference: this.state.generalPreference,
             preferenceOriented: this.state.preferenceOriented,
             additionInformation: this.state.additionInformation,
-            //createdAt: new Date().toISOString()
         };
         axios
             .post('/update_application_secure', newApplication)
