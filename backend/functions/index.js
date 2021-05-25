@@ -4,7 +4,6 @@ const app = require('express')();
 
 //Import self-defined functions from other folders
 const { FBBreederAuth , FBPetAuth } = require('./util/fbAuth');
-const { getAllScreams , postOneScream} = require('./handlers/scream');
 const { login,
         uploadImage, 
         uploadDogImage, 
@@ -34,11 +33,11 @@ const { getApplication,
         getBreederApplicationSecure,
         getPetOwnerApplicationSecure
     } = require('./handlers/application');
-
-
-//Scream route
-app.get('/screams', getAllScreams); //Fetch all datas (In JSON format) from collection "Scream"
-//app.post('/scream', FBAuth, postOneScream); //Post one document onto collection "scream"
+const {
+    add_news_to_breeder,
+    update_news,
+    getNews
+    } = require('./handlers/news');
 
 //User route
 
@@ -61,6 +60,12 @@ app.post('/get_breeder_by_breed_type', getBreederByBreedType);
 app.post('/add_dog_to_breeder', FBBreederAuth, add_dog_to_breeder);
 app.get('/get_dog', FBBreederAuth, getDog);
 app.post('/get_dog_by_breeder_handle', getDogByHandle);
+
+//News
+app.post('/add_news_to_breeder', FBBreederAuth, add_news_to_breeder);
+app.post('/update_news', FBBreederAuth, update_news);
+app.get('/get_news', FBBreederAuth, getNews);
+
 // Other route could be added below, you could refer to functions above to design new functions
 
 //Application
