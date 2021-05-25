@@ -1,5 +1,6 @@
 const { db } = require('../util/admin');
-const { addUserDetails } = require('./user');
+
+
 
 exports.getApplication = (req, res) => {
     db
@@ -98,6 +99,7 @@ exports.getBreederApplication = (req, res) => {
                 address2: doc.data().address2,
                 city: doc.data().city,
                 state: doc.data().state,
+                status: doc.data().status,
                 zip: doc.data().zip,
                 country: doc.data().country,
                 currentLivingStatus: doc.data().currentLivingStatus,
@@ -137,6 +139,7 @@ exports.getBreederApplicationSecure = (req, res) => {
                 address2: doc.data().address2,
                 city: doc.data().city,
                 state: doc.data().state,
+                status: doc.data().status,
                 zip: doc.data().zip,
                 country: doc.data().country,
                 currentLivingStatus: doc.data().currentLivingStatus,
@@ -176,6 +179,7 @@ exports.getPetOwnerApplication = (req, res) => {
                 address2: doc.data().address2,
                 city: doc.data().city,
                 state: doc.data().state,
+                status: doc.data().status,
                 zip: doc.data().zip,
                 country: doc.data().country,
                 currentLivingStatus: doc.data().currentLivingStatus,
@@ -215,6 +219,7 @@ exports.getPetOwnerApplicationSecure = (req, res) => {
                 address2: doc.data().address2,
                 city: doc.data().city,
                 state: doc.data().state,
+                status: doc.data().status,
                 zip: doc.data().zip,
                 country: doc.data().country,
                 currentLivingStatus: doc.data().currentLivingStatus,
@@ -245,6 +250,7 @@ exports.updateApplicationSecure = (req, res) => {
         address2: req.body.address2,
         city: req.body.city,
         state: req.body.state,
+        status: 0,
         zip: req.body.zip,
         country: req.body.country,
         currentLivingStatus: req.body.currentLivingStatus,
@@ -255,9 +261,8 @@ exports.updateApplicationSecure = (req, res) => {
         generalPreference: req.body.generalPreference,
         preferenceOriented: req.body.preferenceOriented,
         additionInformation: req.body.additionInformation,
-        createdAt: new Date().toISOString
+        createdAt: new Date().toISOString()
     };
-
     db
         .collection('Applications')
         .add(newApplication)
