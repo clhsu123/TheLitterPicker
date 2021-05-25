@@ -103,7 +103,7 @@ export class ApplicationCard extends React.Component {
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Typography variant="body1" color="textSecondary">
-                                                {application_info.adopterHandle}
+                                                {application_info.breederHandle}
                                             </Typography>
                                         </Grid>
                                     </Grid>
