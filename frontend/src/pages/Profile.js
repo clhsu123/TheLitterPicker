@@ -20,9 +20,51 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
+import MobileStepper from '@material-ui/core/MobileStepper';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
+import IconButton from '@material-ui/core/IconButton';
+
 //Redux
 import { connect } from 'react-redux';
-const styles = {
+
+const tutorialSteps = [
+    {
+        label: 'We are thrilled that Crosswood Inertia was adopted by Zak George, a world-renown dog trainer. Follow him on Instagram, Facebook, and YouTube to learn invaluable techniques for training your dog. ',
+        imgPath: 'http://nebula.wsimg.com/e36cd65ad068686a8a0f27be25893aa8?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+    },
+    {
+        label: 'Wisp, femail pup, 6 weeks, sold',
+        imgPath:
+            'http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+    },
+    {
+        label: 'Crosswood Monreaux and Gibson pups, expected early April, 2021. $2000+ CADia',
+        imgPath:
+          'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+      },
+      {
+        label: 'Monreaux and Gibson previous litter',
+        imgPath:
+          'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+      },
+      {
+        label: 'puppies',
+        imgPath:
+          'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
+      },
+];
+
+const styles = theme => ({
     root: {
         margin: '10px 10px 10px 10px',
         padding: '20px 10px 10px 10px',
@@ -49,8 +91,66 @@ const styles = {
     photolist: {
         display: 'flex',
         flexDirection: 'row',
+    },
+    rootNews: {
+        maxWidth: 600,
+        flexGrow: 1,
+    },
+    header: {
+        display: 'flex',
+        alignItems: 'center',
+        //height: 50,
+        paddingLeft: theme.spacing(4),
+        backgroundColor: theme.palette.background.default,
+    },
+    img: {
+        display: 'block',
+        margin: 'auto',
+        height: 300,
+        maxHeight: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    galleryRoot: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        overflow: "hidden",
+        backgroundColor: theme.palette.background.paper
+    },
+    gridList: {
+        width: "auto",
+        height: "auto"
+    },
+    appBar: {
+        diplay: "flex",
+        justifyContent: 'flex-end',
+        position: "relative",
+    },
+    imgIcon: {
+        color: "rgba(255, 255, 255, 0.54)"
+    },
+    galleryImg: {
+        display: 'block',
+        margin: 'auto',
+        maxHeight: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    addPictureButton: {
+        marginLeft: 'auto'
     }
-};
+});
+
+const maxSteps = tutorialSteps.length;
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export class Profile extends React.Component {
     constructor(props) {
@@ -61,6 +161,11 @@ export class Profile extends React.Component {
             boys_info: [],
             girls_info: [],
             puppies_info: [],
+            activeStep: 0,
+            sireStep: 0,
+            damStep: 0,
+            puppyStep: 0,
+            selectedDog: null,
             alert_sign_as_petowner: false,
         };
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
@@ -134,8 +239,67 @@ export class Profile extends React.Component {
             .catch(err => console.log(err));
     }
 
+    handleNext = () => {
+        this.setState({ activeStep: this.state.activeStep + 1 });
+    };
+
+    handleSireNext = () => {
+        this.setState({ sireStep: this.state.sireStep + 1 });
+    }
+
+    handleDamNext = () => {
+        this.setState({ damStep: this.state.damStep + 1 });
+    }
+
+    handlePuppyNext = () => {
+        this.setState({ puppyStep: this.state.puppyStep + 1 });
+    }
+
+    handleBack = () => {
+        this.setState({ activeStep: this.state.activeStep - 1 });
+    };
+
+    handleSireBack = () => {
+        this.setState({ sireStep: this.state.sireStep - 1 });
+    };
+
+    handleDamBack = () => {
+        this.setState({ damStep: this.state.damStep - 1 });
+    };
+
+    handlePuppyBack = () => {
+        this.setState({ puppyStep: this.state.puppyStep - 1 });
+    };
+
+    handleStepChange = (step) => {
+        this.setState({ activeStep: step });
+    };
+
+    handleSireStepChange = (step) => {
+        this.setState({ sireStep: step });
+    };
+
+    handleDamStepChange = (step) => {
+        this.setState({ damStep: step });
+    };
+
+    handlePuppyStepChange = (step) => {
+        this.setState({ puppyStep: step });
+    };
+
+    handleClickOpen = dog => {
+        this.setState({ selectedDog: dog});
+        console.log("clicked");
+        console.log("tile");
+    }
+
+    handleClose = () => {
+        this.setState({ selectedDog: null});
+    }
+
+
     render() {
-        const { classes, user } = this.props;
+        const { classes, theme, user } = this.props;
         const breeder_info = this.state.breeder_info;
         return (
             <Grid container spacing={3} className={classes.root}>
@@ -221,7 +385,315 @@ export class Profile extends React.Component {
                         </Grid>
                     </Grid>
                 </Grid>
+                <Grid container item xs={12}>
+                    <h1>News and Updates</h1>
+                    <Grid container item xs={12}>
+                        <div className={classes.rootNews}>
+                            <Paper square elevation={0} className={classes.header}>
+                                <Typography>{tutorialSteps[this.state.activeStep].label}</Typography>
+                            </Paper>
+                            <AutoPlaySwipeableViews
+                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                                index={this.state.activeStep}
+                                onChangeIndex={this.handleStepChange}
+                                enableMouseEvents
+                            >
+                                {tutorialSteps.map((step, index) => (
+                                    <div key={step.label}>
+                                        {Math.abs(this.state.activeStep - index) <= 2 ? (
+                                            <img className={classes.img} src={step.imgPath} alt={step.label} />
+                                        ) : null}
+                                    </div>
+                                ))}
+                            </AutoPlaySwipeableViews>
+                            <MobileStepper
+                                steps={maxSteps}
+                                position="static"
+                                variant="text"
+                                activeStep={this.state.activeStep}
+                                nextButton={
+                                    <Button size="small" onClick={this.handleNext} disabled={this.state.activeStep === maxSteps - 1}>
+                                        Next
+                                    {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                                    </Button>
+                                }
+                                backButton={
+                                    <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
+                                        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                                    Back
+                                </Button>
+                                }
+                            />
+                        </div>
+                    </Grid>
+                </Grid>
+
                 <Grid item className={classes.subtitle}>
+                    <Grid container item xs = {12}>
+                        <Typography variant="h5" component="h5" >
+                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                Boys / Sires
+                            </Box>
+                        </Typography>
+                        <div className={classes.galleryRoot}>
+                            <GridList cols={3}>
+                                className={classes.gridList}
+                                {this.state.dogs_info.map(dog => (
+                                    <GridListTile key={dog.dogId}>
+                                        <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)}/>
+                                            <GridListTileBar
+                                                title={dog.name}
+                                                subtitle={<span>Birthdate: {dog.birthdate}</span>}
+                                            />
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                            <Dialog
+                                open={this.state.selectedDog !== null}
+                                onClose={this.handleClose}
+                                TransitionComponent={Transition}
+                            >
+                            <AppBar className={classes.appBar}>
+                                <Toolbar>
+                                    <IconButton
+                                        edge="start"
+                                        color="inherit"
+                                        onClick={this.handleClose}
+                                        aria-label="close"
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                </Toolbar>
+                            </AppBar>
+                            {this.state.selectedDog && (
+                                <>
+                                    {console.log("how many images: " + this.state.selectedDog.images.length)}
+                                    <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
+                                    <Grid container item xs={12}>
+                                        <div className={classes.rootNews}>
+                                            <Paper square elevation={0} className={classes.header}>
+                                                <Typography variant="subtitle1"> {this.state.selectedDog.description} </Typography>
+                                            </Paper>
+                                            <AutoPlaySwipeableViews
+                                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                                                index={this.state.sireStep}
+                                                onChangeIndex={this.handleSireStepChange}
+                                                enableMouseEvents
+                                            >
+                                                {this.state.selectedDog.images.map((step, index) => (
+                                                    <div key={index}>
+                                                        {Math.abs(this.state.sireStep - index) <= 2 ? (
+                                                            <img className={classes.img} src={step} />
+                                                        ) : null}
+                                                    </div>
+                                                ))}
+                                            </AutoPlaySwipeableViews>
+                                            <MobileStepper
+                                                steps={this.state.selectedDog.images.length}
+                                                position="static"
+                                                variant="text"
+                                                activeStep={this.state.sireStep}
+                                                nextButton={
+                                                    <Button size="small" onClick={this.handleSireNext} disabled={this.state.sireStep === this.state.selectedDog.images.length - 1}>
+                                                        Next
+                                                    {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                                                    </Button>
+                                                }
+                                                backButton={
+                                                    <Button size="small" onClick={this.handleSireBack} disabled={this.state.sireStep === 0}>
+                                                        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                                                    Back
+                                                </Button>
+                                                }
+                                            />
+                                        </div>
+                                    </Grid>
+                                </>
+                            )}
+                            </Dialog>
+                        </div>
+                    </Grid>
+                </Grid>
+
+                <Grid item className={classes.subtitle}>
+                    <Grid container item xs = {12}>
+                        <Typography variant="h5" component="h5" >
+                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                Girls / Dams
+                            </Box>
+                        </Typography>
+                        <div className={classes.galleryRoot}>
+                            <GridList cols={3}>
+                                className={classes.gridList}
+                                {this.state.girls_info.map(dog => (
+                                    <GridListTile key={dog.dogId}>
+                                        <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)}/>
+                                            <GridListTileBar
+                                                title={dog.name}
+                                                subtitle={<span>Birthdate: {dog.birthdate}</span>}
+                                            />
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                            <Dialog
+                                open={this.state.selectedDog !== null}
+                                onClose={this.handleClose}
+                                TransitionComponent={Transition}
+                            >
+                            <AppBar className={classes.appBar}>
+                                <Toolbar>
+                                    <IconButton
+                                        edge="start"
+                                        color="inherit"
+                                        onClick={this.handleClose}
+                                        aria-label="close"
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                    <button className={classes.addPictureButton}> add picture </button>
+                                </Toolbar>
+                            </AppBar>
+                            {this.state.selectedDog && (
+                                <>
+                                    {console.log("how many images: " + this.state.selectedDog.images.length)}
+                                    <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
+                                    <Grid container item xs={12}>
+                                        <div className={classes.rootNews}>
+                                            <Paper square elevation={0} className={classes.header}>
+                                                <Typography variant="subtitle1"> {this.state.selectedDog.description} </Typography>
+                                            </Paper>
+                                            <AutoPlaySwipeableViews
+                                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                                                index={this.state.damStep}
+                                                onChangeIndex={this.handleDamStepChange}
+                                                enableMouseEvents
+                                            >
+                                                {this.state.selectedDog.images.map((step, index) => (
+                                                    <div key={index}>
+                                                        {Math.abs(this.state.damStep - index) <= 2 ? (
+                                                            <img className={classes.img} src={step} />
+                                                        ) : null}
+                                                    </div>
+                                                ))}
+                                            </AutoPlaySwipeableViews>
+                                            <MobileStepper
+                                                steps={this.state.selectedDog.images.length}
+                                                position="static"
+                                                variant="text"
+                                                activeStep={this.state.damStep}
+                                                nextButton={
+                                                    <Button size="small" onClick={this.handleDamNext} disabled={this.state.damStep === this.state.selectedDog.images.length - 1}>
+                                                        Next
+                                                    {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                                                    </Button>
+                                                }
+                                                backButton={
+                                                    <Button size="small" onClick={this.handleDamBack} disabled={this.state.damStep === 0}>
+                                                        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                                                    Back
+                                                </Button>
+                                                }
+                                            />
+                                        </div>
+                                    </Grid>
+                                </>
+                            )}
+                            </Dialog>
+                        </div>
+                    </Grid>
+                </Grid>
+
+                {/* <Grid container item direction="row">
+                    <PhotoList dogs_list={this.state.girls_info} />
+                </Grid> */}
+                <Grid item className={classes.subtitle}>
+                    <Grid container item xs = {12}>
+                        <Typography variant="h5" component="h5" >
+                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                Available puppies
+                            </Box>
+                        </Typography>
+                        <div className={classes.galleryRoot}>
+                            <GridList cols={3}>
+                                className={classes.gridList}
+                                {this.state.puppies_info.map(dog => (
+                                    <GridListTile key={dog.dogId}>
+                                        <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)}/>
+                                            <GridListTileBar
+                                                title={dog.name}
+                                                subtitle={<span>Birthdate: {dog.birthdate}</span>}
+                                            />
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                            <Dialog
+                                open={this.state.selectedDog !== null}
+                                onClose={this.handleClose}
+                                TransitionComponent={Transition}
+                            >
+                            <AppBar className={classes.appBar}>
+                                <Toolbar>
+                                    <IconButton
+                                        edge="start"
+                                        color="inherit"
+                                        onClick={this.handleClose}
+                                        aria-label="close"
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                    <button className={classes.addPictureButton}> add picture </button>
+                                </Toolbar>
+                            </AppBar>
+                            {this.state.selectedDog && (
+                                <>
+                                    {console.log("how many images: " + this.state.selectedDog.images.length)}
+                                    <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
+                                    <Grid container item xs={12}>
+                                        <div className={classes.rootNews}>
+                                            <Paper square elevation={0} className={classes.header}>
+                                                <Typography variant="subtitle1"> {this.state.selectedDog.description} </Typography>
+                                            </Paper>
+                                            <AutoPlaySwipeableViews
+                                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                                                index={this.state.puppyStep}
+                                                onChangeIndex={this.handlePuppyStepChange}
+                                                enableMouseEvents
+                                            >
+                                                {this.state.selectedDog.images.map((step, index) => (
+                                                    <div key={index}>
+                                                        {Math.abs(this.state.puppyStep - index) <= 2 ? (
+                                                            <img className={classes.img} src={step} />
+                                                        ) : null}
+                                                    </div>
+                                                ))}
+                                            </AutoPlaySwipeableViews>
+                                            <MobileStepper
+                                                steps={this.state.selectedDog.images.length}
+                                                position="static"
+                                                variant="text"
+                                                activeStep={this.state.puppyStep}
+                                                nextButton={
+                                                    <Button size="small" onClick={this.handlePuppyNext} disabled={this.state.puppyStep === this.state.selectedDog.images.length - 1}>
+                                                        Next
+                                                    {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                                                    </Button>
+                                                }
+                                                backButton={
+                                                    <Button size="small" onClick={this.handlePuppyBack} disabled={this.state.puppyStep === 0}>
+                                                        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                                                    Back
+                                                </Button>
+                                                }
+                                            />
+                                        </div>
+                                    </Grid>
+                                </>
+                            )}
+                            </Dialog>
+                        </div>
+                    </Grid>
+                </Grid>
+                {/* <Grid item className={classes.subtitle}>
                     <Typography variant="h5" component="h5" >
                         <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                             Boys / Sires
@@ -250,7 +722,7 @@ export class Profile extends React.Component {
                 </Grid>
                 <Grid container item direction="row" >
                     <PhotoList dogs_list={this.state.puppies_info} />
-                </Grid>
+                </Grid> */}
             </Grid>
         );
     }
@@ -264,4 +736,4 @@ Profile.propTypes = {
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(Profile)));
+export default connect(mapStateToProps)(withRouter(withStyles(styles, { withTheme: true })(Profile)));

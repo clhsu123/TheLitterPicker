@@ -272,7 +272,7 @@ export class AuthBreederProfile extends React.Component {
 
     handleClickOpen = dog => {
         this.setState({ selectedDog: dog});
-        this.setState({ sireStep: 0 });
+        this.setState({ damStep: 0, sireStep: 0, puppyStep: 0 });
         console.log("clicked");
         console.log("tile");
     }
