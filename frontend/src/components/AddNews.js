@@ -44,26 +44,27 @@ class AddNews extends Component {
         })
     };
 
-/*
-    handleImageChangeDog = (event) => {
+
+    handleImageChangeNews = (event) => {
         const image = event.target.files[0];
         // send to server
         const formData = new FormData();
         formData.append('image', image, image.name);
         // Make chnages to fit the news photo here
         axios
-        .post('/dogImage', formData)
+        .post('/newsImage', formData)
         .then(res => {
-            this.setState({ photo: [res.data.imageUrl] });
+            console.log(res.data);
+            this.setState({ photo: res.data.imageUrl });
         })
     };
-*/
-/*
-    handleEditPictureDog = () => {
-        const fileInput = document.getElementById('imageInputDog');
+
+
+    handleEditPictureNews = () => {
+        const fileInput = document.getElementById('imageInputNews');
         fileInput.click();
     }
-*/
+
     handleSubmit = () => {
         const newsDetails = {
             title: this.state.title,
@@ -114,6 +115,18 @@ class AddNews extends Component {
                                 onChange = {this.handleChange}
                                 fullWidth
                             />
+                            <br /><br />
+                            <input 
+                            type="file"
+                            id="imageInputNews"
+                            hidden="hidden"
+                            onChange={this.handleImageChangeNews} 
+                            />
+                            <Tooltip title="Edit dog picture" placement="top">
+                                <Button variant="contained" color="primary" onClick ={this.handleEditPictureNews}>
+                                    Add Picture
+                                </Button>
+                            </Tooltip>
                         </form>
                     </DialogContent>
                     <DialogActions>
