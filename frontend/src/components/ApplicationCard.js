@@ -75,6 +75,9 @@ export class ApplicationCard extends React.Component {
             application_status: 'approved'
         });
         // update this.props.info.status to be 1 using backend API
+        this.setState({
+            detail_dialog_open: false,
+        });
     }
 
     handleDeclineClicked() {
@@ -83,6 +86,9 @@ export class ApplicationCard extends React.Component {
             application_status: 'declined'
         });
         // update this.props.info.status to be 2 using backend API
+        this.setState({
+            detail_dialog_open: false,
+        });
     }
     
     handleApplicationWithdrawal() {
