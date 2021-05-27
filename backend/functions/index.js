@@ -6,8 +6,8 @@ const app = require('express')();
 const { FBBreederAuth , FBPetAuth } = require('./util/fbAuth');
 const { login,
         uploadImageBreeder, 
-        uploadDogImage, 
-        uploaDogImageInformation,
+        uploadImage, 
+        uploadDogImageInformation,
         uploadImagePetOwner } = require('./handlers/user');
 const { signup_as_breeder,
         addBreederDetails,
@@ -44,8 +44,6 @@ const {
 //Breeder and Pet owner routes
 app.post('/user/image/breeder', FBBreederAuth, uploadImageBreeder);
 app.post('/user/image/petowner', FBPetAuth, uploadImagePetOwner);
-app.post('/dogImage', FBBreederAuth, uploadDogImage);
-app.post('/dogImageInformation', FBBreederAuth, uploaDogImageInformation);
 app.post('/add_breeder_details', FBBreederAuth, addBreederDetails);
 app.post('/add_breeder_details_by_handle', add_breeder_details_by_handle);
 app.get('/get_breeder_details', FBBreederAuth, get_breeder_details);
@@ -66,11 +64,14 @@ app.post('/add_dog_to_breeder', FBBreederAuth, add_dog_to_breeder);
 app.get('/get_dog', FBBreederAuth, getDog);
 app.post('/get_dog_by_breeder_handle', getDogByHandle);
 app.post('/update_dog', updateDog);
+app.post('/dogImage', FBBreederAuth, uploadImage);
+app.post('/dogImageInformation', FBBreederAuth, uploadDogImageInformation);
 
 //News
 app.post('/add_news_to_breeder', FBBreederAuth, add_news_to_breeder);
 app.post('/update_news', FBBreederAuth, update_news);
 app.get('/get_news', FBBreederAuth, getNews);
+app.post('/newsImage', uploadImage);
 
 //Application
 app.get('/get_application', getApplication);
