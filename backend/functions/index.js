@@ -5,7 +5,7 @@ const app = require('express')();
 //Import self-defined functions from other folders
 const { FBBreederAuth , FBPetAuth } = require('./util/fbAuth');
 const { login,
-        uploadImage, 
+        uploadImageBreeder, 
         uploadDogImage, 
         uploaDogImageInformation,
         uploadImagePetOwner } = require('./handlers/user');
@@ -42,7 +42,7 @@ const {
     } = require('./handlers/news');
 
 //Breeder and Pet owner routes
-app.post('/user/image', FBBreederAuth, uploadImage);
+app.post('/user/image/breeder', FBBreederAuth, uploadImageBreeder);
 app.post('/user/image/petowner', FBPetAuth, uploadImagePetOwner);
 app.post('/dogImage', FBBreederAuth, uploadDogImage);
 app.post('/dogImageInformation', FBBreederAuth, uploaDogImageInformation);

@@ -126,7 +126,7 @@ exports.getAuthenticatedUser = (req, res) => {
      })
 };
 
-exports.uploadImage = (req, res) => {
+exports.uploadImageBreeder = (req, res) => {
     const BusBoy = require('busboy');
     const path = require('path');
     const os = require('os');
