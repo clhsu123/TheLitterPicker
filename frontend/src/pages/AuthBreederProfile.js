@@ -17,6 +17,8 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/core/IconButton';
 import EditBreederDetails from '../components/EditBreederDetails';
 import AddDogs from '../components/AddDogs';
+import EditDogs from '../components/EditDogs';
+import AddNews from '../components/AddNews';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import EditPenIcon from '@material-ui/icons/Edit';
 
@@ -307,6 +309,7 @@ export class AuthBreederProfile extends React.Component {
             <Grid container spacing={3} className={classes.root}>
                 <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
                     <Grid item xs={2}>
+                        <AddNews />
                         <Button>
                             <img src={breeder_info.profile_photo} width='100' height='100' />
                         </Button>
