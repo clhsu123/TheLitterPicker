@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ListItem from "@material-ui/core/ListItem";
@@ -13,6 +14,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link } from 'react-router-dom';
 import { Box } from '@material-ui/core';
+
+// redux stuff
+import { connect } from 'react-redux';
 
 const styles = {
     root: {
@@ -48,8 +52,9 @@ export class ApplicationCard extends React.Component {
         };
         this.handleViewDetailClicked = this.handleViewDetailClicked.bind(this);
         this.handleViewDetailClose = this.handleViewDetailClose.bind(this);
-        this.handleViewApproveClicked = this.handleViewApproveClicked.bind(this);
-        this.handleViewDeclineClicked = this.handleViewDeclineClicked.bind(this);
+        this.handleApproveClicked = this.handleApproveClicked.bind(this);
+        this.handleDeclineClicked = this.handleDeclineClicked.bind(this);
+        this.handleApplicationWithdrawal = this.handleApplicationWithdrawal.bind(this);
     }
 
     handleViewDetailClicked() {
@@ -64,10 +69,24 @@ export class ApplicationCard extends React.Component {
         });
     }
 
-    handleViewApproveClicked() {
+    handleApproveClicked() {
+        console.log('approve button is clicked');
+        this.setState({
+            application_status: 'approved'
+        });
+        // update this.props.info.status to be 1 using backend API
     }
 
-    handleViewDeclineClicked() {
+    handleDeclineClicked() {
+        console.log('approve button is clicked');
+        this.setState({
+            application_status: 'declined'
+        });
+        // update this.props.info.status to be 2 using backend API
+    }
+    
+    handleApplicationWithdrawal() {
+        console.log('withdrawal button is clicked');
     }
 
     componentDidMount() {
@@ -89,7 +108,9 @@ export class ApplicationCard extends React.Component {
 
 
     render() {
-        const { classes } = this.props;
+        const { classes, user: {
+            accountType,
+        } } = this.props;
         const application_info = this.props.info;
         let d = application_info.createdAt;
         const year = d.substring(0, 4);
@@ -230,7 +251,7 @@ export class ApplicationCard extends React.Component {
                                                             Has Fully-fenced Yard:&nbsp;&nbsp;
                                                         </Typography>
                                                         <Typography variant="body1">
-                                                            {application_info.fullyFencedYard ? 'Yes':'No'}
+                                                            {application_info.fullyFencedYard ? 'Yes' : 'No'}
                                                         </Typography>
                                                     </Box>
                                                     <Box className={classes.dialog_content}>
@@ -246,9 +267,9 @@ export class ApplicationCard extends React.Component {
                                                             Is Currently Having Dogs:&nbsp;&nbsp;
                                                         </Typography>
                                                         <Typography variant="body1">
-                                                            {application_info.currentDog ? 'Yes':'No'}
+                                                            {application_info.currentDog ? 'Yes' : 'No'}
                                                         </Typography>
-                                                    </Box>                                                    
+                                                    </Box>
                                                     <Box className={classes.dialog_content}>
                                                         <Typography variant="body1" className={classes.dialog_content_title}>
                                                             Preferred Dog Gender:&nbsp;&nbsp;
@@ -270,7 +291,7 @@ export class ApplicationCard extends React.Component {
                                                             Is Preference Oriented:&nbsp;&nbsp;
                                                         </Typography>
                                                         <Typography variant="body1">
-                                                            {application_info.preferenceOriented ? 'Yes':'No'}
+                                                            {application_info.preferenceOriented ? 'Yes' : 'No'}
                                                         </Typography>
                                                     </Box>
                                                     <Box className={classes.dialog_content}>
@@ -291,23 +312,34 @@ export class ApplicationCard extends React.Component {
                                                     </Box>
                                                 </DialogContentText>
                                             </DialogContent>
-                                            <DialogActions>
-                                                <Button onClick={this.handleViewApproveClicked} variant="contained" color="primary">
-                                                    Approve
-                                                </Button>
-                                                <Button onClick={this.handleViewDeclineClicked} variant="outlined" color="primary">
-                                                    Decline
-                                                </Button>
-                                                <Button onClick={this.handleViewDetailClose} color="secondary">
-                                                    Close
-                                                </Button>
-                                            </DialogActions>
+                                            {
+                                                (accountType == 'breeder') ?
+                                                    <DialogActions>
+                                                        <Button onClick={this.handleApproveClicked} variant="outlined" color="primary">
+                                                            Approve
+                                                    </Button>
+                                                        <Button onClick={this.handleDeclineClicked} color="primary">
+                                                            Decline
+                                                    </Button>
+                                                        <Button onClick={this.handleViewDetailClose} color="black">
+                                                            Close
+                                                    </Button>
+                                                    </DialogActions> :
+                                                    <DialogActions>
+                                                        <Button onClick={this.handleViewDetailClose} variant="outlined" color="primary">
+                                                            Close
+                                                    </Button>
+                                                    </DialogActions>
+                                            }
                                         </Dialog>
                                     </Grid>
                                     <Grid item>
-                                        <Button className={classes.withdrawl} variant="outlined" color="secondary" size='small' component={Link} to="/withdrawl">
-                                            Withdrawl
-                                        </Button>
+                                        {
+                                            (accountType == 'breeder') ? <Box ></Box> :
+                                                <Button className={classes.withdrawl} variant="outlined" color="secondary" size='small' onClick={this.handleApplicationWithdrawal}>
+                                                    Withdrawl
+                                                </Button>
+                                        }
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -320,4 +352,15 @@ export class ApplicationCard extends React.Component {
     }
 }
 
-export default withStyles(styles)(ApplicationCard);
+// export default withStyles(styles)(ApplicationCard);
+
+ApplicationCard.propTypes = {
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(ApplicationCard));
