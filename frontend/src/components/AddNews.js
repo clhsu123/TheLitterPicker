@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // axios
 import axios from 'axios';
@@ -19,7 +20,9 @@ import axios from 'axios';
 import EditIcon from '@material-ui/icons/Edit';
 
 const styles = {
-    
+    progress: {
+        position: 'absolute'
+      }
 };
 
 class AddNews extends Component {
@@ -27,7 +30,8 @@ class AddNews extends Component {
         open : false,
         title: "",
         content: "",
-        photo:""
+        photo:"",
+        loading: false
     };
 
     handleOpen = () => {
@@ -46,6 +50,7 @@ class AddNews extends Component {
 
 
     handleImageChangeNews = (event) => {
+        this.setState({ loading: true });
         const image = event.target.files[0];
         // send to server
         const formData = new FormData();
@@ -55,7 +60,10 @@ class AddNews extends Component {
         .post('/newsImage', formData)
         .then(res => {
             console.log(res.data);
-            this.setState({ photo: res.data.imageUrl });
+            this.setState({ 
+                photo: res.data.imageUrl,
+                loading: false
+            });
         })
     };
 
@@ -133,8 +141,11 @@ class AddNews extends Component {
                         <Button onClick={this.handleClose} color = "primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} color = "primary">
+                        <Button onClick={this.handleSubmit} color = "primary" disabled={this.state.loading}>
                             Save
+                            {this.state.loading && (
+                                <CircularProgress size = {20} className={classes.progress}/>
+                            )}
                         </Button>
                     </DialogActions>
                 </Dialog>

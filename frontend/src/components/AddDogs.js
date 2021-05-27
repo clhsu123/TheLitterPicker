@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // axios
 import axios from 'axios';
@@ -31,7 +32,8 @@ class AddDogs extends Component {
         images: [],
         isPuppy: false,
         name: "",
-        videos: []
+        videos: [],
+        loading: false
     };
 
     handleOpen = () => {
@@ -53,6 +55,7 @@ class AddDogs extends Component {
     };
 
     handleImageChangeDog = (event) => {
+        this.setState({ loading: true });
         const image = event.target.files[0];
         // send to server
         const formData = new FormData();
@@ -60,7 +63,9 @@ class AddDogs extends Component {
         axios
         .post('/dogImage', formData)
         .then(res => {
-            this.setState({ images: [res.data.imageUrl] });
+            this.setState({ images: [res.data.imageUrl],
+                            loading: false
+                            });
         })
     };
 
@@ -177,8 +182,11 @@ class AddDogs extends Component {
                         <Button onClick={this.handleClose} color = "primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} color = "primary">
+                        <Button onClick={this.handleSubmit} color = "primary" disabled={this.state.loading}>
                             Save
+                            {this.state.loading && (
+                                <CircularProgress size = {20} className={classes.progress}/>
+                            )}
                         </Button>
                     </DialogActions>
                 </Dialog>
