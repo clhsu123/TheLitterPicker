@@ -212,7 +212,7 @@ exports.add_dog_to_breeder = (req, res) => {
         });
 };
 
-exports.update_dog = (req, res) => {
+exports.updateDog = (req, res) => {
     let dogDetails = req.body;
     db.doc(`/PuppyBreeders/${req.user.handle}/Dogs/${dogDetails.dogId}`).update(dogDetails)
         .then(() => {

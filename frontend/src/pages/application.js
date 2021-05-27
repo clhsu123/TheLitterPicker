@@ -129,7 +129,7 @@ export class application extends Component {
             additionInformation: this.state.additionInformation,
         };
         axios
-            .post('/update_application_secure', newApplication)
+            .post('/add_application_secure', newApplication)
             .then(res=>{
                 console.log(res.data);
             });
