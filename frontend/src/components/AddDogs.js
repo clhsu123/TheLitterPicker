@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import { MenuItem } from '@material-ui/core';
 
 // axios
 import axios from 'axios';
@@ -142,6 +143,7 @@ class AddDogs extends Component {
                                 fullWidth
                             />
                             <TextField
+                                select
                                 name = "gender"
                                 type = "text"
                                 label = "Gender"
@@ -150,7 +152,10 @@ class AddDogs extends Component {
                                 value={this.state.gender}
                                 onChange = {this.handleChange}
                                 fullWidth
-                            />
+                                >
+                                    <MenuItem value={"female"}>Female</MenuItem>
+                                    <MenuItem value={"male"}>Male</MenuItem>
+                            </TextField>
                             <p>Is it a puppy?</p>
                             <ToggleButton
                                 value="check"
