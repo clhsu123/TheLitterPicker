@@ -64,7 +64,7 @@ app.post('/add_dog_to_breeder', FBBreederAuth, add_dog_to_breeder);
 app.get('/get_dog', FBBreederAuth, getDog);
 app.post('/get_dog_by_breeder_handle', getDogByHandle);
 app.post('/update_dog', updateDog);
-app.post('/dogImage', FBBreederAuth, uploadImage);
+app.post('/dogImage', uploadImage);
 app.post('/dogImageInformation', FBBreederAuth, uploadDogImageInformation);
 
 //News
