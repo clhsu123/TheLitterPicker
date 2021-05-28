@@ -118,7 +118,7 @@ export const logoutUser = () => (dispatch) => {
 
 export const uploadBreederProfileImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER });
-    axios.post('/user/image', formData)
+    axios.post('/user/image/breeder', formData)
         .then(res => {
             dispatch(getBreederData());
         })

@@ -238,7 +238,8 @@ exports.getPetOwnerApplicationSecure = (req, res) => {
     .catch(err => console.error(err));
 }
 
-exports.updateApplicationSecure = (req, res) => {
+exports.addApplicationSecure = (req, res) => {
+    let applicationId;
     const newApplication = {
         breederHandle: req.body.handle,
         adopterHandle: req.user.handle,
@@ -268,10 +269,27 @@ exports.updateApplicationSecure = (req, res) => {
         .collection('Applications')
         .add(newApplication)
         .then(doc => {
-            res.json({message: `documnet ${doc.id} created successfully`});
+            applicationId = doc.id;
+            db.doc(`Applications/${applicationId}`)
+            .update({ applicationId: applicationId })
+        })
+        .then(() => {
+            return res.json({message: `documnet ${applicationId} created successfully`});
         })
         .catch(err => {
             res.status(500).jason({ error: 'something went wrong'});
             console.error(err);
         })
 }
+
+exports.updateApplicationSecure = (req, res) => {
+    let applicationDetails = req.body;
+    db.doc(`/Applications/${applicationDetails.applicationId}`).update(applicationDetails)
+        .then(() => {
+            return res.json({ message: 'Details added successfully'});
+        })
+        .catch(err => {
+            console.error(err);
+            return res.status(500).json({error: err.code})
+        });
+};

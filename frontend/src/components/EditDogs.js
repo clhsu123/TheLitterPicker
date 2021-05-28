@@ -12,8 +12,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
-import { MenuItem } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import EditPenIcon from '@material-ui/icons/Edit';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 
 // axios
 import axios from 'axios';
@@ -21,21 +22,25 @@ import axios from 'axios';
 import EditIcon from '@material-ui/icons/Edit';
 
 const styles = {
-    
+    editDogButton: {
+        margin: '10px 0px 10px 10px',
+    }
 };
 
-class AddDogs extends Component {
-    state = {
-        open : false,
-        birthdate: "",
-        description: "",
-        breed: "",
-        gender: "",
-        images: [],
-        isPuppy: false,
-        name: "",
-        videos: [],
-        loading: false
+class EditDogs extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            open : false,
+            breed: this.props.info.breed,
+            dogId: this.props.info.dogId,
+            birthdate: this.props.info.birthdate,
+            description: this.props.info.description,
+            gender: this.props.info.gender,
+            isPuppy: this.props.info.isPuppy,
+            name: this.props.info.name
+        };
     };
 
     handleOpen = () => {
@@ -55,40 +60,46 @@ class AddDogs extends Component {
     setSelected = (input) => {
         this.setState({ isPuppy: input});
     };
-
-    handleImageChangeDog = (event) => {
+    handleImageChangeDogs = (event) => {
         this.setState({ loading: true });
         const image = event.target.files[0];
         // send to server
         const formData = new FormData();
         formData.append('image', image, image.name);
+        // Make chnages to fit the news photo here
         axios
         .post('/dogImage', formData)
         .then(res => {
-            this.setState({ images: [res.data.imageUrl],
-                            loading: false
-                            });
+            console.log(res.data);
+            this.setState({ 
+                loading: false
+            });
+            axios
+            .post('/dogImageInformation', { dogId: this.state.dogId, imageUrl: res.data.imageUrl})
+            .then(res => {
+                console.log(res);
+            })
         })
     };
 
-    handleEditPictureDog = () => {
-        const fileInput = document.getElementById('imageInputDog');
+
+    handleEditPictureDogs = () => {
+        const fileInput = document.getElementById('EditDogInput');
         fileInput.click();
     }
-
     handleSubmit = () => {
         const dogDetails = {
+            dogId: this.state.dogId,
+            breed: this.state.breed,
             birthdate: this.state.birthdate,
             description: this.state.description,
-            breed: this.state.breed,
             gender: this.state.gender,
-            images: this.state.images,
             isPuppy: this.state.isPuppy,
             name: this.state.name,
-            videos: []
         };  
+        console.log(dogDetails);
         axios
-            .post('/add_dog_to_breeder', dogDetails)
+            .post('/update_dog', dogDetails)
         this.handleClose();
     };
 
@@ -97,8 +108,8 @@ class AddDogs extends Component {
         return (
             <Fragment>
                 <Tooltip title="Edit details" placement="top">
-                    <Button variant="contained" color="primary" onClick={this.handleOpen}>
-                        Add Dogs
+                    <Button variant="contained" color="secondary" className={classes.editDogButton} onClick={this.handleOpen} startIcon={<EditPenIcon/>}>
+                        Edit Dogs
                     </Button>                
                 </Tooltip>
                 <Dialog
@@ -150,7 +161,6 @@ class AddDogs extends Component {
                                 fullWidth
                             />
                             <TextField
-                                select
                                 name = "gender"
                                 type = "text"
                                 label = "Gender"
@@ -159,10 +169,7 @@ class AddDogs extends Component {
                                 value={this.state.gender}
                                 onChange = {this.handleChange}
                                 fullWidth
-                                >
-                                    <MenuItem value={"female"}>Female</MenuItem>
-                                    <MenuItem value={"male"}>Male</MenuItem>
-                            </TextField>
+                            />
                             <p>Is it a puppy?</p>
                             <ToggleButton
                                 value="check"
@@ -174,12 +181,12 @@ class AddDogs extends Component {
                             <br /><br />
                             <input 
                             type="file"
-                            id="imageInputDog"
+                            id="EditDogInput"
                             hidden="hidden"
-                            onChange={this.handleImageChangeDog} 
+                            onChange={this.handleImageChangeDogs} 
                             />
                             <Tooltip title="Edit dog picture" placement="top">
-                                <Button variant="contained" color="primary" onClick ={this.handleEditPictureDog}>
+                                <Button variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />} onClick ={this.handleEditPictureDogs}>
                                     Add Picture
                                 </Button>
                             </Tooltip>
@@ -202,8 +209,8 @@ class AddDogs extends Component {
     }
 }
 
-AddDogs.propTypes = {
+EditDogs.propTypes = {
     classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(AddDogs)
+export default withStyles(styles)(EditDogs)

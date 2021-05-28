@@ -126,7 +126,7 @@ exports.getAuthenticatedUser = (req, res) => {
      })
 };
 
-exports.uploadImage = (req, res) => {
+exports.uploadImageBreeder = (req, res) => {
     const BusBoy = require('busboy');
     const path = require('path');
     const os = require('os');
@@ -224,7 +224,7 @@ exports.uploadImagePetOwner = (req, res) => {
     busboy.end(req.rawBody);
 };
 
-exports.uploadDogImage = (req, res) => {
+exports.uploadImage = (req, res) => {
     const BusBoy = require('busboy');
     const path = require('path');
     const os = require('os');
@@ -272,7 +272,7 @@ exports.uploadDogImage = (req, res) => {
     busboy.end(req.rawBody);
 };
 
-exports.uploaDogImageInformation = (req, res) => {
+exports.uploadDogImageInformation = (req, res) => {
     db.doc(`/PuppyBreeders/${req.user.handle}/Dogs/${req.body.dogId}`).update({ 
         images:  admin.firestore.FieldValue.arrayUnion(req.body.imageUrl)
     })
