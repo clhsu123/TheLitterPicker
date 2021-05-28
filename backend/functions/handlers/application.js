@@ -293,3 +293,15 @@ exports.updateApplicationSecure = (req, res) => {
             return res.status(500).json({error: err.code})
         });
 };
+
+exports.deleteApplication = (req, res) => {
+    const applicationId = req.body.applicationId;
+    db.doc(`/Applications/${applicationId}`).delete()
+    .then(() => {
+        return res.json({ message: `Document ${applicationId} deleted`});
+    })
+    .catch(err => {
+        console.error(err);
+        return res.status(500).json({error: err.code});
+    });
+}
