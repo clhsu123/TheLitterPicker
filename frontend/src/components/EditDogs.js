@@ -1,4 +1,4 @@
-import React, { Component,  Fragment} from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -15,15 +15,27 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import EditPenIcon from '@material-ui/icons/Edit';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 // axios
 import axios from 'axios';
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
+import { Grid } from '@material-ui/core';
 
 const styles = {
     editDogButton: {
-        margin: '10px 0px 10px 10px',
+        margin: '10px 0px 10px 0px',
+    },
+    isItPuppy: {
+        margin: '10px 10px 10px 0px',
+    },
+    checkBox: {
+        margin: '10px 10px 10px 10px',
+    },
+    addPictureButton: {
+        margin: '10px 10px 10px 0px',
     }
 };
 
@@ -32,7 +44,7 @@ class EditDogs extends Component {
         super(props);
         this.state = {
             loading: false,
-            open : false,
+            open: false,
             breed: this.props.info.breed,
             dogId: this.props.info.dogId,
             birthdate: this.props.info.birthdate,
@@ -48,7 +60,7 @@ class EditDogs extends Component {
     };
 
     handleClose = () => {
-      this.setState({ open: false })  
+        this.setState({ open: false })
     };
 
     handleChange = (event) => {
@@ -58,7 +70,7 @@ class EditDogs extends Component {
     };
 
     setSelected = (input) => {
-        this.setState({ isPuppy: input});
+        this.setState({ isPuppy: input });
     };
     handleImageChangeDogs = (event) => {
         this.setState({ loading: true });
@@ -68,18 +80,18 @@ class EditDogs extends Component {
         formData.append('image', image, image.name);
         // Make chnages to fit the news photo here
         axios
-        .post('/dogImage', formData)
-        .then(res => {
-            console.log(res.data);
-            this.setState({ 
-                loading: false
-            });
-            axios
-            .post('/dogImageInformation', { dogId: this.state.dogId, imageUrl: res.data.imageUrl})
+            .post('/dogImage', formData)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
+                this.setState({
+                    loading: false
+                });
+                axios
+                    .post('/dogImageInformation', { dogId: this.state.dogId, imageUrl: res.data.imageUrl })
+                    .then(res => {
+                        console.log(res);
+                    })
             })
-        })
     };
 
 
@@ -96,7 +108,7 @@ class EditDogs extends Component {
             gender: this.state.gender,
             isPuppy: this.state.isPuppy,
             name: this.state.name,
-        };  
+        };
         console.log(dogDetails);
         axios
             .post('/update_dog', dogDetails)
@@ -108,98 +120,117 @@ class EditDogs extends Component {
         return (
             <Fragment>
                 <Tooltip title="Edit details" placement="top">
-                    <Button variant="contained" color="secondary" className={classes.editDogButton} onClick={this.handleOpen} startIcon={<EditPenIcon/>}>
+                    <Button variant="contained" color="secondary" className={classes.editDogButton} onClick={this.handleOpen} startIcon={<EditPenIcon />}>
                         Edit Dogs
-                    </Button>                
+                    </Button>
                 </Tooltip>
                 <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                fullWidth
-                maxWidth="sm">
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    fullWidth
+                    maxWidth="sm">
                     <DialogTitle>Edit your details</DialogTitle>
                     <DialogContent>
                         <form>
                             <TextField
-                                name = "name"
-                                type = "text"
-                                label = "Name"
-                                placeholder = "Dog's name"
+                                name="name"
+                                type="text"
+                                label="Name"
+                                placeholder="Dog's name"
                                 className={classes.textField}
                                 value={this.state.name}
-                                onChange = {this.handleChange}
+                                onChange={this.handleChange}
                                 fullWidth
                             />
                             <TextField
-                                name = "birthdate"
-                                type = "text"
-                                label = "Birthdate"
-                                placeholder = "Dog's birthdate"
+                                name="birthdate"
+                                type="text"
+                                label="Birthdate"
+                                placeholder="Dog's birthdate"
                                 className={classes.textField}
                                 value={this.state.birthdate}
-                                onChange = {this.handleChange}
+                                onChange={this.handleChange}
                                 fullWidth
                             />
                             <TextField
-                                name = "description"
-                                type = "text"
-                                label = "Description"
-                                placeholder = "Tell something about this dog"
+                                name="description"
+                                type="text"
+                                label="Description"
+                                placeholder="Tell something about this dog"
                                 className={classes.textField}
                                 value={this.state.description}
-                                onChange = {this.handleChange}
+                                onChange={this.handleChange}
                                 fullWidth
                             />
                             <TextField
-                                name = "breed"
-                                type = "text"
-                                label = "Breed"
-                                placeholder = "Dog breed type"
+                                name="breed"
+                                type="text"
+                                label="Breed"
+                                placeholder="Dog breed type"
                                 className={classes.textField}
                                 value={this.state.breed}
-                                onChange = {this.handleChange}
+                                onChange={this.handleChange}
                                 fullWidth
                             />
                             <TextField
-                                name = "gender"
-                                type = "text"
-                                label = "Gender"
-                                placeholder = "male or female?"
+                                name="gender"
+                                type="text"
+                                label="Gender"
+                                placeholder="male or female?"
                                 className={classes.textField}
                                 value={this.state.gender}
-                                onChange = {this.handleChange}
+                                onChange={this.handleChange}
                                 fullWidth
                             />
-                            <p>Is it a puppy?</p>
-                            <ToggleButton
+                            {/* <p>Is it a puppy?</p> */}
+                            <Grid container direction='row' alignItems="center" className={classes.isItPuppy}>
+                                <Grid item>
+                                    <Typography variant="body1" >
+                                        <Box fontStyle="normal" fontWeight="fontWeightLight" color="#000000">
+                                            Is it a puppy?
+                                        </Box>
+                                    </Typography>
+                                </Grid>
+                                <Grid item className={classes.checkBox}>
+                                    <ToggleButton
+                                        value="check"
+                                        selected={this.state.isPuppy}
+                                        onChange={() => { this.setState({ isPuppy: !this.state.isPuppy }) }}
+                                    >
+                                        <CheckIcon />
+                                    </ToggleButton>
+                                </Grid>
+                            </Grid>
+
+                            {/* <ToggleButton
                                 value="check"
                                 selected={this.state.isPuppy}
-                                onChange={()=>{this.setState({isPuppy:!this.state.isPuppy})}}
+                                onChange={() => { this.setState({ isPuppy: !this.state.isPuppy }) }}
                             >
-                            <CheckIcon />
-                            </ToggleButton>
-                            <br /><br />
-                            <input 
-                            type="file"
-                            id="EditDogInput"
-                            hidden="hidden"
-                            onChange={this.handleImageChangeDogs} 
+                                <CheckIcon />
+                            </ToggleButton> */}
+                            {/* <br /><br /> */}
+                            <input
+                                type="file"
+                                id="EditDogInput"
+                                hidden="hidden"
+                                onChange={this.handleImageChangeDogs}
                             />
                             <Tooltip title="Edit dog picture" placement="top">
-                                <Button variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />} onClick ={this.handleEditPictureDogs}>
-                                    Add Picture
+                                <Button variant="contained" color="secondary" className={classes.addPictureButton} startIcon={<AddPhotoAlternateIcon />} onClick={this.handleEditPictureDogs}>
+                                    Add Dog Pictures
                                 </Button>
                             </Tooltip>
                         </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color = "primary">
+                        <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} color = "primary" disabled={this.state.loading}>
+                        <Button onClick={this.handleSubmit} color="primary" disabled={this.state.loading}>
                             Save
                             {this.state.loading && (
-                                <CircularProgress size = {20} className={classes.progress}/>
+                                <CircularProgress size={20} className={classes.progress} />
                             )}
                         </Button>
                     </DialogActions>

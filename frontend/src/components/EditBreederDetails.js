@@ -92,7 +92,7 @@ class EditBreederDetails extends Component {
                 </Tooltip> */}
                 <Tooltip title="edit your profile" placement="right-start">
                     <Button variant="contained" color="primary" onClick={this.handleOpen}>
-                        Update Profile
+                        Update My Profile
                     </Button>                
                 </Tooltip>
                 <Dialog

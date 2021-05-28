@@ -96,6 +96,7 @@ const styles = theme => ({
         // padding: '10px 10px 10px 10px',
     },
     rootNews: {
+        margin: '10px 10px 10px 10px',
         maxWidth: 600,
         flexGrow: 1,
     },
@@ -104,7 +105,7 @@ const styles = theme => ({
         alignItems: 'center',
         //height: 50,
         paddingLeft: theme.spacing(4),
-        backgroundColor: theme.palette.background.default,
+        // backgroundColor: theme.palette.background.default,
     },
     img: {
         display: 'block',
@@ -121,7 +122,8 @@ const styles = theme => ({
         flexWrap: "wrap",
         justifyContent: "space-around",
         overflow: "hidden",
-        backgroundColor: theme.palette.background.paper
+        backgroundColor: theme.palette.background.paper,
+        margin: '10px 0px 10px 10px',
     },
     gridList: {
         width: "auto",
@@ -149,6 +151,15 @@ const styles = theme => ({
     },
     editDogButton: {
         margin: '10px 0px 10px 10px',
+    },
+    addNewsButton: {
+        margin: '0px 10px 0px 10px',
+    },
+    addDogsButton: {
+        margin: '0px 10px 0px 10px',
+    },
+    gendersubtitle: {
+        margin: '0px 10px 0px 10px',
     }
 });
 
@@ -197,7 +208,7 @@ export class AuthBreederProfile extends React.Component {
     handleAddDogPicClicked() {
         console.log('add dog');
     }
-    
+
     handleEditDogClicked() {
         console.log('edit dog');
     }
@@ -309,29 +320,31 @@ export class AuthBreederProfile extends React.Component {
             <Grid container spacing={3} className={classes.root}>
                 <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
                     <Grid item xs={2}>
-                        <Button>
-                            <img src={breeder_info.profile_photo} width='100' height='100' />
-                        </Button>
+                        <Tooltip title="Edit profile picture" placement="down">
+                            <Button onClick={this.handleEditPicture}>
+                                <img src={breeder_info.profile_photo} width='100' height='100' />
+                            </Button>
+                        </Tooltip>
                         <input
                             type="file"
                             id="imageInput"
                             hidden="hidden"
                             onChange={this.handleImageChange}
                         />
-                        <Tooltip title="Edit profile picture" placement="top">
+                        {/* <Tooltip title="Edit profile picture" placement="top">
                             <Button variant="contained" color="primary" onClick={this.handleEditPicture}>
                                 Edit
                             </Button>
-                        </Tooltip>
+                        </Tooltip> */}
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={2} color="#000055">
                                 {breeder_info.title}
                             </Box>
                         </Typography>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={2}>
                         <InputBase
                             id="breeder phone"
                             type='text'
@@ -343,7 +356,7 @@ export class AuthBreederProfile extends React.Component {
                             }
                         />
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={3}>
                         <InputBase
                             id="breeder email"
                             type='email'
@@ -391,13 +404,18 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
 
                 <Grid container item xs={12}>
-                <AddNews />
-                    <Grid container item xs={12}>
-                        <Typography variant="h5" component="h5" >
-                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                            News and Updates
-                            </Box>
-                        </Typography>
+                    {/* <AddNews /> */}
+                    <Grid container item xs={12} direction='row' alignItems="center" justify="space-flex-start">
+                        <Grid item>
+                            <Typography variant="h5" component="h5" >
+                                <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                    News and Updates
+                                </Box>
+                            </Typography>
+                        </Grid>
+                        <Grid item className={classes.addNewsButton}>
+                            <AddNews />
+                        </Grid>
                     </Grid>
                     <Grid container item xs={12}>
                         <div className={classes.rootNews}>
@@ -439,20 +457,40 @@ export class AuthBreederProfile extends React.Component {
                         </div>
                     </Grid>
                 </Grid>
-
+                
+                <Grid container item xs={12}>
+                    <Grid container item xs={12} direction='row' alignItems="center" justify="space-flex-start">
+                        <Grid item>
+                            <Typography variant="h5" component="h5" >
+                                <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                    Dogs Information
+                                </Box>
+                            </Typography>
+                        </Grid>
+                        <Grid item className={classes.addNewsButton}>
+                            <AddDogs />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
                 <Grid item className={classes.subtitle}>
-                <AddDogs />
+                    {/* <AddDogs /> */}
                     <Grid container item xs={12}>
-                        <Typography variant="h5" component="h5" >
-                            <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                                Boys / Sires
-                            </Box>
-                        </Typography>
+                        <Grid item className={classes.gendersubtitle}>
+                            <Typography variant="h5" component="h5" >
+                                <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
+                                    Boys / Sires
+                                </Box>
+                            </Typography>
+                        </Grid>
+                        {/* <Grid item className={classes.addDogsButton}>
+                            <AddDogs />
+                        </Grid> */}
                     </Grid>
                     <Grid container item xs={12}>
                         <div className={classes.galleryRoot}>
-                            <GridList cols={3}>
-                                className={classes.gridList}
+                            <GridList cols={3} className={classes.gridList}>
+                                
                                 {this.state.boys_info.map(dog => (
                                     <GridListTile key={dog.dogId}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
@@ -471,26 +509,26 @@ export class AuthBreederProfile extends React.Component {
                                 <AppBar className={classes.appBar}>
                                     <Toolbar>
                                         <Grid container direction='row' justify="space-between" alignItems="center">
-                                                <Grid item>
-                                                    <IconButton
-                                                        edge="start"
-                                                        color="inherit"
-                                                        onClick={this.handleClose}
-                                                        aria-label="close"
-                                                        >
-                                                        <CloseIcon />
-                                                    </IconButton>
-                                                </Grid>
-                                                {/* <button className={classes.addPictureButton}> add picture </button> */}
-                                                <Grid item >
-                                                    <EditDogs info = {this.state.selectedDog} />
-                                                    {/*
+                                            <Grid item>
+                                                <IconButton
+                                                    edge="start"
+                                                    color="inherit"
+                                                    onClick={this.handleClose}
+                                                    aria-label="close"
+                                                >
+                                                    <CloseIcon />
+                                                </IconButton>
+                                            </Grid>
+                                            {/* <button className={classes.addPictureButton}> add picture </button> */}
+                                            <Grid item >
+                                                <EditDogs info={this.state.selectedDog} />
+                                                {/*
                                                     <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
                                                         Edit Dog
                                                     </Button>
                                                     */}
-                                                </Grid>
                                             </Grid>
+                                        </Grid>
                                     </Toolbar>
                                 </AppBar>
                                 {this.state.selectedDog && (
@@ -544,7 +582,7 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
 
                 <Grid item className={classes.subtitle}>
-                    <Grid container item xs={12}>
+                    <Grid container item xs={12} className={classes.gendersubtitle}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                                 Girls / Dams
@@ -553,8 +591,7 @@ export class AuthBreederProfile extends React.Component {
                     </Grid>
                     <Grid container item xs={12}>
                         <div className={classes.galleryRoot}>
-                            <GridList cols={3}>
-                                className={classes.gridList}
+                            <GridList cols={3} className={classes.gridList}>
                                 {this.state.girls_info.map(dog => (
                                     <GridListTile key={dog.dogId}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
@@ -571,7 +608,7 @@ export class AuthBreederProfile extends React.Component {
                                 TransitionComponent={Transition}
                             >
                                 <AppBar className={classes.appBar}>
-                                <Toolbar>
+                                    <Toolbar>
                                         <Grid container direction='row' justify="space-between" alignItems="center">
                                             <Grid item>
                                                 <IconButton
@@ -579,13 +616,13 @@ export class AuthBreederProfile extends React.Component {
                                                     color="inherit"
                                                     onClick={this.handleClose}
                                                     aria-label="close"
-                                                    >
+                                                >
                                                     <CloseIcon />
                                                 </IconButton>
                                             </Grid>
                                             {/* <button className={classes.addPictureButton}> add picture </button> */}
                                             <Grid item >
-                                                <EditDogs info = {this.state.selectedDog} />
+                                                <EditDogs info={this.state.selectedDog} />
                                                 {/*
                                                 <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
                                                     Edit Dog
@@ -649,17 +686,16 @@ export class AuthBreederProfile extends React.Component {
                     <PhotoList dogs_list={this.state.girls_info} />
                 </Grid> */}
                 <Grid item className={classes.subtitle}>
-                    <Grid container item xs={12}>
+                    <Grid container item xs={12} className={classes.gendersubtitle}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                                Available puppies
+                                Available Puppies
                             </Box>
                         </Typography>
                     </Grid>
                     <Grid container item xs={12}>
                         <div className={classes.galleryRoot}>
-                            <GridList cols={3}>
-                                className={classes.gridList}
+                            <GridList cols={3} className={classes.gridList}>
                                 {this.state.puppies_info.map(dog => (
                                     <GridListTile key={dog.dogId}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
@@ -684,13 +720,13 @@ export class AuthBreederProfile extends React.Component {
                                                     color="inherit"
                                                     onClick={this.handleClose}
                                                     aria-label="close"
-                                                    >
+                                                >
                                                     <CloseIcon />
                                                 </IconButton>
                                             </Grid>
                                             {/* <button className={classes.addPictureButton}> add picture </button> */}
                                             <Grid item >
-                                                <EditDogs info = {this.state.selectedDog} />
+                                                <EditDogs info={this.state.selectedDog} />
                                                 {/*
                                                 <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
                                                     Edit Dog
@@ -714,12 +750,12 @@ export class AuthBreederProfile extends React.Component {
                                                     index={this.state.puppyStep}
                                                     onChangeIndex={this.handlePuppyStepChange}
                                                     enableMouseEvents
-                                                >
+                                                    >
                                                     {this.state.selectedDog.images.map((step, index) => (
                                                         <div key={index}>
                                                             {Math.abs(this.state.puppyStep - index) <= 2 ? (
                                                                 <img className={classes.img} src={step} />
-                                                            ) : null}
+                                                                ) : null}
                                                         </div>
                                                     ))}
                                                 </AutoPlaySwipeableViews>
@@ -737,8 +773,8 @@ export class AuthBreederProfile extends React.Component {
                                                     backButton={
                                                         <Button size="small" onClick={this.handlePuppyBack} disabled={this.state.puppyStep === 0}>
                                                             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                                                    Back
-                                                </Button>
+                                                            Back
+                                                        </Button>
                                                     }
                                                 />
                                             </div>
