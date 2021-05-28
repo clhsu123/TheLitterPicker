@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +16,10 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { MenuItem } from '@material-ui/core';
+
+// redux stuff
+import { connect } from 'react-redux';
+import { getPetOwnerData } from '../redux/actions/userActions';
 
 const useStyles = theme => ({
     appBar: {
@@ -133,6 +138,7 @@ export class application extends Component {
             .then(res=>{
                 console.log(res.data);
             });
+        this.props.getPetOwnerData();
     };
 
     getStepContent(step) {
@@ -681,4 +687,15 @@ export class application extends Component {
     }
 }
 
-export default withStyles(useStyles, { withTheme: true })(application);
+application.propTypes = {
+  getPetOwnerData: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+const mapActionsToProps = {
+  getPetOwnerData
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(useStyles, { withTheme: true })(application));

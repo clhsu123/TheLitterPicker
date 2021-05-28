@@ -15,9 +15,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Link } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 
+// axios
+import axios from 'axios';
+
 // redux stuff
 import { connect } from 'react-redux';
-
+import { getPetOwnerData } from '../redux/actions/userActions';
 const styles = {
     root: {
         margin: '5px 5px 5px 5px',
@@ -75,17 +78,21 @@ export class ApplicationCard extends React.Component {
             application_status: 'approved'
         });
         // update this.props.info.status to be 1 using backend API
+        axios
+        .post('/update_application_secure', {applicationId: this.props.info.applicationId, status: 1});
         this.setState({
             detail_dialog_open: false,
         });
     }
 
     handleDeclineClicked() {
-        console.log('approve button is clicked');
+        console.log('decline button is clicked');
         this.setState({
             application_status: 'declined'
         });
         // update this.props.info.status to be 2 using backend API
+        axios
+        .post('/update_application_secure', {applicationId: this.props.info.applicationId, status: 2});
         this.setState({
             detail_dialog_open: false,
         });
@@ -93,6 +100,9 @@ export class ApplicationCard extends React.Component {
     
     handleApplicationWithdrawal() {
         console.log('withdrawal button is clicked');
+        axios
+        .post('/delete_application', {applicationId: this.props.info.applicationId});
+        this.props.getPetOwnerData();
     }
 
     componentDidMount() {
@@ -363,10 +373,14 @@ export class ApplicationCard extends React.Component {
 ApplicationCard.propTypes = {
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
+    getPetOwnerData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     user: state.user
 });
+const mapActionsToProps = {
+    getPetOwnerData
+};
 
-export default connect(mapStateToProps)(withStyles(styles)(ApplicationCard));
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(ApplicationCard));
