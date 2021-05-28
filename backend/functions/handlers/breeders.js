@@ -187,6 +187,7 @@ exports.add_dog_to_breeder = (req, res) => {
     const new_data = {
        birthdate: req.body.birthdate,
        description: req.body.description,
+       breed: req.body.breed,
        gender: req.body.gender,
        images: req.body.images,
        isPuppy: req.body.isPuppy,
@@ -236,6 +237,7 @@ exports.getDog = (req,res) => {
                     dogId: doc.data().dogId,
                     birthdate: doc.data().birthdate,
                     description: doc.data().description,
+                    breed: doc.data().breed,
                     gender: doc.data().gender,
                     images: doc.data().images,
                     isPuppy: doc.data().isPuppy,

@@ -28,6 +28,7 @@ class AddDogs extends Component {
         open : false,
         birthdate: "",
         description: "",
+        breed: "",
         gender: "",
         images: [],
         isPuppy: false,
@@ -78,6 +79,7 @@ class AddDogs extends Component {
         const dogDetails = {
             birthdate: this.state.birthdate,
             description: this.state.description,
+            breed: this.state.breed,
             gender: this.state.gender,
             images: this.state.images,
             isPuppy: this.state.isPuppy,
@@ -137,12 +139,12 @@ class AddDogs extends Component {
                                 fullWidth
                             />
                             <TextField
-                                name = "dog_breed_type"
+                                name = "breed"
                                 type = "text"
-                                label = "Dog_breed_type"
+                                label = "Breed"
                                 placeholder = "Dog breed type"
                                 className={classes.textField}
-                                value={this.state.dog_breed_type}
+                                value={this.state.breed}
                                 onChange = {this.handleChange}
                                 fullWidth
                             />

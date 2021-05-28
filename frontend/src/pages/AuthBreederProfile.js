@@ -309,8 +309,6 @@ export class AuthBreederProfile extends React.Component {
             <Grid container spacing={3} className={classes.root}>
                 <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
                     <Grid item xs={2}>
-                        <AddNews />
-                        <EditDogs info = {{dogId: "FXpHO16mvheX4YN9N8xK"}}/>
                         <Button>
                             <img src={breeder_info.profile_photo} width='100' height='100' />
                         </Button>
@@ -366,7 +364,6 @@ export class AuthBreederProfile extends React.Component {
                                     Overview
                                 </Box>
                             </Typography>
-                            <AddDogs />
                         </Grid>
                         <Grid item>
                             <Paper variant="outlined" className={classes.overview}>
@@ -394,6 +391,7 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
 
                 <Grid container item xs={12}>
+                <AddNews />
                     <Grid container item xs={12}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
@@ -443,6 +441,7 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
 
                 <Grid item className={classes.subtitle}>
+                <AddDogs />
                     <Grid container item xs={12}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
@@ -484,9 +483,6 @@ export class AuthBreederProfile extends React.Component {
                                                 </Grid>
                                                 {/* <button className={classes.addPictureButton}> add picture </button> */}
                                                 <Grid item >
-                                                    <Button onClick={this.handleAddDogPicClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />}>
-                                                        Add Dog Pic
-                                                    </Button>
                                                     <EditDogs info = {this.state.selectedDog} />
                                                     {/*
                                                     <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
@@ -589,9 +585,6 @@ export class AuthBreederProfile extends React.Component {
                                             </Grid>
                                             {/* <button className={classes.addPictureButton}> add picture </button> */}
                                             <Grid item >
-                                                <Button onClick={this.handleAddDogPicClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />}>
-                                                    Add Dog Pic
-                                                </Button>
                                                 <EditDogs info = {this.state.selectedDog} />
                                                 {/*
                                                 <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
@@ -697,9 +690,6 @@ export class AuthBreederProfile extends React.Component {
                                             </Grid>
                                             {/* <button className={classes.addPictureButton}> add picture </button> */}
                                             <Grid item >
-                                                <Button onClick={this.handleAddDogPicClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />}>
-                                                    Add Dog Pic
-                                                </Button>
                                                 <EditDogs info = {this.state.selectedDog} />
                                                 {/*
                                                 <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
