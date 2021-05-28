@@ -250,6 +250,18 @@ exports.getDog = (req,res) => {
     .catch(err => console.error(err));
 };
 
+exports.deleteDog = (req,res) => {
+    const dogId = req.body.dogId;
+    db.doc(`PuppyBreeders/${req.user.handle}/Dogs/${dogId}`).delete()
+    .then(() => {
+        return res.json({ message: `Document ${dogId} deleted`});
+    })
+    .catch(err => {
+        console.error(err);
+        return res.status(500).json({error: err.code});
+    });
+}
+
 exports.getDogByHandle = (req,res) => {
     db
         .collection(`PuppyBreeders/${req.body.handle}/Dogs`)
