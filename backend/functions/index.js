@@ -63,7 +63,7 @@ app.post('/signup_as_pet_owner', signup_as_pet_owner);
 app.post('/add_dog_to_breeder', FBBreederAuth, add_dog_to_breeder);
 app.get('/get_dog', FBBreederAuth, getDog);
 app.post('/get_dog_by_breeder_handle', getDogByHandle);
-app.post('/update_dog', updateDog);
+app.post('/update_dog', FBBreederAuth, updateDog);
 app.post('/dogImage', uploadImage);
 app.post('/dogImageInformation', FBBreederAuth, uploadDogImageInformation);
 

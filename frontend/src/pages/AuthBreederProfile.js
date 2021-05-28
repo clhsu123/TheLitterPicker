@@ -310,6 +310,7 @@ export class AuthBreederProfile extends React.Component {
                 <Grid container item xs={12} direction='row' alignItems="baseline" justify="flex-start">
                     <Grid item xs={2}>
                         <AddNews />
+                        <EditDogs info = {{dogId: "FXpHO16mvheX4YN9N8xK"}}/>
                         <Button>
                             <img src={breeder_info.profile_photo} width='100' height='100' />
                         </Button>
@@ -486,9 +487,12 @@ export class AuthBreederProfile extends React.Component {
                                                     <Button onClick={this.handleAddDogPicClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />}>
                                                         Add Dog Pic
                                                     </Button>
+                                                    <EditDogs info = {this.state.selectedDog} />
+                                                    {/*
                                                     <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
                                                         Edit Dog
                                                     </Button>
+                                                    */}
                                                 </Grid>
                                             </Grid>
                                     </Toolbar>
@@ -588,9 +592,12 @@ export class AuthBreederProfile extends React.Component {
                                                 <Button onClick={this.handleAddDogPicClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />}>
                                                     Add Dog Pic
                                                 </Button>
+                                                <EditDogs info = {this.state.selectedDog} />
+                                                {/*
                                                 <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
                                                     Edit Dog
                                                 </Button>
+                                                */}
                                             </Grid>
                                         </Grid>
                                     </Toolbar>
@@ -693,9 +700,12 @@ export class AuthBreederProfile extends React.Component {
                                                 <Button onClick={this.handleAddDogPicClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<AddPhotoAlternateIcon />}>
                                                     Add Dog Pic
                                                 </Button>
+                                                <EditDogs info = {this.state.selectedDog} />
+                                                {/*
                                                 <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
                                                     Edit Dog
                                                 </Button>
+                                                */}
                                             </Grid>
                                         </Grid>
                                     </Toolbar>

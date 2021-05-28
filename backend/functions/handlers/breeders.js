@@ -233,6 +233,7 @@ exports.getDog = (req,res) => {
             let dogs = [];
             data.forEach((doc) => {
                 dogs.push( {
+                    dogId: doc.data().dogId,
                     birthdate: doc.data().birthdate,
                     description: doc.data().description,
                     gender: doc.data().gender,

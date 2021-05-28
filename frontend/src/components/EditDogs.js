@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // axios
 import axios from 'axios';
@@ -26,13 +27,14 @@ class EditDogs extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             dogId: this.props.info.dogId,
             open : false,
-            birthdate: "",
-            description: "",
-            gender: "",
-            isPuppy: false,
-            name: "",
+            birthdate: this.props.info.birthdate,
+            description: this.props.info.description,
+            gender: this.props.info.gender,
+            isPuppy: this.props.info.isPuppy,
+            name: this.props.info.name
         };
     };
 
@@ -53,7 +55,33 @@ class EditDogs extends Component {
     setSelected = (input) => {
         this.setState({ isPuppy: input});
     };
+    handleImageChangeDogs = (event) => {
+        this.setState({ loading: true });
+        const image = event.target.files[0];
+        // send to server
+        const formData = new FormData();
+        formData.append('image', image, image.name);
+        // Make chnages to fit the news photo here
+        axios
+        .post('/dogImage', formData)
+        .then(res => {
+            console.log(res.data);
+            this.setState({ 
+                loading: false
+            });
+            axios
+            .post('/dogImageInformation', { dogId: this.state.dogId, imageUrl: res.data.imageUrl})
+            .then(res => {
+                console.log(res);
+            })
+        })
+    };
 
+
+    handleEditPictureDogs = () => {
+        const fileInput = document.getElementById('EditDogInput');
+        fileInput.click();
+    }
     handleSubmit = () => {
         const dogDetails = {
             dogId: this.state.dogId,
@@ -63,6 +91,7 @@ class EditDogs extends Component {
             isPuppy: this.state.isPuppy,
             name: this.state.name,
         };  
+        console.log(dogDetails);
         axios
             .post('/update_dog', dogDetails)
         this.handleClose();
@@ -143,14 +172,29 @@ class EditDogs extends Component {
                             >
                             <CheckIcon />
                             </ToggleButton>
+                            <br /><br />
+                            <input 
+                            type="file"
+                            id="EditDogInput"
+                            hidden="hidden"
+                            onChange={this.handleImageChangeDogs} 
+                            />
+                            <Tooltip title="Edit dog picture" placement="top">
+                                <Button variant="contained" color="primary" onClick ={this.handleEditPictureDogs}>
+                                    Add Picture
+                                </Button>
+                            </Tooltip>
                         </form>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color = "primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} color = "primary">
+                        <Button onClick={this.handleSubmit} color = "primary" disabled={this.state.loading}>
                             Save
+                            {this.state.loading && (
+                                <CircularProgress size = {20} className={classes.progress}/>
+                            )}
                         </Button>
                     </DialogActions>
                 </Dialog>
