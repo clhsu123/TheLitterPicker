@@ -70,7 +70,7 @@ const tutorialSteps = [
     },
 ];
 
-const maxSteps = tutorialSteps.length;
+let maxSteps = 0;
 
 const styles = theme => ({
     root: {
@@ -162,6 +162,7 @@ export class AuthBreederProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            news: null,
             dogs_info: [],
             boys_info: [],
             girls_info: [],
@@ -238,6 +239,14 @@ export class AuthBreederProfile extends React.Component {
                 });
             })
             .catch(err => console.log(err));
+        axios
+            .get('/get_news')
+            .then(res => {
+                this.setState({ news: res.data });
+                maxSteps = res.data.length;
+                console.log(maxSteps);
+                console.log(this.state.news);
+            })
     }
 
 
@@ -303,6 +312,7 @@ export class AuthBreederProfile extends React.Component {
 
 
     render() {
+        if(this.state.news == null) return false;
         const { classes, theme, user } = this.props;
         const breeder_info = user;
         return (
@@ -402,7 +412,7 @@ export class AuthBreederProfile extends React.Component {
                     <Grid container item xs={12}>
                         <div className={classes.rootNews}>
                             <Paper square elevation={0} className={classes.header}>
-                                <Typography>{tutorialSteps[this.state.activeStep].label}</Typography>
+                                <Typography>{this.state.news[this.state.activeStep].content}</Typography>
                             </Paper>
                             <AutoPlaySwipeableViews
                                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -410,10 +420,10 @@ export class AuthBreederProfile extends React.Component {
                                 onChangeIndex={this.handleStepChange}
                                 enableMouseEvents
                             >
-                                {tutorialSteps.map((step, index) => (
-                                    <div key={step.label}>
+                                {this.state.news.map((step, index) => (
+                                    <div key={index}>
                                         {Math.abs(this.state.activeStep - index) <= 2 ? (
-                                            <img className={classes.img} src={step.imgPath} alt={step.label} />
+                                            <img className={classes.img} src={step.photo} alt={step.content} />
                                         ) : null}
                                     </div>
                                 ))}
