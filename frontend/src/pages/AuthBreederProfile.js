@@ -175,7 +175,7 @@ export class AuthBreederProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            news: null,
+            news: [],
             dogs_info: [],
             boys_info: [],
             girls_info: [],
@@ -325,7 +325,6 @@ export class AuthBreederProfile extends React.Component {
 
 
     render() {
-        if(this.state.news == null) return false;
         const { classes, theme, user } = this.props;
         const breeder_info = user;
         return (
@@ -429,7 +428,9 @@ export class AuthBreederProfile extends React.Component {
                             <AddNews />
                         </Grid>
                     </Grid>
+
                     <Grid container item xs={12}>
+                        { this.state.news.length != 0 ?
                         <div className={classes.rootNews}>
                             <Paper square elevation={0} className={classes.header}>
                                 <Typography>{this.state.news[this.state.activeStep].content}</Typography>
@@ -467,6 +468,9 @@ export class AuthBreederProfile extends React.Component {
                                 }
                             />
                         </div>
+                        :
+                        <h1>Add some news</h1>
+                        }
                     </Grid>
                 </Grid>
                 
