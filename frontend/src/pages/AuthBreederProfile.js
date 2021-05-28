@@ -93,7 +93,6 @@ const styles = theme => ({
     },
     button: {
         margin: '10px 10px 10px 10px',
-        // padding: '10px 10px 10px 10px',
     },
     rootNews: {
         margin: '10px 10px 10px 10px',
@@ -160,6 +159,9 @@ const styles = theme => ({
     },
     gendersubtitle: {
         margin: '0px 10px 0px 10px',
+    },
+    newsAndUpdatesSubtitle: {
+        margin: '10px 10px 10px 10px',
     }
 });
 
@@ -416,7 +418,7 @@ export class AuthBreederProfile extends React.Component {
                 <Grid container item xs={12}>
                     {/* <AddNews /> */}
                     <Grid container item xs={12} direction='row' alignItems="center" justify="space-flex-start">
-                        <Grid item>
+                        <Grid item className={classes.newsAndUpdatesSubtitle}>
                             <Typography variant="h5" component="h5" >
                                 <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                                     News and Updates
@@ -468,7 +470,7 @@ export class AuthBreederProfile extends React.Component {
                     </Grid>
                 </Grid>
                 
-                <Grid container item xs={12}>
+                <Grid container item xs={12} className={classes.newsAndUpdatesSubtitle}>
                     <Grid container item xs={12} direction='row' alignItems="center" justify="space-flex-start">
                         <Grid item>
                             <Typography variant="h5" component="h5" >
@@ -500,7 +502,6 @@ export class AuthBreederProfile extends React.Component {
                     <Grid container item xs={12}>
                         <div className={classes.galleryRoot}>
                             <GridList cols={3} className={classes.gridList}>
-                                
                                 {this.state.boys_info.map(dog => (
                                     <GridListTile key={dog.dogId}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
