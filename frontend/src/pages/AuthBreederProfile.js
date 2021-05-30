@@ -128,6 +128,10 @@ const styles = theme => ({
         width: "auto",
         height: "auto"
     },
+    gridListTile: {
+        // minHeight: '400px',
+        minWidth: '320px',
+    },
     appBar: {
         diplay: "flex",
         justifyContent: 'flex-end',
@@ -507,7 +511,7 @@ export class AuthBreederProfile extends React.Component {
                         <div className={classes.galleryRoot}>
                             <GridList cols={3} className={classes.gridList}>
                                 {this.state.boys_info.map(dog => (
-                                    <GridListTile key={dog.dogId}>
+                                    <GridListTile key={dog.dogId} className={classes.gridListTile}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
                                         <GridListTileBar
                                             title={dog.name}
@@ -608,7 +612,7 @@ export class AuthBreederProfile extends React.Component {
                         <div className={classes.galleryRoot}>
                             <GridList cols={3} className={classes.gridList}>
                                 {this.state.girls_info.map(dog => (
-                                    <GridListTile key={dog.dogId}>
+                                    <GridListTile key={dog.dogId} className={classes.gridListTile}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
                                         <GridListTileBar
                                             title={dog.name}
@@ -712,7 +716,7 @@ export class AuthBreederProfile extends React.Component {
                         <div className={classes.galleryRoot}>
                             <GridList cols={3} className={classes.gridList}>
                                 {this.state.puppies_info.map(dog => (
-                                    <GridListTile key={dog.dogId}>
+                                    <GridListTile key={dog.dogId} className={classes.gridListTile}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
                                         <GridListTileBar
                                             title={dog.name}

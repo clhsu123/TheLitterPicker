@@ -125,6 +125,10 @@ const styles = theme => ({
         width: "auto",
         height: "auto"
     },
+    gridListTile: {
+        // minHeight: '400px',
+        minWidth: '320px',
+    },
     appBar: {
         diplay: "flex",
         justifyContent: 'flex-end',
@@ -450,7 +454,7 @@ export class Profile extends React.Component {
                     </Typography>
                 </Grid>
 
-                <Grid item className={classes.subtitle}>
+                <Grid item xs={12} className={classes.subtitle}>
                     <Grid container item xs={12} className={classes.gendersubtitle}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
@@ -462,7 +466,7 @@ export class Profile extends React.Component {
                         <div className={classes.galleryRoot}>
                             <GridList cols={3} className={classes.gridList}>
                                 {this.state.boys_info.map(dog => (
-                                    <GridListTile key={dog.dogId}>
+                                    <GridListTile key={dog.dogId} className={classes.gridListTile}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
                                         <GridListTileBar
                                             title={dog.name}
@@ -538,7 +542,7 @@ export class Profile extends React.Component {
                     </Grid>
                 </Grid>
 
-                <Grid item className={classes.subtitle}>
+                <Grid item xs={12} className={classes.subtitle}>
                     <Grid container item xs={12} className={classes.gendersubtitle}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
@@ -550,7 +554,7 @@ export class Profile extends React.Component {
                         <div className={classes.galleryRoot} >
                             <GridList cols={3} className={classes.gridList}>
                                 {this.state.girls_info.map(dog => (
-                                    <GridListTile key={dog.dogId}>
+                                    <GridListTile key={dog.dogId} className={classes.gridListTile}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
                                         <GridListTileBar
                                             title={dog.name}
@@ -629,7 +633,7 @@ export class Profile extends React.Component {
                 {/* <Grid container item direction="row">
                     <PhotoList dogs_list={this.state.girls_info} />
                 </Grid> */}
-                <Grid item className={classes.subtitle}>
+                <Grid item xs={12} className={classes.subtitle}>
                     <Grid container item xs={12} className={classes.gendersubtitle}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
@@ -641,7 +645,7 @@ export class Profile extends React.Component {
                         <div className={classes.galleryRoot}>
                             <GridList cols={3} className={classes.gridList}>
                                 {this.state.puppies_info.map(dog => (
-                                    <GridListTile key={dog.dogId}>
+                                    <GridListTile key={dog.dogId} className={classes.gridListTile}>
                                         <img src={dog.images[0]} alt={dog.name} onClick={() => this.handleClickOpen(dog)} />
                                         <GridListTileBar
                                             title={dog.name}
