@@ -3,6 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import AppIcon from '../images/dog_lover.png';
+import CollieLogo from '../images/collie_logo.png';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
@@ -39,6 +40,9 @@ const styles = {
       },
       progress: {
         position: 'absolute'
+      },
+      logo: {
+          margin: '40px 20px 20px 20px'
       }
 };
 
@@ -92,10 +96,10 @@ export class signup extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/>
                 <Grid item sm>
-                    <a href='https://pngtree.com/so/apparel'></a>
-                    <img src={AppIcon} alt="dog_lover" width = "300" height = "300"/>
-                    <Typography variant="h2" className={classes.pageTitle}>
-                        
+
+                    <img src={CollieLogo} alt="collie_logo" width = "300" height = "300" className={classes.logo}/>
+                    <Typography variant="h4" className={classes.pageTitle}>
+                        Sign Up
                     </Typography>
                     <form noValidate>
                         <TextField 
