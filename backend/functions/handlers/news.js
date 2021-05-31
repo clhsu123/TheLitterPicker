@@ -58,3 +58,22 @@ exports.getNews = (req,res) => {
     })
     .catch(err => console.error(err));
 };
+
+exports.getNewsbyHandle = (req,res) => {
+    db
+        .collection(`PuppyBreeders/${req.body.handle}/News`)
+        .get()
+        .then((data) => {
+            let news = [];
+            data.forEach((doc) => {
+                news.push( {
+                    title: doc.data().title,
+                    content: doc.data().content,
+                    newsId: doc.data().newsId,
+                    photo: doc.data().photo
+                });
+            });
+        return res.json(news);
+    })
+    .catch(err => console.error(err));
+};
