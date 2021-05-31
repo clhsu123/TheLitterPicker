@@ -473,7 +473,7 @@ export class AuthBreederProfile extends React.Component {
                             />
                         </div>
                         :
-                        <h1>Add some news</h1>
+                        <h1></h1>
                         }
                     </Grid>
                 </Grid>

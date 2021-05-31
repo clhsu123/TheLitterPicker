@@ -157,7 +157,7 @@ const styles = theme => ({
     }
 });
 
-const maxSteps = tutorialSteps.length;
+let maxSteps = tutorialSteps.length;
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -167,6 +167,7 @@ export class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            news: [],
             breeder_info: this.props.history.location.state?.breeder_info,
             dogs_info: [],
             boys_info: [],
@@ -248,6 +249,14 @@ export class Profile extends React.Component {
                 });
             })
             .catch(err => console.log(err));
+        axios
+            .post('/get_news_by_handle', { 'handle': this.state.breeder_info.handle })
+            .then(res => {
+                this.setState({ news: res.data });
+                maxSteps = res.data.length;
+                console.log(maxSteps);
+                console.log(this.state.news);
+            })
     }
 
     handleNext = () => {
@@ -406,9 +415,10 @@ export class Profile extends React.Component {
                         </Typography>
                     </Grid>
                     <Grid container item xs={12}>
+                    { this.state.news.length != 0 ?
                         <div className={classes.rootNews}>
                             <Paper square elevation={0} className={classes.header}>
-                                <Typography>{tutorialSteps[this.state.activeStep].label}</Typography>
+                                <Typography>{this.state.news[this.state.activeStep].content}</Typography>
                             </Paper>
                             <AutoPlaySwipeableViews
                                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -416,10 +426,10 @@ export class Profile extends React.Component {
                                 onChangeIndex={this.handleStepChange}
                                 enableMouseEvents
                             >
-                                {tutorialSteps.map((step, index) => (
-                                    <div key={step.label}>
+                                {this.state.news.map((step, index) => (
+                                    <div key={index}>
                                         {Math.abs(this.state.activeStep - index) <= 2 ? (
-                                            <img className={classes.img} src={step.imgPath} alt={step.label} />
+                                            <img className={classes.img} src={step.photo} alt={step.content} />
                                         ) : null}
                                     </div>
                                 ))}
@@ -443,6 +453,9 @@ export class Profile extends React.Component {
                                 }
                             />
                         </div>
+                        :
+                        <h1></h1>
+                        }
                     </Grid>
                 </Grid>
 
