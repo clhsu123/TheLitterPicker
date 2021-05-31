@@ -1,5 +1,4 @@
 import React from 'react';
-import AppIcon from '../images/dog_lover.png';
 import SearchBar from '../components/searchBar';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router";

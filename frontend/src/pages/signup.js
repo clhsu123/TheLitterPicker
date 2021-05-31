@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
-import AppIcon from '../images/dog_lover.png';
 import CollieLogo from '../images/collie_logo.png';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
