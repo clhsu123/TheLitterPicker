@@ -1,7 +1,7 @@
 const { db } = require('../util/admin');
 const config = require('../util/config');
 const firebase = require('firebase');
-const { validateSignupData , validateLoginData, reduceUserDetails} = require('../util/validaters');
+const { validateSignupData } = require('../util/validaters');
 
 exports.signup_as_pet_owner = (req,res) => {
     const newUser = {
@@ -45,7 +45,6 @@ exports.signup_as_pet_owner = (req,res) => {
                selfIntro: "Fill in something here~",
                //This is a default image url
                profile_photo: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-               //createdAt: new Date().toISOString(),
                userId: userId
            };
            return db.doc(`/PetOwners/${newUser.handle}`).set(userCredentials);
@@ -101,7 +100,6 @@ exports.get_pet_owner_details= (req,res) => {
                     handle: doc.data().handle,
                     selfIntro: doc.data().selfIntro,
                     profile_photo: doc.data().profile_photo,
-                    //createdAt: doc.data().createdAt
                 });
             });
         return res.json(pet_owners);
@@ -123,8 +121,6 @@ exports.get_pet_owner_details_by_handle= (req,res) => {
                     handle: doc.data().handle,
                     selfIntro: doc.data().selfIntro,
                     profile_photo: doc.data().profile_photo,
-
-                    //createdAt: doc.data().createdAt
                 });
             });
         return res.json(pet_owners);

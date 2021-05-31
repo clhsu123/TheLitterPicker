@@ -1,6 +1,7 @@
 import React, { Component,  Fragment} from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+
 // redux stuff
 import { connect } from 'react-redux';
 import { editBreederDetails } from '../redux/actions/userActions';
@@ -14,8 +15,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-//Icons
-import EditIcon from '@material-ui/icons/Edit';
 
 const styles = {
     
@@ -87,9 +86,6 @@ class EditBreederDetails extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                {/* <Tooltip title="Edit details" placement="top">
-                    <IconButton onClick={this.handleOpen} className={classes.button} />
-                </Tooltip> */}
                 <Tooltip title="edit your profile" placement="right-start">
                     <Button variant="contained" color="primary" onClick={this.handleOpen}>
                         Update My Profile

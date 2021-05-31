@@ -23,7 +23,6 @@ export class PhotoList extends React.Component {
         const { classes } = this.props;
         const dogs = this.props.dogs_list;
         const dogsInfoItems = dogs.map((dog) =>
-            // <img src={dog.images[0]} width='480' height='320' />
             <PhotoInfoCard info={dog}></PhotoInfoCard>
         );
         return (

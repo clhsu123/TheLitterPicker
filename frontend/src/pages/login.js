@@ -8,10 +8,10 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 // Redux stuff
 import { connect } from 'react-redux';
 import { loginBreeder, loginPetOwner } from '../redux/actions/userActions'
-//MUI stuff
 
 const styles = {
     form: {

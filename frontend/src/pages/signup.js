@@ -95,7 +95,6 @@ export class signup extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/>
                 <Grid item sm>
-
                     <img src={CollieLogo} alt="collie_logo" width = "300" height = "300" className={classes.logo}/>
                     <Typography variant="h4" className={classes.pageTitle}>
                         Sign Up

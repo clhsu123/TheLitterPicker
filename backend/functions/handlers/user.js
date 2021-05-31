@@ -140,7 +140,7 @@ exports.uploadImageBreeder = (req, res) => {
         if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
             return res.status(400).json({ error: 'Wrong file type submitted'});
         }
-        // my.image.png
+        //my.image.png
         const imageExtension = filename.split('.')[filename.split('.').length - 1];
         //64523456394923.png
         imageFileName = `${Math.round(Math.random()*100000000000)}.${imageExtension}`;
@@ -189,7 +189,7 @@ exports.uploadImagePetOwner = (req, res) => {
         if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
             return res.status(400).json({ error: 'Wrong file type submitted'});
         }
-        // my.image.png
+        //my.image.png
         const imageExtension = filename.split('.')[filename.split('.').length - 1];
         //64523456394923.png
         imageFileName = `${Math.round(Math.random()*100000000000)}.${imageExtension}`;
@@ -238,7 +238,7 @@ exports.uploadImage = (req, res) => {
         if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
             return res.status(400).json({ error: 'Wrong file type submitted'});
         }
-        // my.image.png
+        //my.image.png
         const imageExtension = filename.split('.')[filename.split('.').length - 1];
         //64523456394923.png
         imageFileName = `${Math.round(Math.random()*100000000000)}.${imageExtension}`;

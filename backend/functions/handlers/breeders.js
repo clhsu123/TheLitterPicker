@@ -1,7 +1,7 @@
 const { db, admin } = require('../util/admin');
 const config = require('../util/config');
 const firebase = require('firebase');
-const { validateSignupData , validateLoginData, reduceUserDetails} = require('../util/validaters');
+const { validateSignupData } = require('../util/validaters');
 
 exports.signup_as_breeder = (req,res) => {
     const newUser = {
@@ -52,7 +52,6 @@ exports.signup_as_breeder = (req,res) => {
                 profile_photo: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
                 tags: [],
                 title: "",
-                //createdAt: new Date().toISOString(),
                 userId: userId
            };
            return db.doc(`/PuppyBreeders/${newUser.handle}`).set(userCredentials);
@@ -113,7 +112,6 @@ exports.getBreederByBreedType= (req,res) => {
                     overview: doc.data().overview,
                     tags: doc.data().tags,
                     profile_photo: doc.data().profile_photo,
-                    //createdAt: doc.data().createdAt,
                     phone: doc.data().phone,
                     title: doc.data().title,
                 });
@@ -142,7 +140,6 @@ exports.get_breeder_details= (req,res) => {
                     overview: doc.data().overview,
                     tags: doc.data().tags,
                     profile_photo: doc.data().profile_photo,
-                    //createdAt: doc.data().createdAt,
                     phone: doc.data().phone,
                     title: doc.data().title,
                 });
@@ -172,7 +169,6 @@ exports.get_breeder_details_by_handle=(req, res) => {
                     overview: doc.data().overview,
                     tags: doc.data().tags,
                     profile_photo: doc.data().profile_photo,
-                    //createdAt: doc.data().createdAt,
                     phone: doc.data().phone,
                     title: doc.data().title,
                 });

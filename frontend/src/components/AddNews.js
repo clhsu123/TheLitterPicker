@@ -10,14 +10,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import CheckIcon from '@material-ui/icons/Check';
-import ToggleButton from '@material-ui/lab/ToggleButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // axios
 import axios from 'axios';
-//Icons
-import EditIcon from '@material-ui/icons/Edit';
 
 const styles = {
     progress: {

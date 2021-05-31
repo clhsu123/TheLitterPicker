@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-// MUI stuff
+//MUI stuff
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -18,10 +18,10 @@ import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-// axios
+//axios
 import axios from 'axios';
+
 //Icons
-import EditIcon from '@material-ui/icons/Edit';
 import { Grid } from '@material-ui/core';
 
 const styles = {
@@ -182,7 +182,6 @@ class EditDogs extends Component {
                                 onChange={this.handleChange}
                                 fullWidth
                             />
-                            {/* <p>Is it a puppy?</p> */}
                             <Grid container direction='row' alignItems="center" className={classes.isItPuppy}>
                                 <Grid item>
                                     <Typography variant="body1" >
@@ -201,15 +200,6 @@ class EditDogs extends Component {
                                     </ToggleButton>
                                 </Grid>
                             </Grid>
-
-                            {/* <ToggleButton
-                                value="check"
-                                selected={this.state.isPuppy}
-                                onChange={() => { this.setState({ isPuppy: !this.state.isPuppy }) }}
-                            >
-                                <CheckIcon />
-                            </ToggleButton> */}
-                            {/* <br /><br /> */}
                             <input
                                 type="file"
                                 id="EditDogInput"

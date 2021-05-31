@@ -1,7 +1,5 @@
 const { db } = require('../util/admin');
 
-
-
 exports.getApplication = (req, res) => {
     db
     .collection('Applications')
@@ -12,8 +10,6 @@ exports.getApplication = (req, res) => {
         data.forEach(doc => {
             applications.push({
                 applicationId: doc.id,
-                //breederHandle: doc.data().breederHandle,
-                //adopterHandle: doc.data().adopterHandle,
                 phone: doc.data().phone,
                 email: doc.data().email,
                 firstname: doc.data().firstname,
@@ -42,8 +38,6 @@ exports.getApplication = (req, res) => {
 
 exports.updateApplication = (req, res) => {
     const newApplication = {
-        // breederHandle: req.body.breederHandle,
-        // adopterHandle: req.body.adopterHandle,
         phone: req.body.phone,
         email: req.body.email,
         firstname: req.body.firstname,
@@ -82,7 +76,6 @@ exports.getBreederApplication = (req, res) => {
     db
     .collection('Applications')
     .where('breederHandle', '==', req.body.handle)
-    //.orderBy('createdAt', 'desc')
     .get()
     .then(data => {
         let applications = [];
@@ -122,7 +115,6 @@ exports.getBreederApplicationSecure = (req, res) => {
     db
     .collection('Applications')
     .where('breederHandle', '==', req.user.handle)
-    //.orderBy('createdAt', 'desc')
     .get()
     .then(data => {
         let applications = [];
@@ -162,7 +154,6 @@ exports.getPetOwnerApplication = (req, res) => {
     db
     .collection('Applications')
     .where('adopterHandle', '==', req.body.handle)
-    //.orderBy('createdAt', 'desc')
     .get()
     .then(data => {
         let applications = [];
@@ -202,7 +193,6 @@ exports.getPetOwnerApplicationSecure = (req, res) => {
     db
     .collection('Applications')
     .where('adopterHandle', '==', req.user.handle)
-    //.orderBy('createdAt', 'desc')
     .get()
     .then(data => {
         let applications = [];

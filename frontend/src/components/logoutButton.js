@@ -16,23 +16,12 @@ export class logoutButton extends Component {
     }
     
     handleLogout = () => {
-        // this.props.logoutUser;
         this.props.logoutUser();
         this.props.history.push('/');
     };
 
     render() {
         return (
-            // <Fragment>
-            //     <Tooltip title="Logout" placement="top">
-            //         {/* <IconButton onClick={this.handleLogout}>
-            //             <KeyboardReturn color="primary" />
-            //         </IconButton> */}
-            //         <Button variant="contained" color="secondary" onClick={this.handleLogout}>
-            //             Log Out
-            //         </Button>
-            //     </Tooltip>
-            // </Fragment>
             <Button variant="contained" color="secondary" onClick={this.handleLogout}>
                 Log Out
             </Button>

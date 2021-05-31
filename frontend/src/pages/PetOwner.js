@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/core/IconButton';
+
 //Redux stuff
 import { connect } from 'react-redux';
 import { uploadPetOwnerProfileImage } from '../redux/actions/userActions';
@@ -41,8 +42,6 @@ const styles = {
     update_profile: {
         margin: '10px 10px 10px 10px',
         textAlign: "right",
-        // flexDirection: 'row',
-        // alignSelf: 'flex-end'
     },
     overview: {
         padding: '10px 10px 10px 10px',
@@ -87,7 +86,7 @@ export class PetOwner extends React.Component {
                         <Tooltip title="Edit profile picture" placement="top">
                             <Button variant="contained" color="primary" onClick={this.handleEditPicture}>
                                 Edit
-                                </Button>
+                            </Button>
                         </Tooltip>
                         <Grid item xs={12} sm={2} className={classes.username}>
                             <Typography variant="h5" component="h5" >

@@ -1,6 +1,4 @@
-const { db, admin } = require('../util/admin');
-const config = require('../util/config');
-const firebase = require('firebase');
+const { db } = require('../util/admin');
 
 exports.add_news_to_breeder = (req, res) => {
     let newsId;

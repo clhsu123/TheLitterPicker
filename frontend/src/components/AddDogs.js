@@ -17,8 +17,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // axios
 import axios from 'axios';
-//Icons
-import EditIcon from '@material-ui/icons/Edit';
 
 const styles = {
     

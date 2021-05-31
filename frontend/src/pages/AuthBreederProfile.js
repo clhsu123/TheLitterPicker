@@ -25,6 +25,7 @@ import EditPenIcon from '@material-ui/icons/Edit';
 // redux stuff
 import { connect } from 'react-redux';
 import { uploadBreederProfileImage } from '../redux/actions/userActions';
+
 // axios
 import axios from 'axios';
 
@@ -42,41 +43,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 
-
-const tutorialSteps = [
-    {
-        label: 'We are thrilled that Crosswood Inertia was adopted by Zak George, a world-renown dog trainer. Follow him on Instagram, Facebook, and YouTube to learn invaluable techniques for training your dog. ',
-        imgPath: 'http://nebula.wsimg.com/e36cd65ad068686a8a0f27be25893aa8?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'Wisp, femail pup, 6 weeks, sold',
-        imgPath:
-            'http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'Crosswood Monreaux and Gibson pups, expected early April, 2021. $2000+ CADia',
-        imgPath:
-            'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'Monreaux and Gibson previous litter',
-        imgPath:
-            'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'puppies',
-        imgPath:
-            'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-];
-
 let maxSteps = 0;
 
 const styles = theme => ({
     root: {
         margin: '10px 10px 10px 10px',
         padding: '20px 10px 10px 10px',
-        // textAlign: 'center',
     },
     subtitle: {
         margin: '10px 10px 10px 10px',
@@ -102,9 +74,7 @@ const styles = theme => ({
     header: {
         display: 'flex',
         alignItems: 'center',
-        //height: 50,
         paddingLeft: theme.spacing(4),
-        // backgroundColor: theme.palette.background.default,
     },
     img: {
         display: 'block',
@@ -129,7 +99,6 @@ const styles = theme => ({
         height: "auto"
     },
     gridListTile: {
-        // minHeight: '400px',
         minWidth: '320px',
     },
     appBar: {
@@ -193,13 +162,10 @@ export class AuthBreederProfile extends React.Component {
         this.classifyDogInfo = this.classifyDogInfo.bind(this);
         this.handleViewApplicationsClicked = this.handleViewApplicationsClicked.bind(this);
         this.handleClickOpen = this.handleClickOpen.bind(this);
-        this.handleAddDogPicClicked = this.handleAddDogPicClicked.bind(this);
-        this.handleEditDogClicked = this.handleEditDogClicked.bind(this);
     }
     handleImageChange = (event) => {
-        console.log("changed");
         const image = event.target.files[0];
-        // send to server
+        //send to server
         const formData = new FormData();
         formData.append('image', image, image.name);
         this.props.uploadBreederProfileImage(formData);
@@ -211,14 +177,6 @@ export class AuthBreederProfile extends React.Component {
     handleViewApplicationsClicked() {
         this.props.history.push('/view_applicatoins');
     };
-
-    handleAddDogPicClicked() {
-        console.log('add dog');
-    }
-
-    handleEditDogClicked() {
-        console.log('edit dog');
-    }
 
     classifyDogInfo = (dogs_data) => {
         var dogs = dogs_data;
@@ -246,7 +204,7 @@ export class AuthBreederProfile extends React.Component {
 
     componentDidMount() {
         const { classes, user } = this.props;
-        // get Dogs sub-collections data from the database
+        //get Dogs sub-collections data from the database
         axios
             .get('/get_dog')
             .then(res => {
@@ -256,13 +214,12 @@ export class AuthBreederProfile extends React.Component {
                 });
             })
             .catch(err => console.log(err));
+        //get News sub-collections data from the database
         axios
             .get('/get_news')
             .then(res => {
                 this.setState({ news: res.data });
                 maxSteps = res.data.length;
-                console.log(maxSteps);
-                console.log(this.state.news);
             })
     }
 
@@ -318,8 +275,6 @@ export class AuthBreederProfile extends React.Component {
     handleClickOpen = dog => {
         this.setState({ selectedDog: dog });
         this.setState({ damStep: 0, sireStep: 0, puppyStep: 0 });
-        console.log("clicked");
-        console.log("tile");
     }
 
     handleClose = () => {
@@ -346,11 +301,6 @@ export class AuthBreederProfile extends React.Component {
                             hidden="hidden"
                             onChange={this.handleImageChange}
                         />
-                        {/* <Tooltip title="Edit profile picture" placement="top">
-                            <Button variant="contained" color="primary" onClick={this.handleEditPicture}>
-                                Edit
-                            </Button>
-                        </Tooltip> */}
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
@@ -409,17 +359,11 @@ export class AuthBreederProfile extends React.Component {
                             </Button>
                         </Grid>
                         <Grid item xs={5} className={classes.button}>
-                            {/*
-                            <Button variant="contained" color="secondary" component={Link} to="/customize_application_form">
-                                Customize Application Form
-                            </Button>
-                            */}
                         </Grid>
                     </Grid>
                 </Grid>
 
                 <Grid container item xs={12}>
-                    {/* <AddNews /> */}
                     <Grid container item xs={12} direction='row' alignItems="center" justify="space-flex-start">
                         <Grid item className={classes.newsAndUpdatesSubtitle}>
                             <Typography variant="h5" component="h5" >
@@ -494,7 +438,6 @@ export class AuthBreederProfile extends React.Component {
                 </Grid>
                 
                 <Grid item className={classes.subtitle}>
-                    {/* <AddDogs /> */}
                     <Grid container item xs={12}>
                         <Grid item className={classes.gendersubtitle}>
                             <Typography variant="h5" component="h5" >
@@ -503,9 +446,6 @@ export class AuthBreederProfile extends React.Component {
                                 </Box>
                             </Typography>
                         </Grid>
-                        {/* <Grid item className={classes.addDogsButton}>
-                            <AddDogs />
-                        </Grid> */}
                     </Grid>
                     <Grid container item xs={12}>
                         <div className={classes.galleryRoot}>
@@ -538,14 +478,8 @@ export class AuthBreederProfile extends React.Component {
                                                     <CloseIcon />
                                                 </IconButton>
                                             </Grid>
-                                            {/* <button className={classes.addPictureButton}> add picture </button> */}
                                             <Grid item >
                                                 <EditDogs info={this.state.selectedDog} />
-                                                {/*
-                                                    <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
-                                                        Edit Dog
-                                                    </Button>
-                                                    */}
                                             </Grid>
                                         </Grid>
                                     </Toolbar>
@@ -639,14 +573,8 @@ export class AuthBreederProfile extends React.Component {
                                                     <CloseIcon />
                                                 </IconButton>
                                             </Grid>
-                                            {/* <button className={classes.addPictureButton}> add picture </button> */}
                                             <Grid item >
                                                 <EditDogs info={this.state.selectedDog} />
-                                                {/*
-                                                <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
-                                                    Edit Dog
-                                                </Button>
-                                                */}
                                             </Grid>
                                         </Grid>
                                     </Toolbar>
@@ -700,10 +628,6 @@ export class AuthBreederProfile extends React.Component {
                         </div>
                     </Grid>
                 </Grid>
-
-                {/* <Grid container item direction="row">
-                    <PhotoList dogs_list={this.state.girls_info} />
-                </Grid> */}
                 <Grid item className={classes.subtitle}>
                     <Grid container item xs={12} className={classes.gendersubtitle}>
                         <Typography variant="h5" component="h5" >
@@ -743,21 +667,14 @@ export class AuthBreederProfile extends React.Component {
                                                     <CloseIcon />
                                                 </IconButton>
                                             </Grid>
-                                            {/* <button className={classes.addPictureButton}> add picture </button> */}
                                             <Grid item >
                                                 <EditDogs info={this.state.selectedDog} />
-                                                {/*
-                                                <Button onClick={this.handleEditDogClicked} variant="contained" color="secondary" className={classes.editDogButton} startIcon={<EditPenIcon/>}>
-                                                    Edit Dog
-                                                </Button>
-                                                */}
                                             </Grid>
                                         </Grid>
                                     </Toolbar>
                                 </AppBar>
                                 {this.state.selectedDog && (
                                     <>
-                                        {console.log("how many images: " + this.state.selectedDog.images.length)}
                                         <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>

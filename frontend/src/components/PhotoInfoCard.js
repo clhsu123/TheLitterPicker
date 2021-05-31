@@ -17,7 +17,7 @@ const styles = {
         width: 2400,
     },
     tags: {
-        // textDecoration: 'underline',
+
     },
     viewdetails: {
         margin: '5px 5px 5px 5px',
@@ -33,11 +33,6 @@ export class PhotoInfoCard extends React.Component {
         this.state = {
         };
     }
-
-    componentDidMount() {
-    }
-
-
 
     render() {
         const { classes } = this.props;

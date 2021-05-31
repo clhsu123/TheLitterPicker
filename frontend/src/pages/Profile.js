@@ -37,38 +37,10 @@ import IconButton from '@material-ui/core/IconButton';
 //Redux
 import { connect } from 'react-redux';
 
-const tutorialSteps = [
-    {
-        label: 'We are thrilled that Crosswood Inertia was adopted by Zak George, a world-renown dog trainer. Follow him on Instagram, Facebook, and YouTube to learn invaluable techniques for training your dog. ',
-        imgPath: 'http://nebula.wsimg.com/e36cd65ad068686a8a0f27be25893aa8?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'Wisp, femail pup, 6 weeks, sold',
-        imgPath:
-            'http://nebula.wsimg.com/0b7d132c28a3cea4409771f9141c615f?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'Crosswood Monreaux and Gibson pups, expected early April, 2021. $2000+ CADia',
-        imgPath:
-            'http://nebula.wsimg.com/381196e82a21a8737e072aafe1b6ca30?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'Monreaux and Gibson previous litter',
-        imgPath:
-            'http://nebula.wsimg.com/0584d02692b5b2f5831b3eaa367c829c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-    {
-        label: 'puppies',
-        imgPath:
-            'http://nebula.wsimg.com/93adbcc7db46dd9ece01b74618b3613c?AccessKeyId=5E8626EAF8E328200F9E&disposition=0&alloworigin=1',
-    },
-];
-
 const styles = theme => ({
     root: {
         margin: '10px 10px 10px 10px',
         padding: '20px 10px 10px 10px',
-        // textAlign: 'center',
     },
     subtitle: {
         margin: '10px 10px 10px 10px',
@@ -82,7 +54,6 @@ const styles = theme => ({
     },
     overview: {
         padding: '15px 15px 15px 15px',
-        // fontFamily: 'Impact',
     },
     button: {
         margin: '10px 10px 10px 10px',
@@ -99,9 +70,7 @@ const styles = theme => ({
     header: {
         display: 'flex',
         alignItems: 'center',
-        //height: 50,
         paddingLeft: theme.spacing(4),
-        // backgroundColor: theme.palette.background.default,
     },
     img: {
         display: 'block',
@@ -126,7 +95,6 @@ const styles = theme => ({
         height: "auto"
     },
     gridListTile: {
-        // minHeight: '400px',
         minWidth: '320px',
     },
     appBar: {
@@ -157,7 +125,7 @@ const styles = theme => ({
     }
 });
 
-let maxSteps = tutorialSteps.length;
+let maxSteps = 0;
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -187,9 +155,6 @@ export class Profile extends React.Component {
     }
 
     handleOnClick() {
-        // console.log('clicked');
-        // this.props.history.push('/application', { breeder_info: this.state.breeder_info });
-
         const { user } = this.props;
         if (user.accountType == "petowner") {
             this.props.history.push('/application', { breeder_info: this.state.breeder_info });
@@ -207,12 +172,10 @@ export class Profile extends React.Component {
     }
 
     handleViewApplicationsClicked() {
-        console.log("view applications");
         this.props.history.push('/view_applicatoins', { breeder_info: this.state.breeder_info });
     }
 
     classifyDogInfo = (dogs_data) => {
-        // var dogs = this.state.dogs_info;
         var dogs = dogs_data;
         var boys = [];
         var girls = [];
@@ -230,13 +193,11 @@ export class Profile extends React.Component {
                 boys.push(d);
             }
         }
-        console.log(boys);
         this.setState({
             boys_info: boys,
             girls_info: girls,
             puppies_info: puppies,
         });
-        console.log(this.state.boys_info);
     }
 
     componentDidMount() {
@@ -254,8 +215,6 @@ export class Profile extends React.Component {
             .then(res => {
                 this.setState({ news: res.data });
                 maxSteps = res.data.length;
-                console.log(maxSteps);
-                console.log(this.state.news);
             })
     }
 
@@ -309,8 +268,6 @@ export class Profile extends React.Component {
 
     handleClickOpen = dog => {
         this.setState({ selectedDog: dog });
-        console.log("clicked");
-        console.log("tile");
     }
 
     handleClose = () => {
@@ -406,7 +363,6 @@ export class Profile extends React.Component {
                     </Grid>
                 </Grid>
                 <Grid container item xs={12}>
-                    {/* <h1>News and Updates</h1>1 */}
                     <Grid item className={classes.newsAndUpdatesSubtitle}>
                         <Typography variant="h5" component="h5">
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
@@ -642,10 +598,6 @@ export class Profile extends React.Component {
                         </div>
                     </Grid>
                 </Grid>
-
-                {/* <Grid container item direction="row">
-                    <PhotoList dogs_list={this.state.girls_info} />
-                </Grid> */}
                 <Grid item xs={12} className={classes.subtitle}>
                     <Grid container item xs={12} className={classes.gendersubtitle}>
                         <Typography variant="h5" component="h5" >
@@ -733,36 +685,6 @@ export class Profile extends React.Component {
                         </div>
                     </Grid>
                 </Grid>
-                {/* <Grid item className={classes.subtitle}>
-                    <Typography variant="h5" component="h5" >
-                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                            Boys / Sires
-                        </Box>
-                    </Typography>
-                </Grid>
-                <Grid container item direction="row">
-                    <PhotoList dogs_list={this.state.boys_info} />
-                </Grid>
-                <Grid item xs={12} className={classes.subtitle}>
-                    <Typography variant="h5" component="h5" >
-                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                            Girls / Dams
-                        </Box>
-                    </Typography>
-                </Grid>
-                <Grid container item direction="row">
-                    <PhotoList dogs_list={this.state.girls_info} />
-                </Grid>
-                <Grid item xs={12} className={classes.subtitle}>
-                    <Typography variant="h5" component="h5" >
-                        <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                            Available Puppies
-                        </Box>
-                    </Typography>
-                </Grid>
-                <Grid container item direction="row" >
-                    <PhotoList dogs_list={this.state.puppies_info} />
-                </Grid> */}
             </Grid>
         );
     }

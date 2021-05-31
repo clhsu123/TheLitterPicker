@@ -24,11 +24,9 @@ const styles = {
     },
     chips_row: {
         margin: '5px 8px 5px 8px',
-        // flexGrow: 1,
     },
     chip: {
         margin: '0px 8px 0px 8px',
-        // flexGrow: 1,
     },
     grid_container: {
         justify: 'center',
@@ -52,7 +50,6 @@ export class NewHome extends React.Component {
         const { classes } = this.props;
         return (
             <Grid container spacing={3} className={classes.root}>
-
                 <Grid item xs={12} className={classes.title}>
                     <Typography variant="h1" component="h1">
                         <Box fontStyle="oblique" fontWeight="fontWeightBold" letterSpacing={8} xs={1}>
@@ -67,9 +64,6 @@ export class NewHome extends React.Component {
                         </Box>
                     </Typography>
                 </Grid>
-                {/* <Grid item xs={12}>
-                    <img src={AppIcon} alt="dog_lover" width="300" height="300" />
-                </Grid> */}
                 <Grid item xs={12}>
                     <SearchBar />
                 </Grid>

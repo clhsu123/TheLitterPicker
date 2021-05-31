@@ -50,7 +50,6 @@ export class new_Navbar extends Component {
         this.state = {
             breeder_info: {}
         };
-        //this.avatarOnClicked = this.avatarOnClicked.bind(this);
     }
 
     render() {
@@ -91,7 +90,6 @@ export class new_Navbar extends Component {
                                         </Grid>
                                     </Grid>
                                     :
-                                    // <Button onClick={() => this.avatarOnClicked(accountType, handle)}>
                                     <Grid container direction='row' alignItems="center">
                                         <Grid item>
                                             <Button component={Link} to={(accountType=='breeder') ? '/auth_breeder_profile' : '/petowner'}>

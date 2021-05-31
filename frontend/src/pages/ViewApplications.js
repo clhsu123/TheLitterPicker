@@ -20,7 +20,6 @@ const styles = {
     root: {
         margin: '10px 10px 10px 10px',
         padding: '20px 10px 10px 10px',
-        // textAlign: 'center',
     },
     subtitle: {
         margin: '10px 10px 10px 10px',
@@ -37,7 +36,6 @@ const styles = {
     },
     button: {
         margin: '10px 10px 10px 10px',
-        // padding: '10px 10px 10px 10px',
     }
 };
 

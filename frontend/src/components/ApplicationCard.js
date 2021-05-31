@@ -21,6 +21,7 @@ import axios from 'axios';
 // redux stuff
 import { connect } from 'react-redux';
 import { getPetOwnerData } from '../redux/actions/userActions';
+
 const styles = {
     root: {
         margin: '5px 5px 5px 5px',
@@ -73,7 +74,6 @@ export class ApplicationCard extends React.Component {
     }
 
     handleApproveClicked() {
-        console.log('approve button is clicked');
         this.setState({
             application_status: 'approved'
         });
@@ -86,7 +86,6 @@ export class ApplicationCard extends React.Component {
     }
 
     handleDeclineClicked() {
-        console.log('decline button is clicked');
         this.setState({
             application_status: 'declined'
         });
@@ -99,7 +98,6 @@ export class ApplicationCard extends React.Component {
     }
     
     handleApplicationWithdrawal() {
-        console.log('withdrawal button is clicked');
         axios
         .post('/delete_application', {applicationId: this.props.info.applicationId});
         this.props.getPetOwnerData();
@@ -120,8 +118,6 @@ export class ApplicationCard extends React.Component {
             })
         }
     }
-
-
 
     render() {
         const { classes, user: {
@@ -367,8 +363,6 @@ export class ApplicationCard extends React.Component {
 
     }
 }
-
-// export default withStyles(styles)(ApplicationCard);
 
 ApplicationCard.propTypes = {
     classes: PropTypes.object.isRequired,

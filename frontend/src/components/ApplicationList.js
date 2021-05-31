@@ -16,8 +16,7 @@ export class ApplicationList extends React.Component {
         };
     }
     
-    render() {
-        
+    render() {  
         const { classes } = this.props;
         const applications = this.state.user_applications;
         const applicationInfoItems = applications.map((application, i) => (
@@ -25,7 +24,7 @@ export class ApplicationList extends React.Component {
         ));
         
         return ( 
-            <List >
+            <List>
                 {applicationInfoItems}
             </List>
         );

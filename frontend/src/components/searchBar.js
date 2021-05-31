@@ -32,8 +32,6 @@ export class SearchBar extends React.Component {
     }
 
     handleClickSearchButton = (e) => {
-        // console.log("clicked");
-        // console.log(this.state.keyword);
         this.props.history.push('/search', { keyword: this.state.keyword });
     }
     
