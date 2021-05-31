@@ -131,6 +131,7 @@ class AddDogs extends Component {
                                 name = "description"
                                 type = "text"
                                 label = "Description"
+                                multiline
                                 placeholder = "Tell something about this dog"
                                 className={classes.textField}
                                 value={this.state.description}

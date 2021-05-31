@@ -157,6 +157,7 @@ class EditDogs extends Component {
                                 type="text"
                                 label="Description"
                                 placeholder="Tell something about this dog"
+                                multiline
                                 className={classes.textField}
                                 value={this.state.description}
                                 onChange={this.handleChange}
