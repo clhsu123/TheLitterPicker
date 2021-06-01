@@ -75,3 +75,15 @@ exports.getNewsbyHandle = (req,res) => {
     })
     .catch(err => console.error(err));
 };
+
+exports.deleteNews = (req,res) => {
+    const newsId = req.body.newsId;
+    db.doc(`PuppyBreeders/${req.user.handle}/News/${newsId}`).delete()
+    .then(() => {
+        return res.json({ message: `Document ${newsId} deleted`});
+    })
+    .catch(err => {
+        console.error(err);
+        return res.status(500).json({error: err.code});
+    });
+}

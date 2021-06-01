@@ -19,6 +19,8 @@ import EditBreederDetails from '../components/EditBreederDetails';
 import AddDogs from '../components/AddDogs';
 import EditDogs from '../components/EditDogs';
 import AddNews from '../components/AddNews';
+import DeleteNews from '../components/DeleteNews';
+import DeleteDogs from '../components/DeleteDogs';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import EditPenIcon from '@material-ui/icons/Edit';
 
@@ -301,6 +303,7 @@ export class AuthBreederProfile extends React.Component {
                             hidden="hidden"
                             onChange={this.handleImageChange}
                         />
+                        <DeleteNews info = {breeder_info}/>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
@@ -391,6 +394,7 @@ export class AuthBreederProfile extends React.Component {
                             >
                                 {this.state.news.map((step, index) => (
                                     <div key={index}>
+                                        <DeleteNews info = {step}/>
                                         {Math.abs(this.state.activeStep - index) <= 2 ? (
                                             <img className={classes.img} src={step.photo} alt={step.content} />
                                         ) : null}
@@ -479,6 +483,7 @@ export class AuthBreederProfile extends React.Component {
                                                 </IconButton>
                                             </Grid>
                                             <Grid item >
+                                                <DeleteDogs info={this.state.selectedDog} />
                                                 <EditDogs info={this.state.selectedDog} />
                                             </Grid>
                                         </Grid>
@@ -574,6 +579,7 @@ export class AuthBreederProfile extends React.Component {
                                                 </IconButton>
                                             </Grid>
                                             <Grid item >
+                                                <DeleteDogs info={this.state.selectedDog} />
                                                 <EditDogs info={this.state.selectedDog} />
                                             </Grid>
                                         </Grid>
@@ -668,6 +674,7 @@ export class AuthBreederProfile extends React.Component {
                                                 </IconButton>
                                             </Grid>
                                             <Grid item >
+                                                <DeleteDogs info={this.state.selectedDog} />
                                                 <EditDogs info={this.state.selectedDog} />
                                             </Grid>
                                         </Grid>

@@ -41,7 +41,8 @@ const {
     add_news_to_breeder,
     update_news,
     getNews,
-    getNewsbyHandle
+    getNewsbyHandle,
+    deleteNews
     } = require('./handlers/news');
 
 //Breeder and Pet owner routes
@@ -77,6 +78,7 @@ app.post('/update_news', FBBreederAuth, update_news);
 app.get('/get_news', FBBreederAuth, getNews);
 app.post('/newsImage', uploadImage);
 app.post('/get_news_by_handle', getNewsbyHandle);
+app.post('/delete_news', FBBreederAuth, deleteNews);
 
 //Application
 app.get('/get_application', getApplication);
