@@ -137,6 +137,9 @@ const styles = theme => ({
     },
     newsAndUpdatesSubtitle: {
         margin: '10px 10px 10px 10px',
+    },
+    dogname: {
+        margin: '20px 10px 10px 20px',
     }
 });
 
@@ -492,7 +495,7 @@ export class AuthBreederProfile extends React.Component {
                                 {this.state.selectedDog && (
                                     <>
                                         {console.log("how many images: " + this.state.selectedDog.images.length)}
-                                        <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
+                                        <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>
                                                 <Paper square elevation={0} className={classes.header}>
@@ -588,7 +591,7 @@ export class AuthBreederProfile extends React.Component {
                                 {this.state.selectedDog && (
                                     <>
                                         {console.log("how many images: " + this.state.selectedDog.images.length)}
-                                        <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
+                                        <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>
                                                 <Paper square elevation={0} className={classes.header}>
@@ -682,7 +685,7 @@ export class AuthBreederProfile extends React.Component {
                                 </AppBar>
                                 {this.state.selectedDog && (
                                     <>
-                                        <Typography variant="subtitle1"> {this.state.selectedDog.name} </Typography>
+                                        <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>
                                                 <Paper square elevation={0} className={classes.header}>
