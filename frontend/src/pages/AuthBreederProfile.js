@@ -303,7 +303,6 @@ export class AuthBreederProfile extends React.Component {
                             hidden="hidden"
                             onChange={this.handleImageChange}
                         />
-                        <DeleteNews info = {breeder_info}/>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography variant="h4" component="h4" >
