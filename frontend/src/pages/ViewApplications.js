@@ -93,7 +93,7 @@ export class ViewApplications extends React.Component {
                     <Grid item className={classes.subtitle}>
                         <Typography variant="h5" component="h5" >
                             <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
-                                Past Applicatoins
+                                Past Applications
                             </Box>
                         </Typography>
                     </Grid>
