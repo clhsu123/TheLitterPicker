@@ -393,10 +393,10 @@ export class AuthBreederProfile extends React.Component {
                             >
                                 {this.state.news.map((step, index) => (
                                     <div key={index}>
-                                        <DeleteNews info = {step}/>
                                         {Math.abs(this.state.activeStep - index) <= 2 ? (
                                             <img className={classes.img} src={step.photo} alt={step.content} />
                                         ) : null}
+                                    <DeleteNews info = {step}/>
                                     </div>
                                 ))}
                             </AutoPlaySwipeableViews>
@@ -411,6 +411,7 @@ export class AuthBreederProfile extends React.Component {
                                     {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                                     </Button>
                                 }
+
                                 backButton={
                                     <Button size="small" onClick={this.handleBack} disabled={this.state.activeStep === 0}>
                                         {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
