@@ -140,7 +140,8 @@ const styles = theme => ({
     },
     dogname: {
         margin: '20px 10px 10px 20px',
-    }
+    },
+
 });
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -485,8 +486,10 @@ export class AuthBreederProfile extends React.Component {
                                                     <CloseIcon />
                                                 </IconButton>
                                             </Grid>
-                                            <Grid item >
-                                                <DeleteDogs info={this.state.selectedDog} />
+                                            <Grid item>
+                                                <DeleteDogs info={this.state.selectedDog}/>
+                                            </Grid>
+                                            <Grid item>
                                                 <EditDogs info={this.state.selectedDog} />
                                             </Grid>
                                         </Grid>

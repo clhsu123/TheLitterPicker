@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 // MUI stuff
 import Tooltip from '@material-ui/core/Tooltip';
@@ -15,6 +17,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // axios
 import axios from 'axios';
+
+const styles = {
+    deletenews: {
+        margin: '10px 10px 10px 10px',
+    }
+};
 
 export class DeleteNews extends Component {
     constructor(props) {
@@ -44,9 +52,9 @@ export class DeleteNews extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="Edit details" placement="top">
-                    <Button variant="contained" color="primary" onClick={this.handleOpen}>
-                        Delete
+                <Tooltip title="delete news" placement="right-end">
+                    <Button variant="outlined" color="primary" onClick={this.handleOpen} className={classes.deletenews}>
+                        Delete News
                     </Button>                
                 </Tooltip>
                 <Dialog
@@ -75,4 +83,8 @@ export class DeleteNews extends Component {
     }
 }
 
-export default DeleteNews
+DeleteNews.propTypes = {
+    classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(DeleteNews)

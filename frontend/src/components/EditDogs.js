@@ -119,7 +119,7 @@ class EditDogs extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="Edit details" placement="top">
+                <Tooltip title="edit dog details" placement="top">
                     <Button variant="contained" color="secondary" className={classes.editDogButton} onClick={this.handleOpen} startIcon={<EditPenIcon />}>
                         Edit Dogs
                     </Button>

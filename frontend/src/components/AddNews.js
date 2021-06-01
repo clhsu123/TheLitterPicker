@@ -84,7 +84,7 @@ class AddNews extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="Edit details" placement="top">
+                <Tooltip title="add news" placement="top">
                     <Button variant="contained" color="primary" onClick={this.handleOpen}>
                         Add News
                     </Button>                

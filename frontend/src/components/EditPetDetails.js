@@ -66,7 +66,7 @@ class EditPetDetails extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="Edit details" placement="top">
+                <Tooltip title="edit my profile" placement="top">
                     <Button variant="contained" color="primary" onClick={this.handleOpen}>
                         Update My Profile
                     </Button> 

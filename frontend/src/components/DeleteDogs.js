@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
 // MUI stuff
 import Tooltip from '@material-ui/core/Tooltip';
@@ -12,9 +14,16 @@ import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import { MenuItem } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // axios
 import axios from 'axios';
+
+const styles = {
+    deletedog: {
+        margin: '10px 10px 10px 10px',
+    }
+};
 
 export class DeleteDogs extends Component {
     constructor(props) {
@@ -44,9 +53,9 @@ export class DeleteDogs extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="Edit details" placement="top">
-                    <Button variant="contained" color="primary" onClick={this.handleOpen}>
-                        Delete
+                <Tooltip title="delete dogs" placement="top">
+                    <Button variant="contained" color="primary" onClick={this.handleOpen} className={classes.deletedog} startIcon={<DeleteIcon />} >
+                        Delete Dog
                     </Button>                
                 </Tooltip>
                 <Dialog
@@ -75,4 +84,8 @@ export class DeleteDogs extends Component {
     }
 }
 
-export default DeleteDogs
+DeleteDogs.propTypes = {
+    classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(DeleteDogs)
