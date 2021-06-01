@@ -27,7 +27,7 @@ const styles = {
         margin: '10px 10px 10px 10px',
     },
     username: {
-        margin: '10px 10px 10px 10px',
+        margin: '10px 10px 10px 50px',
         padding: '0px 0px 0px 20px',
         flexGrow: 1,
 
@@ -73,29 +73,31 @@ export class PetOwner extends React.Component {
         return (
             <div className={classes.root}>
                 <Grid container spacing={3}>
-                    <Grid container item xs={12} direction='row'>
-                        <Button>
-                            <img src={user.profile_photo} width='100' height='100' />
-                        </Button>
+                    <Grid container item xs={12} direction='row' alignItems="center" justify="flex-start">
+                        <Tooltip title="Edit profile picture" placement="bottom">
+                            <Button onClick={this.handleEditPicture}>
+                                <img src={user.profile_photo} width='100' height='100' />
+                            </Button>
+                        </Tooltip>
                         <input
                             type="file"
                             id="imageInput"
                             hidden="hidden"
                             onChange={this.handleImageChange}
                         />
-                        <Tooltip title="Edit profile picture" placement="top">
+                        {/* <Tooltip title="Edit profile picture" placement="top">
                             <Button variant="contained" color="primary" onClick={this.handleEditPicture}>
                                 Edit
                             </Button>
-                        </Tooltip>
-                        <Grid item xs={12} sm={2} className={classes.username}>
+                        </Tooltip> */}
+                        <Grid item xs={12} sm={3} className={classes.username}>
                             <Typography variant="h5" component="h5" >
                                 <Box fontStyle="normal" fontWeight="fontWeightMedium" letterSpacing={4} color="#000055">
                                     {user.handle}
                                 </Box>
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={8} className={classes.update_profile}>
+                        <Grid item xs={12} sm={6} className={classes.update_profile}>
                             <EditPetDetails />
                         </Grid>
                     </Grid>

@@ -68,7 +68,7 @@ class EditPetDetails extends Component {
             <Fragment>
                 <Tooltip title="Edit details" placement="top">
                     <Button variant="contained" color="primary" onClick={this.handleOpen}>
-                        Update
+                        Update My Profile
                     </Button> 
                 </Tooltip>
                 <Dialog
