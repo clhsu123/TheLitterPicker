@@ -23,6 +23,8 @@ import DeleteNews from '../components/DeleteNews';
 import DeleteDogs from '../components/DeleteDogs';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import EditPenIcon from '@material-ui/icons/Edit';
+import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 // redux stuff
 import { connect } from 'react-redux';
@@ -359,8 +361,8 @@ export class AuthBreederProfile extends React.Component {
                         <Grid item xs={5} className={classes.button}>
                             <EditBreederDetails />
                         </Grid>
-                        <Grid item xs={5} className={classes.button}>
-                            <Button variant="contained" color="secondary" onClick={this.handleViewApplicationsClicked}>
+                        <Grid item xs={6} className={classes.button}>
+                            <Button variant="contained" color="secondary" onClick={this.handleViewApplicationsClicked} startIcon={<VisibilityIcon />}>
                                 View Applications
                             </Button>
                         </Grid>

@@ -11,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 // axios
 import axios from 'axios';
@@ -84,8 +85,8 @@ class AddNews extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="add news" placement="top">
-                    <Button variant="contained" color="primary" onClick={this.handleOpen}>
+                <Tooltip title="add news" placement="right">
+                    <Button variant="contained" color="primary" onClick={this.handleOpen} startIcon={<PostAddIcon />}>
                         Add News
                     </Button>                
                 </Tooltip>

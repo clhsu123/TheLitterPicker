@@ -14,6 +14,8 @@ import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import { MenuItem } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import Typography from '@material-ui/core/Typography';
 
 // axios
 import axios from 'axios';
@@ -37,15 +39,15 @@ export class DeleteNews extends Component {
     };
 
     handleClose = () => {
-      this.setState({ open: false })  
+        this.setState({ open: false })
     };
 
-    handleSubmit = () =>{
+    handleSubmit = () => {
         axios
-        .post('/delete_news', {"newsId": this.state.newsId})
-        .then(res => {
-            console.log(res);
-        })
+            .post('/delete_news', { "newsId": this.state.newsId })
+            .then(res => {
+                console.log(res);
+            })
         this.handleClose();
     }
     render() {
@@ -53,27 +55,30 @@ export class DeleteNews extends Component {
         return (
             <Fragment>
                 <Tooltip title="delete news" placement="right-end">
-                    <Button variant="outlined" color="primary" onClick={this.handleOpen} className={classes.deletenews}>
+                    <Button variant="outlined" color="primary" onClick={this.handleOpen} startIcon={<DeleteOutlineIcon />} className={classes.deletenews}>
                         Delete News
-                    </Button>                
+                    </Button>
                 </Tooltip>
                 <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
-                fullWidth
-                maxWidth="sm">
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    fullWidth
+                    maxWidth="sm">
                     <DialogTitle>Confirm</DialogTitle>
                     <DialogContent>
-                        <h2>Are you sure you want to delete the document?</h2>
+                        {/* <h2>Are you sure you want to delete the document?</h2> */}
+                        <Typography variant="body1" className={classes.dialog_content_title}>
+                            Are you sure you want to delete the document?
+                        </Typography>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color = "primary">
+                        <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} color = "primary" disabled={this.state.loading}>
+                        <Button onClick={this.handleSubmit} color="primary" disabled={this.state.loading}>
                             Delete
                             {this.state.loading && (
-                                <CircularProgress size = {20} className={classes.progress}/>
+                                <CircularProgress size={20} className={classes.progress} />
                             )}
                         </Button>
                     </DialogActions>

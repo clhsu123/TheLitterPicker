@@ -14,6 +14,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import { MenuItem } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import PetsIcon from '@material-ui/icons/Pets';
 
 // axios
 import axios from 'axios';
@@ -94,8 +95,8 @@ class AddDogs extends Component {
         const { classes } = this.props;
         return (
             <Fragment>
-                <Tooltip title="add dogs" placement="top">
-                    <Button variant="contained" color="primary" onClick={this.handleOpen}>
+                <Tooltip title="add dogs" placement="right">
+                    <Button variant="contained" color="primary" onClick={this.handleOpen} startIcon={<PetsIcon />}>
                         Add Dogs
                     </Button>                
                 </Tooltip>

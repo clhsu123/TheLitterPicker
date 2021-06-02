@@ -15,6 +15,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import EditPenIcon from '@material-ui/icons/Edit';
 
 const styles = {
     
@@ -87,7 +88,7 @@ class EditBreederDetails extends Component {
         return (
             <Fragment>
                 <Tooltip title="edit your profile" placement="right-start">
-                    <Button variant="contained" color="primary" onClick={this.handleOpen}>
+                    <Button variant="contained" color="primary" onClick={this.handleOpen} startIcon={<EditPenIcon />}>
                         Update My Profile
                     </Button>                
                 </Tooltip>
