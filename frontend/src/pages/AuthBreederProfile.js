@@ -499,7 +499,6 @@ export class AuthBreederProfile extends React.Component {
                                 </AppBar>
                                 {this.state.selectedDog && (
                                     <>
-                                        {console.log("how many images: " + this.state.selectedDog.images.length)}
                                         <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>
@@ -595,7 +594,6 @@ export class AuthBreederProfile extends React.Component {
                                 </AppBar>
                                 {this.state.selectedDog && (
                                     <>
-                                        {console.log("how many images: " + this.state.selectedDog.images.length)}
                                         <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>

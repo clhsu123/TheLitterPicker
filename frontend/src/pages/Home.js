@@ -33,7 +33,7 @@ const styles = {
     }
 };
 
-export class NewHome extends React.Component {
+export class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -113,8 +113,8 @@ export class NewHome extends React.Component {
     }
 }
 
-NewHome.propTypes = {
+Home.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withRouter(withStyles(styles)(NewHome));
+export default withRouter(withStyles(styles)(Home));

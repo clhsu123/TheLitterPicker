@@ -184,7 +184,6 @@ export class Profile extends React.Component {
         var girls = [];
         var puppies = [];
         var i, d;
-        console.log(dogs);
 
         for (var i = 0; i < dogs.length; i++) {
             d = dogs[i];
@@ -466,7 +465,6 @@ export class Profile extends React.Component {
                                 </AppBar>
                                 {this.state.selectedDog && (
                                     <>
-                                        {console.log("how many images: " + this.state.selectedDog.images.length)}
                                         <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>
@@ -554,7 +552,6 @@ export class Profile extends React.Component {
                                 </AppBar>
                                 {this.state.selectedDog && (
                                     <>
-                                        {console.log("how many images: " + this.state.selectedDog.images.length)}
                                         <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>
@@ -641,7 +638,6 @@ export class Profile extends React.Component {
                                 </AppBar>
                                 {this.state.selectedDog && (
                                     <>
-                                        {console.log("how many images: " + this.state.selectedDog.images.length)}
                                         <Typography variant="subtitle1" className={classes.dogname}> {this.state.selectedDog.name} </Typography>
                                         <Grid container item xs={12}>
                                             <div className={classes.rootNews}>

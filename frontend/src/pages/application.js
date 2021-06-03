@@ -135,9 +135,6 @@ export class application extends Component {
         };
         axios
             .post('/add_application_secure', newApplication)
-            .then(res=>{
-                console.log(res.data);
-            });
         this.props.getPetOwnerData();
     };
 

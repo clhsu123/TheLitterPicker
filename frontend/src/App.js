@@ -18,9 +18,8 @@ import Profile from './pages/Profile';
 import AuthBreederProfile from './pages/AuthBreederProfile';
 import ViewApplications from './pages/ViewApplications';
 import search from './pages/Search';
-import pet from './pages/pet';
 import PetOwner from './pages/PetOwner';
-import NewHome from './pages/newHome';
+import Home from './pages/Home';
 import axios from 'axios';
 import application from './pages/application'
 
@@ -112,9 +111,8 @@ export class App extends Component {
                 <Route exact path="/auth_breeder_profile" component={AuthBreederProfile} />
                 <Route exact path="/breeder_profile" component={Profile} />
                 <Route exact path="/view_applicatoins" component={ViewApplications} />
-                <Route exact path="/pet" component={pet} />
                 <Route exact path="/petowner" component={PetOwner} />
-                <Route exact path="/" component={NewHome} />
+                <Route exact path="/" component={Home} />
               </Switch>
             </div>
           </Router>
